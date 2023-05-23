@@ -8,4 +8,6 @@
 
 <hr>
 
+The content is now being maintained by the jQuery Project at the [learn.jquery.com repo](https://github.com/jquery/learn.jquery.com). jQuery Fundamentals will be serving as the basis for a new [jQuery learning site](https://learn.jquery.com/) maintained by the jQuery project, and ongoing maintenance and support for this content will transfer to the jQuery project. 
+
 
