@@ -8,6 +8,10 @@
 
 <hr>
 
-The content is now being maintained by the jQuery Project at the [learn.jquery.com repo](https://github.com/jquery/learn.jquery.com). jQuery Fundamentals will be serving as the basis for a new [jQuery learning site](https://learn.jquery.com/) maintained by the jQuery project, and ongoing maintenance and support for this content will transfer to the jQuery project. 
+The content is now being maintained by the jQuery Project at the [learn.jquery.com repository](https://github.com/jquery/learn.jquery.com). jQuery Fundamentals will be serving as the basis for the new [jQuery learning site](https://learn.jquery.com/) maintained by the jQuery project, and ongoing maintenance and support for this content will transfer to the jQuery project. 
 
+The [jQuery Fundamentals website](http://jqfundamentals.com/) is designed to get you comfortable working through common problems you'll be called upon to solve using jQuery. This site is a replacement for the original [jQuery Fundamentals book](http://jqfundamentals.com/legacy/) which is also hosted here. The [code repository](https://github.com/bocoup/jqfundamentals.com) is available on GitHub.
 
+<hr>
+
+My goal is to update a copy of the book to the latest version(s) of jQuery, which currently is 3.7 with version 4 on the horizon.
