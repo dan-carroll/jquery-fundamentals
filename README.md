@@ -42,6 +42,8 @@ jQuery UI is a curated set of user interface interactions, effects, widgets, and
 jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers.
 
 ### [jQuery Learning Center](https://learn.jquery.com/)
+
 > **Users**: There's a lot more to learn about building web sites and applications with jQuery than can fit in API documentation. If you're looking for explanations of the basics, workarounds for common problems, best practices, and how-tos, you're in the right place!
+
 > **Authors**: Too much good information is spread across corners of the web, languishing in blog and forum posts, often just out of reach of people who need it, while the same questionable advice is duplicated across even more questionable sites. Help us stem the tide and educate today's — and tomorrow's — web developers.
 
