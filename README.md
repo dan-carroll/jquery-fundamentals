@@ -22,3 +22,18 @@ My goal is to update a copy of the book to the latest version(s) of jQuery, whic
 
 The original work is cited above and is licensed by [Rebecca Murphey](http://rmurphey.com/) under the [Creative Commons Attribution-Share Alike 3.0 United States license](http://creativecommons.org/licenses/by-sa/3.0/us/). Any additions and/or changes made by myself, Dan Carroll, or any others who may contribute to this version of the work are bound by the [Creative Commons Zero v1.0 Universal license](LICENSE). No claims are being made as to the fitness of this work for any purpose whatsoever. This work is meant to be an exercise in learning to work with the jQuery JavaScript library.
 
+<hr>
+
+## jQuery Resources
+
+### [jQuery](https://jquery.com/)
+> write less, do more.
+
+jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.
+
+### [jQuery UI](https://jqueryui.com/)
+> user interface
+
+jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library. Whether you're building highly interactive web applications or you just need to add a date picker to a form control, jQuery UI is the perfect choice.
+
+
