@@ -7,6 +7,8 @@ page: book-index
 
 # {{ page.title }}
 
+### by Dan Carroll, [original version](http://jqfundamentals.com/legacy/) by [Rebecca Murphey](http://rmurphey.com/)
+
 ## Contents
 
 - Chapter 1: Welcome
