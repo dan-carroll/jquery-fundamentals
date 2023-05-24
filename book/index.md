@@ -5,6 +5,8 @@ project: new-book
 page: book-index
 ---
 
+<div id=new-book>
+
 # {{ page.title }}
 
 ### by Dan Carroll, [original version](http://jqfundamentals.com/legacy/) by [Rebecca Murphey](http://rmurphey.com/)
@@ -22,3 +24,5 @@ page: book-index
 - Chapter 9: Performance Best Practices
 - Chapter 10: Code Organization
 - Chapter 11: Custom Events
+
+</div>

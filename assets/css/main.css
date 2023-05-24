@@ -6,3 +6,15 @@
 footer > p {
     text-align: center;
 }
+
+##by-dan-carroll-original-version-by-rebecca-murphey {
+    margin-left: .25rem;
+}
+
+#by-dan-carroll-original-version-by-rebecca-murphey a {
+    text-decoration: none;
+}
+
+#by-dan-carroll-original-version-by-rebecca-murphey a:hover {
+    color:darkblue;
+}
