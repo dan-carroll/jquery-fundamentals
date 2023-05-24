@@ -9,7 +9,7 @@
 title: jQuery Fundamentals
 description: > # this means to ignore newlines until "baseurl:"
   An updated (second edition) of the book jQuery Fundamentals by Rebecca Murphey.
-canonical_url: "https://dan-carroll.github.io"
+canonical_url: "https://dan-carroll.github.io/jquery-fundamentals"
 baseurl: "jquery-fundamentals" # the subpath of your site, e.g. /blog
 url: "https://dan-carroll.github.io" # the base hostname & protocol for your site
 lang: "en"
