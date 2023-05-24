@@ -13,8 +13,13 @@ footer > p {
 
 #by-dan-carroll-original-version-by-rebecca-murphey a {
     text-decoration: none;
+    color:inherit;
 }
 
 #by-dan-carroll-original-version-by-rebecca-murphey a:hover {
     color:darkblue;
+}
+
+ul {
+    list-style-type: none;
 }
