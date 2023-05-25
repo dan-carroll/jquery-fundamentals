@@ -13,7 +13,7 @@ page: new-book-index
 ## Contents
 
 <ul id="contents-list">
-  <li>Chapter 1: Welcome</li>
+  <li>[Chapter 1: Welcome](#)</li>
   <li>Chapter 2: JavaScript Basics</li>
   <li>Chapter 3: jQuery Basics</li>
   <li>Chapter 4: jQuery Core</li>
