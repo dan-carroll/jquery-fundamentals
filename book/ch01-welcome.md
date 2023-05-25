@@ -6,7 +6,7 @@ page-type: book-chapter
 page: new-book-chapter01
 ---
 
-<p><a class="btn btn-outline-info mt-2" href="/jquery-fundamentals/book/#contents" role="button">Back to TOC</a></p>
+<p class="text-center"><a class="btn btn-outline-info mt-2" href="/jquery-fundamentals/book/#contents" role="button">Back to TOC</a></p>
 
 # {{ page.title }}
 
