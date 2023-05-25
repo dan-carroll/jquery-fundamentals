@@ -7,16 +7,16 @@ footer > p {
     text-align: center;
 }
 
-##by-dan-carroll-original-by-rebecca-murphey {
+#book-index h3 {
     margin-left: .25rem;
 }
 
-#by-dan-carroll-original-by-rebecca-murphey a {
+#book-index h3 a {
     text-decoration: none;
     color:inherit;
 }
 
-#by-dan-carroll-original-by-rebecca-murphey a:hover {
+#book-index h3 a:hover {
     color:darkblue;
 }
 

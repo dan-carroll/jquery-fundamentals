@@ -2,7 +2,8 @@
 layout: default
 title: jQuery Fundamentals, legacy edition
 project: legacy-book
-page: book-index
+page-type: book-index
+page: legacy-book-index
 ---
 
 # {{ page.title }}

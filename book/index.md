@@ -2,7 +2,8 @@
 layout: default
 title: jQuery Fundamentals Book, 2nd edition
 project: new-book
-page: book-index
+page-type: book-index
+page: new-book-index
 ---
 
 # {{ page.title }}
