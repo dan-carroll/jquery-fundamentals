@@ -20,11 +20,11 @@ footer > p {
     color:darkblue;
 }
 
-#contents {
+#contents, #list-of-examples {
     margin-left: 2rem;
 }
 
-#contents-list {
+#contents-list, #examples-list {
     list-style-type: none;
     margin-left: 2rem;
 }
