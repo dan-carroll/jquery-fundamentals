@@ -178,7 +178,7 @@ Sometimes you only want to run a block of code under certain conditions. Flow co
 
 ###### Example 2.13: Flow control
 
-```JavaScript
+```js
 var foo = true;
 var bar = false;
  
