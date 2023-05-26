@@ -135,6 +135,7 @@ Be sure to consult [the section called “Truthy and Falsy Things”](http://jqf
 >   
 > You'll sometimes see developers use these logical operators for flow control instead of using if statements. For example:  
 >  
+> ```javascript  
 > // do something with foo if foo is truthy  
 > foo && doSomething(foo);  
 >    
@@ -142,6 +143,7 @@ Be sure to consult [the section called “Truthy and Falsy Things”](http://jqf
 > // otherwise, set it to the return  
 > // value of createBar()  
 > var bar = baz || createBar();  
+> ```  
 >   
 > This style is quite elegant and pleasantly terse; that said, it can be really hard to read, especially for beginners. I bring it up here so you'll recognize it in code you read, but I don't recommend using it until you're extremely comfortable with what it means and how you can expect it to behave.
 
