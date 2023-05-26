@@ -52,7 +52,7 @@ footer > p {
 }
 
 #book-chapter h5 {
-    font-size: smaller;
+    font-size: 1em;
 }
 
 #book-chapter blockquote {
@@ -67,10 +67,10 @@ div.highlight {
     margin-left: 1rem;
     margin-right: 1rem;
     font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
-    line-height: 1.1em;
+    line-height: 1.2em;
 }
 
 pre code {
     font-size: 1rem;
-    padding: .2rem .5rem;
+    padding: .25rem 1rem;
 }
