@@ -98,7 +98,7 @@ Methods that can be called on jQuery objects will be referred to as $.fn.methodN
 
 ##### Remarks will appear like this.
 
-> **Note**  
+> ######Note  
 >
 > Notes about a topic will appear like this.
 

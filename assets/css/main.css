@@ -51,6 +51,10 @@ footer > p {
     font-weight: normal;
 }
 
+#book-chapter h5 {
+    font-size: smaller;
+}
+
 #book-chapter blockquote {
     background-color: #fe6;
     color: black;
@@ -60,7 +64,8 @@ footer > p {
 div.highlight {
     background-color: black;
     color: gray;
-    margin-left: 1rem;
+    margin: 0 1rem;
+    padding: .2rem 1rem;
     font-size: larger;
     font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
     font-size: 1em;
