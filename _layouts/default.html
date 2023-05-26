@@ -17,8 +17,9 @@
             <p class="text-center"><a class="btn btn-outline-info my-2" href="/jquery-fundamentals/legacy/#contents" role="button">Back to TOC</a></p>
             {%- endif -%}
           {%- endif -%}
-          {%- if page.page-type == "book-index" -%}
-            <div id="{{ page.page-type }}">
+            <br>
+          {%- if page.page-type -%}
+            <div id=" {{ page.page-type }} ">
           {%- else -%}
             <div>
           {%- endif -%}
