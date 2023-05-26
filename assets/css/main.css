@@ -61,12 +61,11 @@ footer > p {
     padding: 1.5rem;
 }
 
-div.highlight {
+pre code {
     background-color: black;
     color: gray;
     margin-left: 1rem;
     margin-right: 1rem;
     padding: .25rem 1rem;
-    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
