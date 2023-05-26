@@ -135,7 +135,7 @@ Be sure to consult [the section called “Truthy and Falsy Things”](http://jqf
 >   
 > You'll sometimes see developers use these logical operators for flow control instead of using if statements. For example:  
 >  
-> ```javascript  
+> ```JavaScript  
 > // do something with foo if foo is truthy  
 > foo && doSomething(foo);  
 >    
