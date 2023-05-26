@@ -133,7 +133,7 @@ The &amp;&amp; operator returns the value of the first false operand, or the val
 
 Be sure to consult [the section called “Truthy and Falsy Things”](http://jqfundamentals.com/legacy/#Truthy%20and%20Falsy%20Things) for more details on which values evaluate to true and which evaluate to false.
 
-> Note  
+> #### **Note**  
 >   
 > You'll sometimes see developers use these logical operators for flow control instead of using if statements. For example:  
 >  
