@@ -178,7 +178,7 @@ Sometimes you only want to run a block of code under certain conditions. Flow co
 
 ###### Example 2.13: Flow control
 
-```javascript
+```JavaScript
 var foo = true;
 var bar = false;
  
@@ -198,16 +198,17 @@ if (bar) {
 }
 ```
 
-Note
+> #### **Note**  
+>   
+> While curly braces aren't strictly required around single-line if statements, using them consistently, even when they aren't strictly required, makes for vastly more readable code.  
+>   
+>  Be mindful not to define functions with the same name multiple times within separate if/else blocks, as doing so may not have the expected result.
 
-While curly braces aren't strictly required around single-line if statements, using them consistently, even when they aren't strictly required, makes for vastly more readable code.
+### Truthy and Falsy Things
 
-Be mindful not to define functions with the same name multiple times within separate if/else blocks, as doing so may not have the expected result.
-
-Truthy and Falsy Things
 In order to use flow control successfully, it's important to understand which kinds of values are "truthy" and which kinds of values are "falsy." Sometimes, values that seem like they should evaluate one way actually evaluate another.
 
-Example 2.14: Values that evaluate to true
+###### Example 2.14: Values that evaluate to true
 
 1
 '0';
