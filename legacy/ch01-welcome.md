@@ -37,13 +37,17 @@ For the sake of page performance, JavaScript should be included as close to the 
 
 ###### Example 1.1: An example of inline JavaScript
 
-    <script>
-    console.log('hello');
-    </script>
+```javascript
+<script>
+console.log('hello');
+</script>
+```
 
 ###### Example 1.2: An example of including external JavaScript
 
-    <script src='/js/jquery.js'></script>
+```javascript
+<script src='/js/jquery.js'></script>
+```
 
 ## JavaScript Debugging
 
@@ -88,7 +92,9 @@ Methods that can be called on jQuery objects will be referred to as $.fn.methodN
 
 ###### Example 1.3: Example of an example
 
-    // code examples will appear like this
+```javascript
+// code examples will appear like this
+```
 
 ##### Remarks will appear like this.
 
