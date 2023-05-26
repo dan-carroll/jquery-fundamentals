@@ -7,6 +7,22 @@ footer > p {
     text-align: center;
 }
 
+#book-index,
+#book-chapter {
+    font-family: Georgia, serif;
+}
+
+#book-index h1,
+#book-index h2,
+#book-index h3,
+#book-chapter h1,
+#book-chapter h2,
+#book-chapter h3,
+#book-chapter h4,
+#book-chapter h6 {
+    font-family: Helvetica,Arial, sans-serif;
+}
+
 #book-index h3 {
     margin-left: .25rem;
 }
@@ -46,4 +62,7 @@ div.highlight {
     color: gray;
     margin-left: 1rem;
     font-size: larger;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    font-size: 1em;
+    line-height: 1.1em;
 }
