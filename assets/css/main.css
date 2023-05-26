@@ -61,7 +61,7 @@ footer > p {
     padding: 1.5rem;
 }
 
-pre code {
+pre {
     background-color: black;
     color: gray;
     padding: .25rem 1rem;
