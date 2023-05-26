@@ -149,80 +149,55 @@ Be sure to consult [the section called “Truthy and Falsy Things”](http://jqf
 
 Comparison operators allow you to test whether values are equivalent or whether values are identical.
 
-Example 2.12: Comparison operators
+###### Example 2.12: Comparison operators
 
-01
+```javascript
 var foo = 1;
-02
 var bar = 0;
-03
 var baz = '1';
-04
 var bim = 2;
-05
  
-06
 foo == bar;   // returns false
-07
 foo != bar;   // returns true
-08
 foo == baz;   // returns true; careful!
-09
  
-10
 foo === baz;             // returns false
-11
 foo !== baz;             // returns true
-12
 foo === parseInt(baz);   // returns true
-13
  
-14
 foo > bim;    // returns false
-15
 bim > baz;    // returns true
-16
 foo <= baz;   // returns true
-Conditional Code
+```
+
+### Conditional Code
+
 Sometimes you only want to run a block of code under certain conditions. Flow control — via if and else blocks — lets you run code only under certain conditions.
 
-Example 2.13: Flow control
+###### Example 2.13: Flow control
 
-01
+```javascript
 var foo = true;
-02
 var bar = false;
-03
  
-04
 if (bar) {
-05
     // this code will never run
-06
     console.log('hello!');
-07
 }
-08
  
-09
 if (bar) {
-10
     // this code won't run
-11
 } else {
-12
     if (foo) {
-13
         // this code will run
-14
     } else {
-15
         // this code would run if foo and bar were both false
-16
     }
-17
 }
+```
+
 Note
+
 While curly braces aren't strictly required around single-line if statements, using them consistently, even when they aren't strictly required, makes for vastly more readable code.
 
 Be mindful not to define functions with the same name multiple times within separate if/else blocks, as doing so may not have the expected result.
