@@ -64,10 +64,13 @@ footer > p {
 div.highlight {
     background-color: black;
     color: gray;
-    margin: 0 1rem;
-    padding: .2rem 1rem;
-    font-size: larger;
+    margin-left: 1rem;
+    margin-right: 1rem;
     font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
-    font-size: 1em;
     line-height: 1.1em;
+}
+
+pre code {
+    font-size: 1rem;
+    padding: .2rem .5rem;
 }
