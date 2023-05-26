@@ -28,3 +28,9 @@ footer > p {
     list-style-type: none;
     margin-left: 2rem;
 }
+
+#book-chapter h5,
+#book-chapter h6 {
+    font-style: italic;
+    font-weight: normal;
+}

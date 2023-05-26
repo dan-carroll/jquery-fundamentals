@@ -59,10 +59,10 @@ Each console offers:
 
 When you are writing JavaScript code, you can use the following methods to send messages to the console:
 
-- console.log() for sending general log messages
-- console.dir() for logging a browseable object
-- console.warn() for logging warnings
-- console.error() for logging error messages
+- `console.log()` for sending general log messages
+- `console.dir()` for logging a browseable object
+- `console.warn()` for logging warnings
+- `console.error()` for logging error messages
 
 Other console methods are also available, though they may differ from one browser to another. The consoles also provide the ability to set break points and watch expressions in your code for debugging purposes.
 
