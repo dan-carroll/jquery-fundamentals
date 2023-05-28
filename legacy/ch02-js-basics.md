@@ -174,7 +174,7 @@ foo <= baz;   // returns true
 
 ### Conditional Code
 
-Sometimes you only want to run a block of code under certain conditions. Flow control — via if and else blocks — lets you run code only under certain conditions.
+Sometimes you only want to run a block of code under certain conditions. Flow control — via `if` and `else` blocks — lets you run code only under certain conditions.
 
 ###### Example 2.13: Flow control
 
