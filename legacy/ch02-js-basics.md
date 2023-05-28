@@ -210,76 +210,62 @@ In order to use flow control successfully, it's important to understand which ki
 
 ###### Example 2.14: Values that evaluate to true
 
-1
+```js
 '0';
-2
 'any string';
-3
 [];  // an empty array
-4
 {};  // an empty object
-5
 1;   // any non-zero number
-Example 2.15: Values that evaluate to false
+```
 
-1
+###### Example 2.15: Values that evaluate to false
+
+```js
 0;
-2
 '';  // an empty string
-3
 NaN; // JavaScript's "not-a-number" variable
-4
 null;
-5
 undefined;  // be careful -- undefined can be redefined!
-Conditional Variable Assignment with The Ternary Operator
-Sometimes you want to set a variable to a value depending on some condition. You could use an if/else statement, but in many cases the ternary operator is more convenient. [Definition: The ternary operator tests a condition; if the condition is true, it returns a certain value, otherwise it returns a different value.]
+```
 
-Example 2.16: The ternary operator
+### Conditional Variable Assignment with The Ternary Operator
 
-1
+Sometimes you want to set a variable to a value depending on some condition. You could use an `if`/`else` statement, but in many cases the ternary operator is more convenient. [Definition: The *ternary operator* tests a condition; if the condition is true, it returns a certain value, otherwise it returns a different value.]
+
+###### Example 2.16: The ternary operator
+
+```js
 // set foo to 1 if bar is true;
-2
 // otherwise, set foo to 0
-3
 var foo = bar ? 1 : 0;
+```
+
 While the ternary operator can be used without assigning the return value to a variable, this is generally discouraged.
 
-Switch Statements
-Rather than using a series of if/else if/else blocks, sometimes it can be useful to use a switch statement instead. [Definition: Switch statements look at the value of a variable or expression, and run different blocks of code depending on the value.]
+### Switch Statements
 
-Example 2.17: A switch statement
+Rather than using a series of if/else if/else blocks, sometimes it can be useful to use a switch statement instead. [Definition: *Switch statements* look at the value of a variable or expression, and run different blocks of code depending on the value.]
 
-01
+###### Example 2.17: A switch statement
+
+```js
 switch (foo) {
-02
  
-03
     case 'bar':
-04
         alert('the value was bar -- yay!');
-05
     break;
-06
  
-07
     case 'baz':
-08
         alert('boo baz :(');
-09
     break;
-10
  
-11
     default:
-12
         alert('everything else is just ok');
-13
     break;
-14
  
-15
 }
+```
+
 Switch statements have somewhat fallen out of favor in JavaScript, because often the same behavior can be accomplished by creating an object that has more potential for reuse, testing, etc. For example:
 
 01
