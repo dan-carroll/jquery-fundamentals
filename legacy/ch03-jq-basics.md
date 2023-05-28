@@ -442,107 +442,108 @@ There are any number of ways you can change an existing element. Among the most 
 >   
 > When methods act as getters, they generally only work on the first element in the selection, and they do not return a jQuery object, so you can't chain additional methods to them. One notable exception is `$.fn.text`; as mentioned below, it gets the text for all elements in the selection.
 
-$.fn.html
-Get or set the html contents.
+**$.fn.html**
+: Get or set the html contents.
 
-$.fn.text
-Get or set the text contents; HTML will be stripped.
+**$.fn.text**
+: Get or set the text contents; HTML will be stripped.
 
-$.fn.attr
-Get or set the value of the provided attribute.
+**$.fn.attr**
+: Get or set the value of the provided attribute.
 
-$.fn.width
-Get or set the width in pixels of the first element in the selection as an integer.
+**$.fn.width**
+: Get or set the width in pixels of the first element in the selection as an integer.
 
-$.fn.height
-Get or set the height in pixels of the first element in the selection as an integer.
+**$.fn.height**
+: Get or set the height in pixels of the first element in the selection as an integer.
 
-$.fn.position
-Get an object with position information for the first element in the selection, relative to its first positioned ancestor. This is a getter only.
+**$.fn.position**
+: Get an object with position information for the first element in the selection, relative to its first positioned ancestor. *This is a getter only*.
 
-$.fn.val
-Get or set the value of form elements.
+**$.fn.val**
+: Get or set the value of form elements.
 
-Example 3.26: Changing the HTML of an element
+###### Example 3.26: Changing the HTML of an element
 
-1
+```js
 $('#myDiv p:first')
-2
     .html('New <strong>first</strong> paragraph!');
-Moving, Copying, and Removing Elements
+```
+
+### Moving, Copying, and Removing Elements
+
 There are a variety of ways to move elements around the DOM; generally, there are two approaches:
 
-Place the selected element(s) relative to another element
+- Place the selected element(s) relative to another element
 
-Place an element relative to the selected element(s)
+- Place an element relative to the selected element(s)
 
-For example, jQuery provides $.fn.insertAfter and $.fn.after. The $.fn.insertAfter method places the selected element(s) after the element that you provide as an argument; the $.fn.after method places the element provided as an argument after the selected element. Several other methods follow this pattern: $.fn.insertBefore and $.fn.before; $.fn.appendTo and $.fn.append; and $.fn.prependTo and $.fn.prepend.
+For example, jQuery provides `$.fn.insertAfter` and `$.fn.after`. The `$.fn.insertAfter` method places the selected element(s) after the element that you provide as an argument; the `$.fn.after` method places the element provided as an argument after the selected element. Several other methods follow this pattern: `$.fn.insertBefore` and `$.fn.before`; `$.fn.appendTo` and `$.fn.append`; and `$.fn.prependTo` and `$.fn.prepend`.
 
-The method that makes the most sense for you will depend on what elements you already have selected, and whether you will need to store a reference to the elements you're adding to the page. If you need to store a reference, you will always want to take the first approach — placing the selected elements relative to another element — as it returns the element(s) you're placing. In this case, $.fn.insertAfter, $.fn.insertBefore, $.fn.appendTo, and $.fn.prependTo will be your tools of choice.
+The method that makes the most sense for you will depend on what elements you already have selected, and whether you will need to store a reference to the elements you're adding to the page. If you need to store a reference, you will always want to take the first approach — placing the selected elements relative to another element — as it returns the element(s) you're placing. In this case, `$.fn.insertAfter`, `$.fn.insertBefore`, `$.fn.appendTo`, and `$.fn.prependTo` will be your tools of choice.
 
-Example 3.27: Moving elements using different approaches
+###### Example 3.27: Moving elements using different approaches
 
-1
+```js
 // make the first list item the last list item
-2
 var $li = $('#myList li:first').appendTo('#myList');
-3
  
-4
 // another approach to the same problem
-5
 $('#myList').append($('#myList li:first'));
-6
  
-7
 // note that there's no way to access the
-8
 // list item that we moved, as this returns
-9
 // the list itself
-Cloning Elements
-When you use methods such as $.fn.appendTo, you are moving the element; sometimes you want to make a copy of the element instead. In this case, you'll need to use $.fn.clone first.
+```
 
-Example 3.28: Making a copy of an element
+#### Cloning Elements
 
-1
+When you use methods such as `$.fn.appendTo`, you are moving the element; sometimes you want to make a copy of the element instead. In this case, you'll need to use `$.fn.clone` first.
+
+###### Example 3.28: Making a copy of an element
+
+```js
 // copy the first list item to the end of the list
-2
 $('#myList li:first').clone().appendTo('#myList');
-Note
-If you need to copy related data and events, be sure to pass true as an argument to $.fn.clone.
+```
 
-Removing Elements
-There are two ways to remove elements from the page: $.fn.remove and $.fn.detach. You'll use $.fn.remove when you want to permanently remove the selection from the page; while the method does return the removed element(s), those elements will not have their associated data and events attached to them if you return them to the page.
+> #### **Note**  
+>   
+> If you need to copy related data and events, be sure to pass true as an argument to `$.fn.clone`.
 
-If you need the data and events to persist, you'll want to use $.fn.detach instead. Like $.fn.remove, it returns the selection, but it also maintains the data and events associated with the selection, so you can restore the selection to the page at a later time.
+#### Removing Elements
 
-Note
-The $.fn.detach method is extremely valuable if you are doing heavy manipulation to an element. In that case, it's beneficial to $.fn.detach the element from the page, work on it in your code, and then restore it to the page when you're done. This saves you from expensive "DOM touches" while maintaining the element's data and events.
+There are two ways to remove elements from the page: `$.fn.remove` and `$.fn.detach`. You'll use `$.fn.remove` when you want to permanently remove the selection from the page; while the method does return the removed element(s), those elements will not have their associated data and events attached to them if you return them to the page.
 
-If you want to leave the element on the page but simply want to remove its contents, you can use $.fn.empty to dispose of the element's inner HTML.
+If you need the data and events to persist, you'll want to use `$.fn.detach` instead. Like `$.fn.remove`, it returns the selection, but it also maintains the data and events associated with the selection, so you can restore the selection to the page at a later time.
 
-Creating New Elements
-jQuery offers a trivial and elegant way to create new elements using the same $() method you use to make selections.
+> #### **Note**  
+>   
+> The `$.fn.detach` method is extremely valuable if you are doing heavy manipulation to an element. In that case, it's beneficial to `$.fn.detach` the element from the page, work on it in your code, and then restore it to the page when you're done. This saves you from expensive "DOM touches" while maintaining the element's data and events.
 
-Example 3.29: Creating new elements
+If you want to leave the element on the page but simply want to remove its contents, you can use `$.fn.empty` to dispose of the element's inner HTML.
 
-1
+### Creating New Elements
+
+jQuery offers a trivial and elegant way to create new elements using the same `$()` method you use to make selections.
+
+###### Example 3.29: Creating new elements
+
+```js
 $('<p>This is a new paragraph</p>');
-2
 $('<li class="new">new list item</li>');
-Example 3.30: Creating a new element with an attribute object
+```
 
-1
+###### Example 3.30: Creating a new element with an attribute object
+
+```js
 $('<a/>', {
-2
     html : 'This is a <strong>new</strong> link',
-3
     'class' : 'new',
-4
     href : 'foo.html'
-5
 });
+```
+
 Note that in the attributes object we included as the second argument, the property name class is quoted, while the property names text and href are not. Property names generally do not need to be quoted unless they are reserved words (as class is in this case).
 
 When you create a new element, it is not immediately added to the page. There are several ways to add an element to the page once it's been created.
