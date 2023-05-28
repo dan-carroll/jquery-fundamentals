@@ -799,7 +799,7 @@ secondObject.sayHello();  // logs 'Hi! My name is Colin'
 
 > #### **Note**
 >   
-> When invoking a function deep within a long namespace, it is often tempting to reduce the amount of code you need to type by storing a reference to the actual function as a single, shorter variable. It is important not to do this with instance methods as this will cause the value of this within the function to change, leading to incorrect code operation. For instance:  
+> When invoking a function deep within a long namespace, it is often tempting to reduce the amount of code you need to type by storing a reference to the actual function as a single, shorter variable. It is important not to do this with instance methods as this will cause the value of `this` within the function to change, leading to incorrect code operation. For instance:  
 >   
 > ``` js  
 > var myNamespace = {  
@@ -845,89 +845,63 @@ Furthermore, variables that are declared inside a function without the var keywo
 
 ###### Example 2.44: Functions have access to variables defined in the same scope
 
-1
+``` js
 var foo = 'hello';
-2
  
-3
 var sayHello = function() {
-4
     console.log(foo);
-5
 };
-6
  
-7
 sayHello();         // logs 'hello'
-8
 console.log(foo);   // also logs 'hello'
-Example 2.45: Code outside the scope in which a variable was defined does not have access to the variable
+```
 
-1
+###### Example 2.45: Code outside the scope in which a variable was defined does not have access to the variable
+
+``` js
 var sayHello = function() {
-2
     var foo = 'hello';
-3
     console.log(foo);
-4
 };
-5
  
-6
 sayHello();         // logs 'hello'
-7
 console.log(foo);   // doesn't log anything
-Example 2.46: Variables with the same name can exist in different scopes with different values
+```
 
-1
+###### Example 2.46: Variables with the same name can exist in different scopes with different values
+
+``` js
 var foo = 'world';
-2
  
-3
 var sayHello = function() {
-4
     var foo = 'hello';
-5
     console.log(foo);
-6
 };
-7
  
-8
 sayHello();         // logs 'hello'
-9
 console.log(foo);   // logs 'world'
-Example 2.47: Functions can "see" changes in variable values after the function is defined
+```
 
-01
+###### Example 2.47: Functions can "see" changes in variable values after the function is defined
+
+``` js
 var myFunction = function() {
-02
     var foo = 'hello';
-03
  
-04
     var myFn = function() {
-05
         console.log(foo);
-06
     };
-07
  
-08
     foo = 'world';
-09
  
-10
     return myFn;
-11
 };
-12
  
-13
 var f = myFunction();
-14
 f();  // logs 'world' -- uh oh
-Example 2.48: Scope insanity
+```
+
+###### Example 2.48: Scope insanity
 
 01
 // a self-executing anonymous function
