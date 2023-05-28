@@ -30,17 +30,18 @@ There are a few cases where object methods and core methods have the same names,
 
 ## Utility Methods
 
-jQuery offers several utility methods in the $ namespace. These methods are helpful for accomplishing routine programming tasks. Below are examples of a few of the utility methods; for a complete reference on jQuery utility methods, visit http://api.jquery.com/category/utilities/.
+jQuery offers several utility methods in the `$` namespace. These methods are helpful for accomplishing routine programming tasks. Below are examples of a few of the utility methods; for a complete reference on jQuery utility methods, visit [http://api.jquery.com/category/utilities/](http://api.jquery.com/category/utilities/).
 
-$.trim
-Removes leading and trailing whitespace.
+**$.trim**
+: Removes leading and trailing whitespace.
 
-1
+: ```js
 $.trim('    lots of extra whitespace    ');
-2
 // returns 'lots of extra whitespace'
-$.each
-Iterates over arrays and objects.
+```
+
+**$.each**
+: Iterates over arrays and objects.
 
 1
 $.each([ 'foo', 'bar', 'baz' ], function(idx, val) {
