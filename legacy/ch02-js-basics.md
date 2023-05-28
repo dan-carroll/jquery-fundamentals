@@ -495,291 +495,246 @@ JavaScript has a number of “reserved words,” or words that have special mean
 
 Arrays are zero-indexed lists of values. They are a handy way to store a set of related items of the same type (such as strings), though in reality, an array can include multiple types of items, including other arrays.
 
-Example 2.25: A simple array
+###### Example 2.25: A simple array
 
-1
+``` js
 var myArray = [ 'hello', 'world' ];
-Example 2.26: Accessing array items by index
+```
 
-1
+###### Example 2.26: Accessing array items by index
+
+``` js
 var myArray = [ 'hello', 'world', 'foo', 'bar' ];
-2
 console.log(myArray[3]);   // logs 'bar'
-Example 2.27: Testing the size of an array
+```
 
-1
+###### Example 2.27: Testing the size of an array
+
+``` js
 var myArray = [ 'hello', 'world' ];
-2
 console.log(myArray.length);   // logs 2
-Example 2.28: Changing the value of an array item
+```
 
-1
+###### Example 2.28: Changing the value of an array item
+
+``` js
 var myArray = [ 'hello', 'world' ];
-2
 myArray[1] = 'changed';
-While it's possible to change the value of an array item as shown in “Changing the value of an array item”, it's generally not advised.
+```
 
-Example 2.29: Adding elements to an array
+*While it's possible to change the value of an array item as shown in “Changing the value of an array item”, it's generally not advised.*
 
-1
+###### Example 2.29: Adding elements to an array
+
+``` js
 var myArray = [ 'hello', 'world' ];
-2
 myArray.push('new');
-Example 2.30: Working with arrays
+```
 
-1
+###### Example 2.30: Working with arrays
+
+``` js
 var myArray = [ 'h', 'e', 'l', 'l', 'o' ];
-2
 var myString = myArray.join('');   // 'hello'
-3
 var mySplit = myString.split('');  // [ 'h', 'e', 'l', 'l', 'o' ]
-Objects
+```
+
+## Objects
+
 Objects contain one or more key-value pairs. The key portion can be any string. The value portion can be any type of value: a number, a string, an array, a function, or even another object.
 
-[Definition: When one of these values is a function, it’s called a method of the object.] Otherwise, they are called properties.
+[Definition: When one of these values is a function, it’s called a *method* of the object.] Otherwise, they are called properties.
 
 As it turns out, nearly everything in JavaScript is an object — arrays, functions, numbers, even strings — and they all have properties and methods.
 
-Example 2.31: Creating an "object literal"
+###### Example 2.31: Creating an "object literal"
 
-01
+``` js
 var myObject = {
-02
     sayHello : function() {
-03
         console.log('hello');
-04
     },
-05
  
-06
     myName : 'Rebecca'
-07
 };
-08
  
-09
 myObject.sayHello();            // logs 'hello'
-10
 console.log(myObject.myName);   // logs 'Rebecca'
-Note
-When creating object literals, you should note that the key portion of each key-value pair can be written as any valid JavaScript identifier, a string (wrapped in quotes) or a number:
+```
 
-1
-var myObject = {
-2
-    validIdentifier: 123,
-3
-    'some string': 456,
-4
-    99999: 789
-5
-};
-Object literals can be extremely useful for code organization; for more information, read Using Objects to Organize Your Code by Rebecca Murphey.
+> #### **Note**
+>  
+> When creating object literals, you should note that the key portion of each key-value pair can be written as any valid JavaScript identifier, a string (wrapped in quotes) or a number:  
+>  
+> ``` js  
+> var myObject = {
+>     validIdentifier: 123,  
+>     'some string': 456,  
+>     99999: 789  
+> };  
+> ```  
+>  
+> Object literals can be extremely useful for code organization; for more information, read [Using Objects to Organize Your Code](http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/) by Rebecca Murphey.  
 
-Functions
+## Functions
+
 Functions contain blocks of code that need to be executed repeatedly. Functions can take zero or more arguments, and can optionally return a value.
 
 Functions can be created in a variety of ways:
 
-Example 2.32: Function Declaration
+###### Example 2.32: Function Declaration
 
-1
+``` js
 function foo() { /* do something */ }
-Example 2.33: Named Function Expression
+```
 
-1
+###### Example 2.33: Named Function Expression
+
+``` js
 var foo = function() { /* do something */ }
-I prefer the named function expression method of setting a function's name, for some rather in-depth and technical reasons. You are likely to see both methods used in others' JavaScript code.
+```
 
-Using Functions
-Example 2.34: A simple function
+*I prefer the named function expression method of setting a function's name, for some rather [in-depth and technical reasons](http://yura.thinkweb2.com/named-function-expressions/). You are likely to see both methods used in others' JavaScript code.*
 
-1
+### Using Functions
+
+###### Example 2.34: A simple function
+
+``` js
 var greet = function(person, greeting) {
-2
     var text = greeting + ', ' + person;
-3
     console.log(text);
-4
 };
-5
  
-6
  
-7
 greet('Rebecca', 'Hello');
-Example 2.35: A function that returns a value
+```
 
-1
+###### Example 2.35: A function that returns a value
+
+``` js
 var greet = function(person, greeting) {
-2
     var text = greeting + ', ' + person;
-3
     return text;
-4
 };
-5
  
-6
 console.log(greet('Rebecca','hello'));
-Example 2.36: A function that returns another function
+```
 
-1
+###### Example 2.36: A function that returns another function
+
+``` js
 var greet = function(person, greeting) {
-2
     var text = greeting + ', ' + person;
-3
     return function() { console.log(text); };
-4
 };
-5
  
-6
  
-7
 var greeting = greet('Rebecca', 'Hello');
-8
 greeting();
-Self-Executing Anonymous Functions
+```
+
+### Self-Executing Anonymous Functions
+
 A common pattern in JavaScript is the self-executing anonymous function. This pattern creates a function expression and then immediately executes the function. This pattern is extremely useful for cases where you want to avoid polluting the global namespace with your code — no variables declared inside of the function are visible outside of it.
 
-Example 2.37: A self-executing anonymous function
+###### Example 2.37: A self-executing anonymous function
 
-1
+``` js
 (function(){
-2
     var foo = 'Hello world';
-3
 })();
-4
  
-5
  
-6
 console.log(foo);   // undefined!
-Functions as Arguments
-In JavaScript, functions are "first-class citizens" &mdash they can be assigned to variables or passed to other functions as arguments. Passing functions as arguments is an extremely common idiom in jQuery.
+```
 
-Example 2.38: Passing an anonymous function as an argument
+### Functions as Arguments
 
-1
+In JavaScript, functions are "first-class citizens" &mdash; they can be assigned to variables or passed to other functions as arguments. Passing functions as arguments is an extremely common idiom in jQuery.
+
+###### Example 2.38: Passing an anonymous function as an argument
+
+``` js
 var myFn = function(fn) {
-2
     var result = fn();
-3
     console.log(result);
-4
 };
-5
  
-6
 myFn(function() { return 'hello world'; });   // logs 'hello world'
-Example 2.39: Passing a named function as an argument
+```
 
-01
+###### Example 2.39: Passing a named function as an argument
+
+``` js
 var myFn = function(fn) {
-02
     var result = fn();
-03
     console.log(result);
-04
 };
-05
  
-06
 var myOtherFn = function() {
-07
     return 'hello world';
-08
 };
-09
  
-10
 myFn(myOtherFn);   // logs 'hello world'
-Testing Type
+```
+
+## Testing Type
+
 JavaScript offers a way to test the "type" of a variable. However, the result can be confusing — for example, the type of an Array is "object".
 
 It's common practice to use the typeof operator when trying to determining the type of a specific value.
 
 Example 2.40: Testing the type of various variables
 
-01
+``` js
 var myFunction = function() {
-02
     console.log('hello');
-03
 };
-04
  
-05
 var myObject = {
-06
     foo : 'bar'
-07
 };
-08
  
-09
 var myArray = [ 'a', 'b', 'c' ];
-10
  
-11
 var myString = 'hello';
-12
  
-13
 var myNumber = 3;
-14
  
-15
 typeof myFunction;   // returns 'function'
-16
 typeof myObject;     // returns 'object'
-17
 typeof myArray;      // returns 'object' -- careful!
-18
 typeof myString;     // returns 'string';
-19
 typeof myNumber;     // returns 'number'
-20
  
-21
 typeof null;         // returns 'object' -- careful!
-22
  
-23
  
-24
 if (myArray.push && myArray.slice && myArray.join) {
-25
     // probably an array
-26
     // (this is called "duck typing")
-27
 }
-28
  
-29
 if (Object.prototype.toString.call(myArray) === '[object Array]') {
-30
     // Definitely an array!
-31
     // This is widely considered as the most robust way
-32
     // to determine if a specific value is an Array.
-33
 }
+```
+
 jQuery offers utility methods to help you determine the type of an arbitrary value. These will be covered later.
 
-The this keyword
-In JavaScript, as in most object-oriented programming languages, this is a special keyword that is used within methods to refer to the object on which a method is being invoked. The value of this is determined using a simple series of steps:
+## The `this` keyword
 
-If the function is invoked using Function.call or Function.apply, this will be set to the first argument passed to call/apply. If the first argument passed to call/apply is null or undefined, this will refer to the global object (which is the window object in Web browsers).
-If the function being invoked was created using Function.bind, this will be the first argument that was passed to bind at the time the function was created.
-If the function is being invoked as a method of an object, this will refer to that object.
-Otherwise, the function is being invoked as a standalone function not attached to any object, and this will refer to the global object.
-Example 2.41: A function invoked using Function.call
+In JavaScript, as in most object-oriented programming languages, `this` is a special keyword that is used within methods to refer to the object on which a method is being invoked. The value of `this` is determined using a simple series of steps:
+
+1. If the function is invoked using [Function.call](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/call) or [Function.apply](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply), `this` will be set to the first argument passed to call/apply. If the first argument passed to call/apply is `null` or `undefined`, `this` will refer to the global object (which is the window object in Web browsers).
+2. If the function being invoked was created using [Function.bind](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind), `this` will be the first argument that was passed to bind at the time the function was created.
+3. If the function is being invoked as a method of an object, `this` will refer to that object.
+4. Otherwise, the function is being invoked as a standalone function not attached to any object, and `this` will refer to the global object.
+
+###### Example 2.41: A function invoked using Function.call
 
 01
 var myObject = {
