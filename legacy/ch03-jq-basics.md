@@ -544,126 +544,124 @@ $('<a/>', {
 });
 ```
 
-Note that in the attributes object we included as the second argument, the property name class is quoted, while the property names text and href are not. Property names generally do not need to be quoted unless they are reserved words (as class is in this case).
+*Note that in the attributes object we included as the second argument, the property name class is quoted, while the property names text and href are not. Property names generally do not need to be quoted unless they are reserved words (as class is in this case).*
 
 When you create a new element, it is not immediately added to the page. There are several ways to add an element to the page once it's been created.
 
-Example 3.31: Getting a new element on to the page
+###### Example 3.31: Getting a new element on to the page
 
-1
+```js
 var $myNewElement = $('<p>New element</p>');
-2
 $myNewElement.appendTo('#content');
-3
  
-4
 $myNewElement.insertAfter('ul:last'); // this will remove the p from #content!
-5
 $('ul').last().after($myNewElement.clone());  // clone the p so now we have 2
-Strictly speaking, you don't have to store the created element in a variable — you could just call the method to add the element to the page directly after the $(). However, most of the time you will want a reference to the element you added, so you don't need to select it later.
+```
+
+*Strictly speaking, you don't have to store the created element in a variable — you could just call the method to add the element to the page directly after the $(). However, most of the time you will want a reference to the element you added, so you don't need to select it later.*
 
 You can even create an element as you're adding it to the page, but note that in this case you don't get a reference to the newly created element.
 
-Example 3.32: Creating and adding an element to the page at the same time
+###### Example 3.32: Creating and adding an element to the page at the same time
 
-1
+```js
 $('ul').append('<li>list item</li>');
-Note
-The syntax for adding new elements to the page is so easy, it's tempting to forget that there's a huge performance cost for adding to the DOM repeatedly. If you are adding many elements to the same container, you'll want to concatenate all the html into a single string, and then append that string to the container instead of appending the elements one at a time. You can use an array to gather all the pieces together, then join them into a single string for appending.
+```
 
-1
-var myItems = [], $myList = $('#myList');
-2
- 
-3
-for (var i=0; i<100; i++) {
-4
-    myItems.push('<li>item ' + i + '</li>');
-5
-}
-6
- 
-7
-$myList.append(myItems.join(''));
-Manipulating Attributes
-jQuery's attribute manipulation capabilities are extensive. Basic changes are simple, but the $.fn.attr method also allows for more complex manipulations. It can either set an explicit value, or set a value using the return value of a function. When the function syntax is used, the function receives two arguments: the zero-based index of the element whose attribute is being changed, and the current value of the attribute being changed.
+> #### **Note**  
+>   
+> The syntax for adding new elements to the page is so easy, it's tempting to forget that there's a huge performance cost for adding to the DOM repeatedly. If you are adding many elements to the same container, you'll want to concatenate all the html into a single string, and then append that string to the container instead of appending the elements one at a time. You can use an array to gather all the pieces together, then `join` them into a single string for appending.  
+>   
+```js  
+> var myItems = [], $myList = $('#myList');  
+ >   
+> for (var i=0; i<100; i++) {   
+>     myItems.push('<li>item ' + i + '</li>');  
+> }  
+>    
+> $myList.append(myItems.join(''));
+```
 
-Example 3.33: Manipulating a single attribute
+### Manipulating Attributes
 
-1
+jQuery's attribute manipulation capabilities are extensive. Basic changes are simple, but the `$.fn.attr` method also allows for more complex manipulations. It can either set an explicit value, or set a value using the return value of a function. When the function syntax is used, the function receives two arguments: the zero-based index of the element whose attribute is being changed, and the current value of the attribute being changed.
+
+###### Example 3.33: Manipulating a single attribute
+
+```js
 $('#myDiv a:first').attr('href', 'newDestination.html');
-Example 3.34: Manipulating multiple attributes
+```
 
-1
+###### Example 3.34: Manipulating multiple attributes
+
+```js
 $('#myDiv a:first').attr({
-2
     href : 'newDestination.html',
-3
     rel : 'super-special'
-4
 });
-Example 3.35: Using a function to determine an attribute's new value
+```
 
-01
+###### Example 3.35: Using a function to determine an attribute's new value
+
+```js
 $('#myDiv a:first').attr({
-02
     rel : 'super-special',
-03
     href : function(idx, href) {
-04
         return '/new/' + href;
-05
     }
-06
 });
-07
  
-08
 $('#myDiv a:first').attr('href', function(idx, href) {
-09
     return '/new/' + href;
-10
 });
-Exercises
-Selecting
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/sandbox.js or work in Firebug to accomplish the following:
+```
 
-Select all of the div elements that have a class of "module".
+## Exercises
 
-Come up with three selectors that you could use to get the third item in the #myList unordered list. Which is the best to use? Why?
+### Selecting
 
-Select the label for the search input using an attribute selector.
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/sandbox.js` or work in Firebug to accomplish the following:
 
-Figure out how many elements on the page are hidden (hint: .length).
+1. Select all of the div elements that have a class of "module".
 
-Figure out how many image elements on the page have an alt attribute.
+2. Come up with three selectors that you could use to get the third item in the #myList unordered list. Which is the best to use? Why?
 
-Select all of the odd table rows in the table body.
+3. Select the label for the search input using an attribute selector.
 
-Traversing
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/sandbox.js or work in Firebug to accomplish the following:
+4. Figure out how many elements on the page are hidden (hint: .length).
 
-Select all of the image elements on the page; log each image's alt attribute.
+5. Figure out how many image elements on the page have an alt attribute.
 
-Select the search input text box, then traverse up to the form and add a class to the form.
+6/ Select all of the odd table rows in the table body.
 
-Select the list item inside #myList that has a class of "current" and remove that class from it; add a class of "current" to the next list item.
+### Traversing
 
-Select the select element inside #specials; traverse your way to the submit button.
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/sandbox.js` or work in Firebug to accomplish the following:
 
-Select the first list item in the #slideshow element; add the class "current" to it, and then add a class of "disabled" to its sibling elements.
+1. Select all of the image elements on the page; log each image's alt attribute.
 
-Manipulating
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/sandbox.js or work in Firebug to accomplish the following:
+2. Select the search input text box, then traverse up to the form and add a class to the form.
 
-Add five new list items to the end of the unordered list #myList. Hint:
+3. Select the list item inside #myList that has a class of "current" and remove that class from it; add a class of "current" to the next list item.
 
-1
+4. Select the select element inside #specials; traverse your way to the submit button.
+
+5. Select the first list item in the #slideshow element; add the class "current" to it, and then add a class of "disabled" to its sibling elements.
+
+### Manipulating
+
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/sandbox.js` or work in Firebug to accomplish the following:
+
+1. Add five new list items to the end of the unordered list #myList. Hint:
+
+```js
 for (var i = 0; i<5; i++) { ... }
-Remove the odd list items
+```
 
-Add another h2 and another paragraph to the last div.module
+2. Remove the odd list items
 
-Add another option to the select element; give the option the value "Wednesday"
+3. Add another h2 and another paragraph to the last div.module
 
-Add a new div.module to the page after the last one; put a copy of one of the existing images inside of it.
+4. Add another option to the select element; give the option the value "Wednesday"
+
+5. Add a new div.module to the page after the last one; put a copy of one of the existing images inside of it.
