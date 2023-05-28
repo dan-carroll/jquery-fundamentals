@@ -124,49 +124,60 @@ jQuery.expr.filters.visible = function( elem ) {
 
 **Choosing Selectors**
 
-Choosing good selectors is one way to improve the performance of your JavaScript. A little specificity — for example, including an element type such as div when selecting elements by class name — can go a long way. Generally, any time you can give jQuery a hint about where it might expect to find what you're looking for, you should. On the other hand, too much specificity can be a bad thing. A selector such as #myTable thead tr th.special is overkill if a selector such as #myTable th.special will get you what you want.
+Choosing good selectors is one way to improve the performance of your JavaScript. A little specificity — for example, including an element type such as `div` when selecting elements by class name — can go a long way. Generally, any time you can give jQuery a hint about where it might expect to find what you're looking for, you should. On the other hand, too much specificity can be a bad thing. A selector such as `#myTable thead tr th.special` is overkill if a selector such as `#myTable th.special` will get you what you want.
 
 jQuery offers many attribute-based selectors, allowing you to make selections based on the content of arbitrary attributes using simplified regular expressions.
 
-1
+``` js
 // find all <a>s whose rel attribute
-2
 // ends with "thinger"
-3
 $("a[rel$='thinger']");
+```
+
 While these can be useful in a pinch, they can also be extremely slow — I once wrote an attribute-based selector that locked up my page for multiple seconds. Wherever possible, make your selections using IDs, class names, and tag names.
 
-Want to know more? Paul Irish has a great presentation about improving performance in JavaScript, with several slides focused specifically on selector performance.
+Want to know more? [Paul Irish has a great presentation about improving performance in JavaScript](http://paulirish.com/perf), with several slides focused specifically on selector performance.
 
-Does My Selection Contain Any Elements?
+### Does My Selection Contain Any Elements?
+
 Once you've made a selection, you'll often want to know whether you have anything to work with. You may be inclined to try something like:
 
-1
+``` js
 if ($('div.foo')) { ... }
-This won't work. When you make a selection using $(), an object is always returned, and objects always evaluate to true. Even if your selection doesn't contain any elements, the code inside the if statement will still run.
+```
+
+This won't work. When you make a selection using `$()`, an object is always returned, and objects always evaluate to `true`. Even if your selection doesn't contain any elements, the code inside the `if` statement will still run.
 
 Instead, you need to test the selection's length property, which tells you how many elements were selected. If the answer is 0, the length property will evaluate to false when used as a boolean value.
 
-Example 3.9: Testing whether a selection contains elements
+###### Example 3.9: Testing whether a selection contains elements
 
-1
+``` js
 if ($('div.foo').length) { ... }
-Saving Selections
+```
+
+### Saving Selections
+
 Every time you make a selection, a lot of code runs, and jQuery doesn't do caching of selections for you. If you've made a selection that you might need to make again, you should save the selection in a variable rather than making the selection repeatedly.
 
-Example 3.10: Storing selections in a variable
+###### Example 3.10: Storing selections in a variable
 
-1
+``` js
 var $divs = $('div');
-Note
-In “Storing selections in a variable”, the variable name begins with a dollar sign. Unlike in other languages, there's nothing special about the dollar sign in JavaScript — it's just another character. We use it here to indicate that the variable contains a jQuery object. This practice — a sort of Hungarian notation — is merely convention, and is not mandatory.
+```
+
+> #### Note  
+>   
+> In “Storing selections in a variable”, the variable name begins with a dollar sign. Unlike in other languages, there's nothing special about the dollar sign in JavaScript — it's just another character. We use it here to indicate that the variable contains a jQuery object. This practice — a sort of [Hungarian notation](http://en.wikipedia.org/wiki/Hungarian_notation) — is merely convention, and is not mandatory.
 
 Once you've stored your selection, you can call jQuery methods on the variable you stored it in just like you would have called them on the original selection.
 
-Note
-A selection only fetches the elements that are on the page when you make the selection. If you add elements to the page later, you'll have to repeat the selection or otherwise add them to the selection stored in the variable. Stored selections don't magically update when the DOM changes.
+> #### **Note**  
+>  
+> A selection only fetches the elements that are on the page when you make the selection. If you add elements to the page later, you'll have to repeat the selection or otherwise add them to the selection stored in the variable. Stored selections don't magically update when the DOM changes.
 
-Refining & Filtering Selections
+### Refining & Filtering Selections
+
 Sometimes you have a selection that contains more than what you're after; in this case, you may want to refine your selection. jQuery offers several methods for zeroing in on exactly what you're after.
 
 Example 3.11: Refining selections
