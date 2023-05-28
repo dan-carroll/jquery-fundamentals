@@ -200,9 +200,9 @@ if (bar) {
 
 > #### **Note**  
 >   
-> While curly braces aren't strictly required around single-line if statements, using them consistently, even when they aren't strictly required, makes for vastly more readable code.  
+> While curly braces aren't strictly required around single-line `if` statements, using them consistently, even when they aren't strictly required, makes for vastly more readable code.  
 >   
->  Be mindful not to define functions with the same name multiple times within separate if/else blocks, as doing so may not have the expected result.
+>  Be mindful not to define functions with the same name multiple times within separate `if`/`else` blocks, as doing so may not have the expected result.
 
 ### Truthy and Falsy Things
 
