@@ -210,7 +210,7 @@ jQuery offers several pseudo-selectors that help you find elements in your forms
 : Selects enabled form elements
 
 **:file**
-: nputs with `type="file"`
+: Selects inputs with `type="file"`
 
 **:image**
 : Selects inputs with `type="image"`
@@ -218,23 +218,23 @@ jQuery offers several pseudo-selectors that help you find elements in your forms
 **:input**
 : Selects `<input>`, `<textarea>`, and `<select>` elements
 
-:password
-Selects inputs with `type="password"`
+**:password**
+: Selects inputs with `type="password"`
 
-:radio
-Selects inputs with `type="radio"`
+**:radio**
+: Selects inputs with `type="radio"`
 
-:reset
-Selects inputs with `type="reset"`
+**:reset**
+: Selects inputs with `type="reset"`
 
-:selected
-Selects options that are selected
+**:selected**
+: Selects options that are selected
 
-:submit
-Selects inputs with `type="submit"`
+**:submit**
+: Selects inputs with `type="submit"`
 
-:text
-Selects inputs with `type="text"`
+**:text**
+: Selects inputs with `type="text"`
 
 ###### Example 3.12: Using form-related pseduo-selectors
 
