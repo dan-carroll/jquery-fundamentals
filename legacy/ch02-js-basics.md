@@ -903,123 +903,83 @@ f();  // logs 'world' -- uh oh
 
 ###### Example 2.48: Scope insanity
 
-01
+``` js
 // a self-executing anonymous function
-02
 (function() {
-03
     var baz = 1;
-04
     var bim = function() { alert(baz); };
-05
     bar = function() { alert(baz); };
-06
 })();
-07
  
-08
 console.log(baz);  // baz is not defined outside of the function
-09
  
-10
 bar();  // bar is defined outside of the anonymous function
-11
         // because it wasn't declared with var; furthermore,
-12
         // because it was defined in the same scope as baz,
-13
         // it has access to baz even though other code
-14
         // outside of the function does not
-15
  
-16
 bim();  // bim is not defined outside of the anonymous function,
-17
         // so this will result in an error
-Closures
+```
+
+## Closures
+
 Closures are an extension of the concept of scope — functions have access to variables that were available in the scope where the function was created. If that’s confusing, don’t worry: closures are generally best understood by example.
 
 In “Functions can "see" changes in variable values after the function is defined”, we saw how functions have access to changing variable values. The same sort of behavior exists with functions defined within loops — the function "sees" the change in the variable's value even after the function is defined, resulting in all clicks alerting 5.
 
-Example 2.49: How to lock in the value of i?
+###### Example 2.49: How to lock in the value of i?
 
-1
+``` js
 /* this won't behave as we want it to; */
-2
 /* every click will alert 5 */
-3
 for (var i=0; i<5; i++) {
-4
     $('<p>click me</p>').appendTo('body').click(function() {
-5
         alert(i);
-6
     });
-7
 }
-Example 2.50: Locking in the value of i with a closure
+```
 
-1
+###### Example 2.50: Locking in the value of i with a closure
+
+``` js
 /* fix: “close” the value of i inside createFunction, so it won't change */
-2
 var createFunction = function(i) {
-3
     return function() { alert(i); };
-4
 };
-5
  
-6
 for (var i=0; i<5; i++) {
-7
     $('<p>click me</p>').appendTo('body').click(createFunction(i));
-8
 }
-Closures can also be used to resolve issues with the this keyword, which is unique to each scope:
+```
 
-Example 2.51: Using a closure to access inner and outer object instances simultaneously
+Closures can also be used to resolve issues with the `this` keyword, which is unique to each scope:
 
-01
+###### Example 2.51: Using a closure to access inner and outer object instances simultaneously
+
+``` js
 var outerObj = {
-02
     myName : 'outer',
-03
     outerFunction : function () {
-04
  
-05
         // provide a reference to outerObj through innerFunction's closure
-06
         var self = this;
-07
  
-08
         var innerObj = {
-09
             myName : 'inner',
-10
             innerFunction : function () {
-11
                 console.log(self.myName, this.myName); // logs 'outer inner'
-12
             }
-13
         };
-14
  
-15
         innerObj.innerFunction();
-16
  
-17
         console.log(this.myName); // logs 'outer'
-18
     }
-19
 };
-20
  
-21
 outerObj.outerFunction();
-This mechanism can be particularly useful when dealing with callbacks, though in those cases, it is often better to use Function.bind, which will avoid any overhead associated with scope traversal.
+```
+
+This mechanism can be particularly useful when dealing with callbacks, though in those cases, it is often better to use [Function.bind](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind), which will avoid any overhead associated with scope traversal.
