@@ -685,7 +685,7 @@ JavaScript offers a way to test the "type" of a variable. However, the result ca
 
 It's common practice to use the typeof operator when trying to determining the type of a specific value.
 
-Example 2.40: Testing the type of various variables
+###### Example 2.40: Testing the type of various variables
 
 ``` js
 var myFunction = function() {
@@ -774,111 +774,76 @@ myObjectHello();  // logs 'Hi! My name is Rebecca'
 
 ###### Example 2.43: A function being attached to an object at runtime
 
-01
+``` js
 var myName = 'the global object',
-02
  
-03
     sayHello = function() {
-04
         console.log('Hi! My name is ' + this.myName);
-05
     },
-06
  
-07
     myObject = {
-08
         myName : 'Rebecca'
-09
     },
-10
  
-11
     secondObject = {
-12
         myName : 'Colin'
-13
     };
-14
  
-15
 myObject.sayHello = sayHello;
-16
 secondObject.sayHello = sayHello;
-17
  
-18
 sayHello();               // logs 'Hi! My name is the global object'
-19
 myObject.sayHello();      // logs 'Hi! My name is Rebecca'
-20
 secondObject.sayHello();  // logs 'Hi! My name is Colin'
-Note
-When invoking a function deep within a long namespace, it is often tempting to reduce the amount of code you need to type by storing a reference to the actual function as a single, shorter variable. It is important not to do this with instance methods as this will cause the value of this within the function to change, leading to incorrect code operation. For instance:
+```
 
-01
-var myNamespace = {
-02
-    myObject : {
-03
-        sayHello : function() {
-04
-            console.log('Hi! My name is ' + this.myName);
-05
-        },
-06
- 
-07
-        myName : 'Rebecca'
-08
-    }
-09
-};
-10
- 
-11
-var hello = myNamespace.myObject.sayHello;
-12
- 
-13
-hello();  // logs 'Hi! My name is undefined'
-You can, however, safely reduce everything up to the object on which the method is invoked:
+> #### **Note**
+>   
+> When invoking a function deep within a long namespace, it is often tempting to reduce the amount of code you need to type by storing a reference to the actual function as a single, shorter variable. It is important not to do this with instance methods as this will cause the value of this within the function to change, leading to incorrect code operation. For instance:  
+>   
+> ``` js  
+> var myNamespace = {  
+>     myObject : {  
+>         sayHello : function() {  
+>             console.log('Hi! My name is ' + this.myName);  
+>         },  
+>     
+>         myName : 'Rebecca'  
+>     }  
+> };  
+>    
+> var hello = myNamespace.myObject.sayHello;  
+>    
+> hello();  // logs 'Hi! My name is undefined'  
+> ```  
+>   
+> You can, however, safely reduce everything up to the object on which the method is invoked:  
+>   
+> ``` js  
+> var myNamespace = {  
+>     myObject : {  
+>         sayHello : function() {  
+>             console.log('Hi! My name is ' + this.myName);  
+>         },  
+>    
+>         myName : 'Rebecca'  
+>     }  
+> };  
+>    
+> var obj = myNamespace.myObject;  
+>    
+> obj.sayHello();  // logs 'Hi! My name is Rebecca'  
+> ```
 
-01
-var myNamespace = {
-02
-    myObject : {
-03
-        sayHello : function() {
-04
-            console.log('Hi! My name is ' + this.myName);
-05
-        },
-06
- 
-07
-        myName : 'Rebecca'
-08
-    }
-09
-};
-10
- 
-11
-var obj = myNamespace.myObject;
-12
- 
-13
-obj.sayHello();  // logs 'Hi! My name is Rebecca'
-Scope
+## Scope
+
 "Scope" refers to the variables that are available to a piece of code at a given time. A lack of understanding of scope can lead to frustrating debugging experiences.
 
 When a variable is declared inside of a function using the var keyword, it is only available to code inside of that function — code outside of that function cannot access the variable. On the other hand, functions defined inside that function will have access to to the declared variable.
 
 Furthermore, variables that are declared inside a function without the var keyword are not local to the function — JavaScript will traverse the scope chain all the way up to the window scope to find where the variable was previously defined. If the variable wasn't previously defined, it will be defined in the global scope, which can have extremely unexpected consequences;
 
-Example 2.44: Functions have access to variables defined in the same scope
+###### Example 2.44: Functions have access to variables defined in the same scope
 
 1
 var foo = 'hello';
