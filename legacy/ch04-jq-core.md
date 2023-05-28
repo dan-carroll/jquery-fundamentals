@@ -34,7 +34,6 @@ jQuery offers several utility methods in the `$` namespace. These methods are he
 
 **$.trim**
 : Removes leading and trailing whitespace.
-
 : ```js
 $.trim('    lots of extra whitespace    ');
 // returns 'lots of extra whitespace'
@@ -42,7 +41,6 @@ $.trim('    lots of extra whitespace    ');
 
 **$.each**
 : Iterates over arrays and objects.
-
 : ```js
 $.each([ 'foo', 'bar', 'baz' ], function(idx, val) {
     console.log('element ' + idx + 'is ' + val);
@@ -52,14 +50,12 @@ $.each({ foo : 'bar', baz : 'bim' }, function(k, v) {
     console.log(k + ' : ' + v);
 });
 ```
-
 : > #### **Note**  
 >   
 > There is also a method `$.fn.each`, which is used for iterating over a selection of elements.
 
 **$.inArray**
 : Returns a value's index in an array, or -1 if the value is not in the array.
-
 : ```js
 var myArray = [ 1, 2, 3, 5 ];
  
@@ -70,7 +66,6 @@ if ($.inArray(4, myArray) !== -1) {
 
 **$.extend**
 : Changes the properties of the first object using the properties of subsequent objects.
-
 : ```js
 var firstObject = { foo : 'bar', a : 'b' };
 var secondObject = { foo : 'baz' };
@@ -79,9 +74,7 @@ var newObject = $.extend(firstObject, secondObject);
 console.log(firstObject.foo); // 'baz'
 console.log(newObject.foo);   // 'baz'
 ```
-
 : If you don't want to change any of the objects you pass to `$.extend`, pass an empty object as the first argument.
-
 : ```js
 var firstObject = { foo : 'bar', a : 'b' };
 var secondObject = { foo : 'baz' };
@@ -93,7 +86,6 @@ console.log(newObject.foo);   // 'baz'
 
 **$.proxy**
 : Returns a function that will always run in the provided scope — that is, sets the meaning of `this` inside the passed function to the second argument.
-
 : ```js
 var myFunction = function() { console.log(this); };
 var myObject = { foo : 'bar' };
@@ -103,9 +95,7 @@ myFunction(); // logs window object
 var myProxyFunction = $.proxy(myFunction, myObject);
 myProxyFunction(); // logs myObject object
 ```
-
 : If you have an object with methods, you can pass the object and the name of a method to return a function that will always run in the scope of the object.
-
 : ```js
 var myObject = {
     myFn : function() {
