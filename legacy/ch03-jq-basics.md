@@ -166,7 +166,7 @@ Every time you make a selection, a lot of code runs, and jQuery doesn't do cachi
 var $divs = $('div');
 ```
 
-> #### Note  
+> #### **Note**  
 >   
 > In “Storing selections in a variable”, the variable name begins with a dollar sign. Unlike in other languages, there's nothing special about the dollar sign in JavaScript — it's just another character. We use it here to indicate that the variable contains a jQuery object. This practice — a sort of [Hungarian notation](http://en.wikipedia.org/wiki/Hungarian_notation) — is merely convention, and is not mandatory.
 
@@ -180,168 +180,176 @@ Once you've stored your selection, you can call jQuery methods on the variable y
 
 Sometimes you have a selection that contains more than what you're after; in this case, you may want to refine your selection. jQuery offers several methods for zeroing in on exactly what you're after.
 
-Example 3.11: Refining selections
+###### Example 3.11: Refining selections
 
-1
+``` js
 $('div.foo').has('p');          // div.foo elements that contain <p>'s
-2
 $('h1').not('.bar');            // h1 elements that don't have a class of bar
-3
 $('ul li').filter('.current');  // unordered list items with class of current
-4
 $('ul li').first();             // just the first unordered list item
-5
 $('ul li').eq(5);               // the sixth
-Selecting Form Elements
+```
+
+### Selecting Form Elements
+
 jQuery offers several pseudo-selectors that help you find elements in your forms; these are especially helpful because it can be difficult to distinguish between form elements based on their state or type using standard CSS selectors.
 
-:button
-Selects <button> elements and elements with type="button"
+**:button**
+: Selects `<button>` elements and elements with `type="button"`
 
-:checkbox
-Selects inputs with type="checkbox"
+**:checkbox**
+: Selects inputs with `type="checkbox"`
 
-:checked
-Selects checked inputs
+**:checked**
+: Selects checked inputs
 
-:disabled
-Selects disabled form elements
+**:disabled**
+: Selects disabled form elements
 
-:enabled
-Selects enabled form elements
+**:enabled**
+: Selects enabled form elements
 
-:file
-Selects inputs with type="file"
+**:file**
+: nputs with `type="file"`
 
-:image
-Selects inputs with type="image"
+**:image**
+: Selects inputs with `type="image"`
 
-:input
-Selects <input>, <textarea>, and <select> elements
+**:input**
+: Selects `<input>`, `<textarea>`, and `<select>` elements
 
 :password
-Selects inputs with type="password"
+Selects inputs with `type="password"`
 
 :radio
-Selects inputs with type="radio"
+Selects inputs with `type="radio"`
 
 :reset
-Selects inputs with type="reset"
+Selects inputs with `type="reset"`
 
 :selected
 Selects options that are selected
 
 :submit
-Selects inputs with type="submit"
+Selects inputs with `type="submit"`
 
 :text
-Selects inputs with type="text"
+Selects inputs with `type="text"`
 
-Example 3.12: Using form-related pseduo-selectors
+###### Example 3.12: Using form-related pseduo-selectors
 
-1
+``` js
 $('#myForm :input'); // get all elements that accept input
-Working with Selections
+```
+
+## Working with Selections
+
 Once you have a selection, you can call methods on the selection. Methods generally come in two different flavors: getters and setters. Getters return a property of the first selected element; setters set a property on all selected elements.
 
-Chaining
+### Chaining
+
 If you call a method on a selection and that method returns a jQuery object, you can continue to call jQuery methods on the object without pausing for a semicolon.
 
-Example 3.13: Chaining
+###### Example 3.13: Chaining
 
-1
+``` js
 $('#content').find('h3').eq(2).html('new text for the third h3!');
+```
+
 If you are writing a chain that includes several steps, you (and the person who comes after you) may find your code more readable if you break the chain over several lines.
 
-Example 3.14: Formatting chained code
+###### Example 3.14: Formatting chained code
 
-1
+``` js
 $('#content')
-2
     .find('h3')
-3
     .eq(2)
-4
     .html('new text for the third h3!');
-If you change your selection in the midst of a chain, jQuery provides the $.fn.end method to get you back to your original selection.
+```
 
-Example 3.15: Restoring your original selection using $.fn.end
+If you change your selection in the midst of a chain, jQuery provides the `$.fn.end` method to get you back to your original selection.
 
-1
+###### Example 3.15: Restoring your original selection using $.fn.end
+
+``` js
 $('#content')
-2
     .find('h3')
-3
     .eq(2)
-4
         .html('new text for the third h3!')
-5
     .end() // restores the selection to all h3's in #content
-6
     .eq(0)
-7
         .html('new text for the first h3!');
-Note
-Chaining is extraordinarily powerful, and it's a feature that many libraries have adapted since it was made popular by jQuery. However, it must be used with care. Extensive chaining can make code extremely difficult to modify or debug. There is no hard-and-fast rule to how long a chain should be — just know that it is easy to get carried away.
+```
 
-Getters & Setters
+> #### **Note**  
+>   
+> Chaining is extraordinarily powerful, and it's a feature that many libraries have adapted since it was made popular by jQuery. However, it must be used with care. Extensive chaining can make code extremely difficult to modify or debug. There is no hard-and-fast rule to how long a chain should be — just know that it is easy to get carried away.
+
+### Getters & Setters
+
 jQuery “overloads” its methods, so the method used to set a value generally has the same name as the method used to get a value. When a method is used to set a value, it is called a setter. When a method is used to get (or read) a value, it is called a getter. Setters affect all elements in a selection; getters get the requested value only for the first element in the selection.
 
-Example 3.16: The $.fn.html method used as a setter
+###### Example 3.16: The $.fn.html method used as a setter
 
-1
+``` js
 $('h1').html('hello world');
-Example 3.17: The html method used as a getter
+```
 
-1
+###### Example 3.17: The html method used as a getter
+
+``` js
 $('h1').html();
+```
+
 Setters return a jQuery object, allowing you to continue to call jQuery methods on your selection; getters return whatever they were asked to get, meaning you cannot continue to call jQuery methods on the value returned by the getter.
 
-CSS, Styling, & Dimensions
+## CSS, Styling, & Dimensions
+
 jQuery includes a handy way to get and set CSS properties of elements.
 
-Note
-CSS properties that normally include a hyphen need to be camel cased in JavaScript. For example, the CSS property font-size is expressed as fontSize when used as a property name in JavaScript. This does not apply, however, when passing the name of a CSS property to the $.fn.css method as a string — in that case, either the camel cased or hyphenated form will work.
+> #### **Note**
+>   
+> CSS properties that normally include a hyphen need to be *camel cased* in JavaScript. For example, the CSS property `font-size` is expressed as `fontSize` when used as a property name in JavaScript. This does not apply, however, when passing the name of a CSS property to the `$.fn.css` method as a string — in that case, either the camel cased or hyphenated form will work.
 
-Example 3.18: Getting CSS properties
+###### Example 3.18: Getting CSS properties
 
-1
+``` js
 $('h1').css('fontSize'); // returns a string such as "19px"
-2
 $('h1').css('font-size'); // also works
-Example 3.19: Setting CSS properties
+```
 
-1
+###### Example 3.19: Setting CSS properties
+
+``` js
 $('h1').css('fontSize', '100px'); // setting an individual property
-2
 $('h1').css({ 'fontSize' : '100px', 'color' : 'red' }); // setting multiple properties
-Note the style of the argument we use on the second line — it is an object that contains multiple properties. This is a common way to pass multiple arguments to a function, and many jQuery setter methods accept objects to set mulitple values at once.
+```
 
-Using CSS Classes for Styling
-As a getter, the $.fn.css method is valuable; however, it should generally be avoided as a setter in production-ready code, because you don't want presentational information in your JavaScript. Instead, write CSS rules for classes that describe the various visual states, and then simply change the class on the element you want to affect.
+*Note the style of the argument we use on the second line — it is an object that contains multiple properties. This is a common way to pass multiple arguments to a function, and many jQuery setter methods accept objects to set mulitple values at once.*
 
-Example 3.20: Working with classes
+### Using CSS Classes for Styling
 
-1
+As a getter, the `$.fn.css` method is valuable; however, it should generally be avoided as a setter in production-ready code, because you don't want presentational information in your JavaScript. Instead, write CSS rules for classes that describe the various visual states, and then simply change the class on the element you want to affect.
+
+###### Example 3.20: Working with classes
+
+``` js
 var $h1 = $('h1');
-2
  
-3
 $h1.addClass('big');
-4
 $h1.removeClass('big');
-5
 $h1.toggleClass('big');
-6
  
-7
 if ($h1.hasClass('big')) { ... }
+```
+
 Classes can also be useful for storing state information about an element, such as indicating that an element is selected.
 
-Dimensions
+###Dimensions
+
 jQuery offers a variety of methods for obtaining and modifying dimension and position information about an element.
 
-The code in “Basic dimensions methods”, is just a very brief overview of the dimensions functionality in jQuery; for complete details about jQuery dimension methods, visit http://api.jquery.com/category/dimensions/.
+The code in “Basic dimensions methods”, is just a very brief overview of the dimensions functionality in jQuery; for complete details about jQuery dimension methods, visit [http://api.jquery.com/category/dimensions/](http://api.jquery.com/category/dimensions/).
 
 Example 3.21: Basic dimensions methods
 
