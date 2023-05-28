@@ -129,7 +129,7 @@ baz && foo;   // returns 1, which is true
 
 Though it may not be clear from the example, the &#124;&#124; operator returns the value of the first truthy operand, or in cases where neither operand is truthy, it'll return the last of both operands. The &amp;&amp; operator returns the value of the first false operand, or the value of the last operand if both operands are truthy.
 
-Be sure to consult [the section called “Truthy and Falsy Things”](http://jqfundamentals.com/legacy/#Truthy%20and%20Falsy%20Things) for more details on which values evaluate to true and which evaluate to false.
+Be sure to consult [the section called “Truthy and Falsy Things”](http://jqfundamentals.com/legacy/#Truthy%20and%20Falsy%20Things) for more details on which values evaluate to `true` and which evaluate to `false`.
 
 > #### **Note**  
 >   
