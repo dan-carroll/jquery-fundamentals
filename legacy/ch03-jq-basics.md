@@ -345,106 +345,102 @@ if ($h1.hasClass('big')) { ... }
 
 Classes can also be useful for storing state information about an element, such as indicating that an element is selected.
 
-###Dimensions
+### Dimensions
 
 jQuery offers a variety of methods for obtaining and modifying dimension and position information about an element.
 
 The code in “Basic dimensions methods”, is just a very brief overview of the dimensions functionality in jQuery; for complete details about jQuery dimension methods, visit [http://api.jquery.com/category/dimensions/](http://api.jquery.com/category/dimensions/).
 
-Example 3.21: Basic dimensions methods
+###### Example 3.21: Basic dimensions methods
 
-1
+``` js
 $('h1').width('50px');   // sets the width of all H1 elements
-2
 $('h1').width();         // gets the width of the first H1
-3
  
-4
 $('h1').height('50px');  // sets the height of all H1 elements
-5
 $('h1').height();        // gets the height of the first H1
-6
  
-7
 $('h1').position();      // returns an object containing position
-8
                          // information for the first H1 relative to
-9
                          // its "offset (positioned) parent"
-Attributes
+```
+
+## Attributes
+
 An element's attributes can contain useful information for your application, so it's important to be able to get and set them.
 
-The $.fn.attr method acts as both a getter and a setter. As with the $.fn.css method, $.fn.attr as a setter can accept either a key and a value, or an object containing one or more key/value pairs.
+The `$.fn.attr` method acts as both a getter and a setter. As with the `$.fn.css` method, `$.fn.attr` as a setter can accept either a key and a value, or an object containing one or more key/value pairs.
 
-Example 3.22: Setting attributes
+###### Example 3.22: Setting attributes
 
-1
+``` js
 $('a').attr('href', 'allMyHrefsAreTheSameNow.html');
-2
 $('a').attr({
-3
     'title' : 'all titles are the same too!',
-4
     'href' : 'somethingNew.html'
-5
 });
-This time, we broke the object up into multiple lines. Remember, whitespace doesn't matter in JavaScript, so you should feel free to use it liberally to make your code more legible! You can use a minification tool later to strip out unnecessary whitespace for production.
+```
 
-Example 3.23: Getting attributes
+*This time, we broke the object up into multiple lines. Remember, whitespace doesn't matter in JavaScript, so you should feel free to use it liberally to make your code more legible! You can use a minification tool later to strip out unnecessary whitespace for production.*
 
-1
+###### Example 3.23: Getting attributes
+
+``` js
 $('a').attr('href');  // returns the href for the first a element in the document
-Traversing
+```
+
+## Traversing
+
 Once you have a jQuery selection, you can find other elements using your selection as a starting point.
 
-For complete documentation of jQuery traversal methods, visit http://api.jquery.com/category/traversing/.
+For complete documentation of jQuery traversal methods, visit [http://api.jquery.com/category/traversing/](http://api.jquery.com/category/traversing/).
 
-Note
-Be cautious with traversing long distances in your documents — complex traversal makes it imperative that your document's structure remain the same, something that's difficult to guarantee even if you're the one creating the whole application from server to client. One- or two-step traversal is fine, but you generally want to avoid traversals that take you from one container to another.
+> #### **Note**  
+>    
+> Be cautious with traversing long distances in your documents — complex traversal makes it imperative that your document's structure remain the same, something that's difficult to guarantee even if you're the one creating the whole application from server to client. One- or two-step traversal is fine, but you generally want to avoid traversals that take you from one container to another.
 
-Example 3.24: Moving around the DOM using traversal methods
+###### Example 3.24: Moving around the DOM using traversal methods
 
-1
+``` js
 $('h1').next('p');
-2
 $('div:visible').parent();
-3
 $('input[name=first_name]').closest('form');
-4
 $('#myList').children();
-5
 $('li.selected').siblings();
-You can also iterate over a selection using $.fn.each. This method iterates over all of the elements in a selection, and runs a function for each one. The function receives the index of the current element and the DOM element itself as arguments. Inside the function, the DOM element is also available as this by default.
+```
 
-Example 3.25: Iterating over a selection
+You can also iterate over a selection using `$.fn.each`. This method iterates over all of the elements in a selection, and runs a function for each one. The function receives the index of the current element and the DOM element itself as arguments. Inside the function, the DOM element is also available as this by default.
 
-1
+###### Example 3.25: Iterating over a selection
+
+``` js
 $('#myList li').each(function(idx, el) {
-2
     console.log(
-3
         'Element ' + idx +
-4
         'has the following html: ' +
-5
         $(el).html()
-6
     );
-7
 });
-Manipulating Elements
+```
+
+## Manipulating Elements
+
 Once you've made a selection, the fun begins. You can change, move, remove, and clone elements. You can also create new elements via a simple syntax.
 
-For complete documentation of jQuery manipulation methods, visit http://api.jquery.com/category/manipulation/.
+For complete documentation of jQuery manipulation methods, visit [http://api.jquery.com/category/manipulation/](http://api.jquery.com/category/manipulation/).
 
-Getting and Setting Information about Elements
+### Getting and Setting Information about Elements
+
 There are any number of ways you can change an existing element. Among the most common tasks you'll perform is changing the inner HTML or attribute of an element. jQuery offers simple, cross-browser methods for these sorts of manipulations. You can also get information about elements using many of the same methods in their getter incarnations. We'll see examples of these throughout this section, but specifically, here are a few methods you can use to get and set information about elements.
 
-Note
-Changing things about elements is trivial, but remember that the change will affect all elements in the selection, so if you just want to change one element, be sure to specify that in your selection before calling a setter method.
-
-Note
-When methods act as getters, they generally only work on the first element in the selection, and they do not return a jQuery object, so you can't chain additional methods to them. One notable exception is $.fn.text; as mentioned below, it gets the text for all elements in the selection.
+> #### **Note**
+>   
+> Changing things about elements is trivial, but remember that the change will affect *all* elements in the selection, so if you just want to change one element, be sure to specify that in your selection before calling a setter method.  
+>   
+>   
+> #### **Note**  
+>   
+> When methods act as getters, they generally only work on the first element in the selection, and they do not return a jQuery object, so you can't chain additional methods to them. One notable exception is `$.fn.text`; as mentioned below, it gets the text for all elements in the selection.
 
 $.fn.html
 Get or set the html contents.
