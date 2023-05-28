@@ -736,65 +736,43 @@ In JavaScript, as in most object-oriented programming languages, `this` is a spe
 
 ###### Example 2.41: A function invoked using Function.call
 
-01
+``` js
 var myObject = {
-02
     sayHello : function() {
-03
         console.log('Hi! My name is ' + this.myName);
-04
     },
-05
  
-06
     myName : 'Rebecca'
-07
 };
-08
  
-09
 var secondObject = {
-10
     myName : 'Colin'
-11
 };
-12
  
-13
 myObject.sayHello();                  // logs 'Hi! My name is Rebecca'
-14
 myObject.sayHello.call(secondObject); // logs 'Hi! My name is Colin'
-Example 2.42: A function created using Function.bind
+```
 
-01
+###### Example 2.42: A function created using Function.bind
+
+``` js
 var myName = 'the global object',
-02
  
-03
     sayHello = function () {
-04
         console.log('Hi! My name is ' + this.myName);
-05
     },
-06
  
-07
     myObject = {
-08
         myName : 'Rebecca'
-09
     };
-10
  
-11
 var myObjectHello = sayHello.bind(myObject);
-12
  
-13
 sayHello();       // logs 'Hi! My name is the global object'
-14
 myObjectHello();  // logs 'Hi! My name is Rebecca'
-Example 2.43: A function being attached to an object at runtime
+```
+
+###### Example 2.43: A function being attached to an object at runtime
 
 01
 var myName = 'the global object',
