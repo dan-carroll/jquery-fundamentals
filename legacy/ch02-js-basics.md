@@ -172,7 +172,7 @@ bim > baz;    // returns true
 foo <= baz;   // returns true
 ```
 
-### Conditional Code
+## Conditional Code
 
 Sometimes you only want to run a block of code under certain conditions. Flow control — via `if` and `else` blocks — lets you run code only under certain conditions.
 
@@ -268,261 +268,231 @@ switch (foo) {
 
 Switch statements have somewhat fallen out of favor in JavaScript, because often the same behavior can be accomplished by creating an object that has more potential for reuse, testing, etc. For example:
 
-01
+```js
 var stuffToDo = {
-02
     'bar' : function() {
-03
         alert('the value was bar -- yay!');
-04
     },
-05
  
-06
     'baz' : function() {
-07
         alert('boo baz :(');
-08
     },
-09
  
-10
     'default' : function() {
-11
         alert('everything else is just ok');
-12
     }
-13
 };
-14
  
-15
 if (stuffToDo[foo]) {
-16
     stuffToDo[foo]();
-17
 } else {
-18
     stuffToDo['default']();
-19
 }
+```
+
 We'll look at objects in greater depth later in this chapter.
 
-Loops
+## Loops
+
 Loops let you run a block of code a certain number of times.
 
-Example 2.18: Loops
+###### Example 2.18: Loops
 
-1
+```js
 // logs 'try 0', 'try 1', ..., 'try 4'
-2
 for (var i=0; i<5; i++) {
-3
     console.log('try ' + i);
-4
 }
-Note that in Loops even though we use the keyword var before the variable name i, this does not "scope" the variable i to the loop block. We'll discuss scope in depth later in this chapter.
+```
 
-The for loop
-A for loop is made up of four statements and has the following structure:
+*Note that in Loops even though we use the keyword var before the variable name `i`, this does not "scope" the variable `i` to the loop block. We'll discuss scope in depth later in this chapter.*
 
-1
+### The for loop
+
+A `for` loop is made up of four statements and has the following structure:
+
+``` js
 for ([initialisation]; [conditional]; [iteration])
-2
  [loopBody]
-The initialisation statement is executed only once, before the loop starts. It gives you an opportunity to prepare or declare any variables.
+ ```
 
-The conditional statement is executed before each iteration, and its return value decides whether or not the loop is to continue. If the conditional statement evaluates to a falsey value then the loop stops.
+The *initialisation* statement is executed only once, before the loop starts. It gives you an opportunity to prepare or declare any variables.
 
-The iteration statement is executed at the end of each iteration and gives you an opportunity to change the state of important variables. Typically, this will involve incrementing or decrementing a counter and thus bringing the loop ever closer to its end.
+The *conditional* statement is executed before each iteration, and its return value decides whether or not the loop is to continue. If the conditional statement evaluates to a falsey value then the loop stops.
 
-The loopBody statement is what runs on every iteration. It can contain anything you want. You'll typically have multiple statements that need to be executed and so will wrap them in a block ( {...}).
+The *iteration* statement is executed at the end of each iteration and gives you an opportunity to change the state of important variables. Typically, this will involve incrementing or decrementing a counter and thus bringing the loop ever closer to its end.
 
-Here's a typical for loop:
+The *loopBody* statement is what runs on every iteration. It can contain anything you want. You'll typically have multiple statements that need to be executed and so will wrap them in a block ( `{...}`).
 
-Example 2.19: A typical for loop
+Here's a typical `for` loop:
 
-1
+###### Example 2.19: A typical for loop
+
+``` js
 for (var i = 0, limit = 100; i < limit; i++) {
-2
     // This block will be executed 100 times
-3
     console.log('Currently at ' + i);
-4
     // Note: the last log will be "Currently at 99"
-5
 }
-The while loop
-A while loop is similar to an if statement, except that its body will keep executing until the condition evaluates to false.
+```
 
-1
+### The while loop
+
+A `while` loop is similar to an if statement, except that its body will keep executing until the condition evaluates to false.
+
+``` js
 while ([conditional]) [loopBody]
-Here's a typical while loop:
+```
 
-Example 2.20: A typical while loop
+Here's a typical `while` loop:
 
-1
+###### Example 2.20: A typical while loop
+
+``` js
 var i = 0;
-2
 while (i < 100) {
-3
  
-4
     // This block will be executed 100 times
-5
     console.log('Currently at ' + i);
-6
  
-7
     i++; // increment i
-8
  
-9
 }
+```
+
 You'll notice that we're having to increment the counter within the loop's body. It is possible to combine the conditional and incrementer, like so:
 
-Example 2.21: A while loop with a combined conditional and incrementer
+###### Example 2.21: A while loop with a combined conditional and incrementer
 
-1
+``` js
 var i = -1;
-2
 while (++i < 100) {
-3
     // This block will be executed 100 times
-4
     console.log('Currently at ' + i);
-5
 }
-Notice that we're starting at -1 and using the prefix incrementer (++i).
 
-The do-while loop
-This is almost exactly the same as the while loop, except for the fact that the loop's body is executed at least once before the condition is tested.
+Notice that we're starting at `-1` and using the prefix incrementer (`++i`).
 
-1
+### The do-while loop
+
+This is almost exactly the same as the `while` loop, except for the fact that the loop's body is executed at least once before the condition is tested.
+
+``` js
 do [loopBody] while ([conditional])
-Here's a do-while loop:
+```
 
-Example 2.22: A do-while loop
+Here's a `do-while` loop:
 
-1
+###### Example 2.22: A do-while loop
+
+``` js
 do {
-2
  
-3
     // Even though the condition evaluates to false
-4
     // this loop's body will still execute once.
-5
  
-6
     alert('Hi there!');
-7
  
-8
 } while (false);
+```
+
 These types of loops are quite rare since only few situations require a loop that blindly executes at least once. Regardless, it's good to be aware of it.
 
-Breaking and continuing
-Usually, a loop's termination will result from the conditional statement not evaluating to true, but it is possible to stop a loop in its tracks from within the loop's body with the break statement.
+### Breaking and continuing
 
-Example 2.23: Stopping a loop
+Usually, a loop's termination will result from the conditional statement not evaluating to true, but it is possible to stop a loop in its tracks from within the loop's body with the `break` statement.
 
-1
+###### Example 2.23: Stopping a loop
+
+``` js
 for (var i = 0; i < 10; i++) {
-2
     if (something) {
-3
         break;
-4
     }
-5
 }
-You may also want to continue the loop without executing more of the loop's body. This is done using the continue statement.
+```
 
-Example 2.24: Skipping to the next iteration of a loop
+You may also want to continue the loop without executing more of the loop's body. This is done using the `continue` statement.
 
-01
+###### Example 2.24: Skipping to the next iteration of a loop
+
+``` js
 for (var i = 0; i < 10; i++) {
-02
  
-03
     if (something) {
-04
         continue;
-05
     }
-06
  
-07
     // The following statement will only be executed
-08
     // if the conditional 'something' has not been met
-09
     console.log('I have been reached');
-10
  
-11
 }
-Reserved Words
+```
+
+## Reserved Words
+
 JavaScript has a number of “reserved words,” or words that have special meaning in the language. You should avoid using these words in your code except when using them with their intended meaning.
 
-abstract
-boolean
-break
-byte
-case
-catch
-char
-class
-const
-continue
-debugger
-default
-delete
-do
-double
-else
-enum
-export
-extends
-final
-finally
-float
-for
-function
-goto
-if
-implements
-import
-in
-instanceof
-int
-interface
-long
-native
-new
-package
-private
-protected
-public
-return
-short
-static
-super
-switch
-synchronized
-this
-throw
-throws
-transient
-try
-typeof
-var
-void
-volatile
-while
-with
-Arrays
+- `abstract`
+- `boolean`
+- `break`
+- `byte`
+- `case`
+- `catch`
+- `char`
+- `class`
+- `const`
+- `continue`
+- `debugger`
+- `default`
+- `delete`
+- `do`
+- `double`
+- `else`
+- `enum`
+- `export`
+- `extends`
+- `final`
+- `finally`
+- `float`
+- `for`
+- `function`
+- `goto`
+- `if`
+- `implements`
+- `import`
+- `in`
+- `instanceof`
+- `int`
+- `interface`
+- `long`
+- `native`
+- `new`
+- `package`
+- `private`
+- `protected`
+- `public`
+- `return`
+- `short`
+- `static`
+- `super`
+- `switch`
+- `synchronized`
+- `this`
+- `throw`
+- `throws`
+- `transient`
+- `try`
+- `typeof`
+- `var`
+- `void`
+- `volatile`
+- `while`
+- `with`
+
+## Arrays
+
 Arrays are zero-indexed lists of values. They are a handy way to store a set of related items of the same type (such as strings), though in reality, an array can include multiple types of items, including other arrays.
 
 Example 2.25: A simple array
