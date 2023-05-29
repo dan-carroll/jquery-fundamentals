@@ -36,6 +36,10 @@ footer > p {
     color:darkblue;
 }
 
+#book-chapter h1 {
+    margin-bottom: 2.5rem;
+}
+
 #contents, #list-of-examples {
     margin-left: 2rem;
 }
