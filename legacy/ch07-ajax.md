@@ -289,90 +289,80 @@ $('#myForm').serializeArray();
 
 ## Working with JSONP
 
-The advent of JSONP — essentially a consensual cross-site scripting hack — has opened the door to powerful mashups of content. Many prominent sites provide JSONP services, allowing you access to their content via a predefined API. A particularly great source of JSONP-formatted data is the Yahoo! Query Language, which we'll use in the following example to fetch news about cats.
+The advent of JSONP — essentially a consensual cross-site scripting hack — has opened the door to powerful mashups of content. Many prominent sites provide JSONP services, allowing you access to their content via a predefined API. A particularly great source of JSONP-formatted data is the [Yahoo! Query Language](http://developer.yahoo.com/yql/console/), which we'll use in the following example to fetch news about cats.
 
-Example 7.7: Using YQL and JSONP
+###### Example 7.7: Using YQL and JSONP
 
-01
+```js
 $.ajax({
-02
     url : 'http://query.yahooapis.com/v1/public/yql',
-03
  
-04
     // the name of the callback parameter,
-05
     // as specified by the YQL service
-06
     jsonp : 'callback',
-07
  
-08
     // tell jQuery we're expecting JSONP
-09
     dataType : 'jsonp',
-10
  
-11
     // tell YQL what we want and that we want JSON
-12
     data : {
-13
         q : 'select title,abstract,url from search.news where query="cat"',
-14
         format : 'json'
-15
     },
-16
  
-17
     // work with the response
-18
     success : function(response) {
-19
         console.log(response);
-20
     }
-21
 });
+```
+
 jQuery handles all the complex aspects of JSONP behind-the-scenes — all we have to do is tell jQuery the name of the JSONP callback parameter specified by YQL ("callback" in this case), and otherwise the whole process looks and feels like a normal Ajax request.
 
-Ajax Events
-Often, you’ll want to perform an operation whenever an Ajax requests starts or stops, such as showing or hiding a loading indicator. Rather than defining this behavior inside every Ajax request, you can bind Ajax events to elements just like you'd bind other events. For a complete list of Ajax events, visit http://docs.jquery.com/Ajax_Events.
+## Ajax Events
 
-Example 7.8: Setting up a loading indicator using Ajax Events
+Often, you’ll want to perform an operation whenever an Ajax requests starts or stops, such as showing or hiding a loading indicator. Rather than defining this behavior inside every Ajax request, you can bind Ajax events to elements just like you'd bind other events. For a complete list of Ajax events, visit [http://docs.jquery.com/Ajax_Events](http://docs.jquery.com/Ajax_Events).
 
-1
+###### Example 7.8: Setting up a loading indicator using Ajax Events
+
+```js
 $('#loading_indicator')
-2
     .ajaxStart(function() { $(this).show(); })
-3
     .ajaxStop(function() { $(this).hide(); });
-Exercises
-Load External Content
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/load.js. Your task is to load the content of a blog item when a user clicks on the title of the item.
+```
 
-Create a target div after the headline for each blog post and store a reference to it on the headline element using $.fn.data.
-Bind a click event to the headline that will use the $.fn.load method to load the appropriate content from /exercises/data/blog.html into the target div. Don't forget to prevent the default action of the click event.
-Note that each blog headline in index.html includes a link to the post. You'll need to leverage the href of that link to get the proper content from blog.html. Once you have the href, here's one way to process it into an ID that you can use as a selector in $.fn.load:
+## Exercises
 
-1
+### Load External Content
+
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/load.js`. Your task is to load the content of a blog item when a user clicks on the title of the item.
+
+1. Create a target div after the headline for each blog post and store a reference to it on the headline element using `$.fn.data`.
+
+2. Bind a click event to the headline that will use the `$.fn.load` method to load the appropriate content from `/exercises/data/blog.html` into the target div. Don't forget to prevent the default action of the click event.
+
+Note that each blog headline in index.html includes a link to the post. You'll need to leverage the href of that link to get the proper content from blog.html. Once you have the href, here's one way to process it into an ID that you can use as a selector in `$.fn.load`:
+
+```js
 var href = 'blog.html#post1';
-2
 var tempArray = href.split('#');
-3
 var id = '#' + tempArray[1];
-Remember to make liberal use of console.log to make sure you're on the right path!
+```
 
-Load Content Using JSON
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/specials.js. Your task is to show the user details about the special for a given day when the user selects a day from the select dropdown.
+Remember to make liberal use of `console.log` to make sure you're on the right path!
 
-Append a target div after the form that's inside the #specials element; this will be where you put information about the special once you receive it.
+### Load Content Using JSON
 
-Bind to the change event of the select element; when the user changes the selection, send an Ajax request to /exercises/data/specials.json.
-When the request returns a response, use the value the user selected in the select (hint: $.fn.val) to look up information about the special in the JSON response.
-Add some HTML about the special to the target div you created.
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/specials.js`. Your task is to show the user details about the special for a given day when the user selects a day from the select dropdown.
 
-Finally, because the form is now Ajax-enabled, remove the submit button from the form.
+1. Append a target div after the form that's inside the #specials element; this will be where you put information about the special once you receive it.
+
+2. Bind to the change event of the select element; when the user changes the selection, send an Ajax request to `/exercises/data/specials.json`.
+
+3. When the request returns a response, use the value the user selected in the select (hint: `$.fn.val`) to look up information about the special in the JSON response.
+
+4. Add some HTML about the special to the target div you created.
+
+5. Finally, because the form is now Ajax-enabled, remove the submit button from the form.
 
 Note that we're loading the JSON every time the user changes their selection. How could we change the code so we only make the request once, and then use a cached response when the user changes their choice in the select?
