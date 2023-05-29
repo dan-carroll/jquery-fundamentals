@@ -13,33 +13,34 @@ page: legacy-book-chapter06
 
 jQuery makes it trivial to add simple effects to your page. Effects can use the built-in settings, or provide a customized duration. You can also create custom animations of arbitrary CSS properties.
 
-For complete details on jQuery effects, visit http://api.jquery.com/category/effects/.
+For complete details on jQuery effects, visit [http://api.jquery.com/category/effects/](http://api.jquery.com/category/effects/).
 
-Built-in Effects
+## Built-in Effects
+
 Frequently used effects are built into jQuery as methods:
 
 $.fn.show
-Show the selected element.
+: Show the selected element.
 
 $.fn.hide
-Hide the selected elements.
+: Hide the selected elements.
 
 $.fn.fadeIn
-Animate the opacity of the selected elements to 100%.
+: Animate the opacity of the selected elements to 100%.
 
 $.fn.fadeOut
-Animate the opacity of the selected elements to 0%.
+: Animate the opacity of the selected elements to 0%.
 
 $.fn.slideDown
-Display the selected elements with a vertical sliding motion.
+: Display the selected elements with a vertical sliding motion.
 
 $.fn.slideUp
-Hide the selected elements with a vertical sliding motion.
+: Hide the selected elements with a vertical sliding motion.
 
 $.fn.slideToggle
-Show or hide the selected elements with a vertical sliding motion, depending on whether the elements are currently visible.
+: Show or hide the selected elements with a vertical sliding motion, depending on whether the elements are currently visible.
 
-Example 6.1: A basic use of a built-in effect
+###### Example 6.1: A basic use of a built-in effect
 
 1
 $('h1').show();
