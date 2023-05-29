@@ -48,11 +48,11 @@ $.each({ foo : 'bar', baz : 'bim' }, function(k, v) {
     console.log(k + ' : ' + v);
 });</code></pre></dd>
 
-<blockquote>
+<dd><blockquote>
   <h4><strong>Note</strong></h4>
 
   <p>There is also a method `$.fn.each`, which is used for iterating over a selection of elements.</p>
-</blockquote>
+</blockquote></dd>
 
 </dl>
 
