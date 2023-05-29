@@ -247,21 +247,24 @@ $.getJSON('/details.php', function(resp) {
 });
 ```
 
-$.fn.load
-The $.fn.load method is unique among jQuery’s Ajax methods in that it is called on a selection. The $.fn.load method fetches HTML from a URL, and uses the returned HTML to populate the selected element(s). In addition to providing a URL to the method, you can optionally provide a selector; jQuery will fetch only the matching content from the returned HTML.
+### `$.fn.load`
 
-Example 7.3: Using $.fn.load to populate an element
+The `$.fn.load` method is unique among jQuery’s Ajax methods in that it is called on a selection. The `$.fn.load` method fetches HTML from a URL, and uses the returned HTML to populate the selected element(s). In addition to providing a URL to the method, you can optionally provide a selector; jQuery will fetch only the matching content from the returned HTML.
 
-1
+###### Example 7.3: Using $.fn.load to populate an element
+
+```js
 $('#newContent').load('/foo.html');
-Example 7.4: Using $.fn.load to populate an element based on a selector
+```
 
-1
+###### Example 7.4: Using $.fn.load to populate an element based on a selector
+
+```js
 $('#newContent').load('/foo.html #myDiv h1:first', function(html) {
-2
   alert('Content updated!');
-3
 });
+```
+
 Ajax and Forms
 jQuery’s ajax capabilities can be especially useful when dealing with forms. The jQuery Form Plugin is a well-tested tool for adding Ajax capabilities to forms, and you should generally use it for handling forms with Ajax rather than trying to roll your own solution for anything remotely complex. That said, there are a two jQuery methods you should know that relate to form processing in jQuery: $.fn.serialize and $.fn.serializeArray.
 
