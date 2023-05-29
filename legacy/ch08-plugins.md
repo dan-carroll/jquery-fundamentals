@@ -146,150 +146,97 @@ The quality of jQuery plugins varies widely. Many plugins are extensively tested
 
 Google is your best initial resource for locating plugins, though the jQuery team is working on an improved plugin repository. Once you’ve identified some options via a Google search, you may want to consult the jQuery mailing list or the #jquery IRC channel to get input from others.
 
-When looking for a plugin to fill a need, do your homework. Ensure that the plugin is well-documented, and look for the author to provide lots of examples of its use. Be wary of plugins that do far more than you need; they can end up adding substantial overhead to your page. For more tips on spotting a subpar plugin, read Signs of a poorly written jQuery plugin by Remy Sharp.
+When looking for a plugin to fill a need, do your homework. Ensure that the plugin is well-documented, and look for the author to provide lots of examples of its use. Be wary of plugins that do far more than you need; they can end up adding substantial overhead to your page. For more tips on spotting a subpar plugin, read [Signs of a poorly written jQuery plugin](http://remysharp.com/2010/06/03/signs-of-a-poorly-written-jquery-plugin/) by Remy Sharp.
 
 Once you choose a plugin, you’ll need to add it to your page. Download the plugin, unzip it if necessary, place it your application’s directory structure, then include the plugin in your page using a script tag (after you include jQuery).
 
-Writing Plugins
+## Writing Plugins
+
 Sometimes you want to make a piece of functionality available throughout your code; for example, perhaps you want a single method you can call on a jQuery selection that performs a series of operations on the selection. In this case, you may want to write a plugin.
 
-Most plugins are simply methods created in the $.fn namespace. jQuery guarantees that a method called on a jQuery object will be able to access that jQuery object as this inside the method. In return, your plugin needs to guarantee that it returns the same object it received, unless explicitly documented otherwise.
+Most plugins are simply methods created in the `$.fn` namespace. jQuery guarantees that a method called on a jQuery object will be able to access that jQuery object as `this` inside the method. In return, your plugin needs to guarantee that it returns the same object it received, unless explicitly documented otherwise.
 
 Here is an example of a simple plugin:
 
-Example 8.1: Creating a plugin to add and remove a class on hover
+###### Example 8.1: Creating a plugin to add and remove a class on hover
 
-01
+```js
 // defining the plugin
-02
 (function($){
-03
     $.fn.hoverClass = function(c) {
-04
         return this.hover(
-05
             function() { $(this).toggleClass(c); }
-06
         );
-07
     };
-08
 })(jQuery);
-09
  
-10
 // using the plugin
-11
 $('li').hoverClass('hover');
-For more on plugin development, read Mike Alsup's essential post, A Plugin Development Pattern. In it, he creates a plugin called $.fn.hilight, which provides support for the metadata plugin if it's present, and provides a centralized method for setting global and instance options for the plugin.
+```
 
-Example 8.2: The Mike Alsup jQuery Plugin Development Pattern
+For more on plugin development, read Mike Alsup's essential post, [A Plugin Development Pattern](http://www.learningjquery.com/2007/10/a-plugin-development-pattern). In it, he creates a plugin called `$.fn.hilight`, which provides support for the metadata plugin if it's present, and provides a centralized method for setting global and instance options for the plugin.
 
-01
+###### Example 8.2: The Mike Alsup jQuery Plugin Development Pattern
+
+```js
 //
-02
 // create closure
-03
 //
-04
 (function($) {
-05
   //
-06
   // plugin definition
-07
   //
-08
   $.fn.hilight = function(options) {
-09
     debug(this);
-10
     // build main options before element iteration
-11
     var opts = $.extend({}, $.fn.hilight.defaults, options);
-12
     // iterate and reformat each matched element
-13
     return this.each(function() {
-14
       $this = $(this);
-15
       // build element specific options
-16
       var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
-17
       // update element styles
-18
       $this.css({
-19
         backgroundColor: o.background,
-20
         color: o.foreground
-21
       });
-22
       var markup = $this.html();
-23
       // call our format function
-24
       markup = $.fn.hilight.format(markup);
-25
       $this.html(markup);
-26
     });
-27
   };
-28
   //
-29
   // private function for debugging
-30
   //
-31
   function debug($obj) {
-32
     if (window.console && window.console.log)
-33
       window.console.log('hilight selection count: ' + $obj.size());
-34
   };
-35
   //
-36
   // define and expose our format function
-37
   //
-38
   $.fn.hilight.format = function(txt) {
-39
     return '<strong>' + txt + '</strong>';
-40
   };
-41
   //
-42
   // plugin defaults
-43
   //
-44
   $.fn.hilight.defaults = {
-45
     foreground: 'red',
-46
     background: 'yellow'
-47
   };
-48
 //
-49
 // end of closure
-50
 //
-51
 })(jQuery);
-Writing Stateful Plugins with the jQuery UI Widget Factory
-Note
-This section is based, with permission, on the blog post Building Stateful jQuery Plugins by Scott Gonzalez.
+```
+
+## Writing Stateful Plugins with the jQuery UI Widget Factory
+
+> #### Note  
+>   
+> This section is based, with permission, on the blog post [Building Stateful jQuery Plugins](http://blog.nemikor.com/2010/05/15/building-stateful-jquery-plugins/) by Scott Gonzalez.
 
 While most existing jQuery plugins are stateless — that is, we call them on an element and that is the extent of our interaction with the plugin — there’s a large set of functionality that doesn’t fit into the basic plugin pattern.
 
