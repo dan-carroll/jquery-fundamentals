@@ -35,10 +35,8 @@ jQuery offers several utility methods in the `$` namespace. These methods are he
 <dl>
 <dt class="fw-semibold">$.trim</dt>
 <dd>Removes leading and trailing whitespace.</dd>
-<dd><pre><code>
-$.trim('    lots of extra whitespace    ');
-// returns 'lots of extra whitespace'
-</code></pre></dd>
+<dd><pre><code>$.trim('    lots of extra whitespace    ');
+// returns 'lots of extra whitespace'</code></pre></dd>
 </dl>
 
 $.each
