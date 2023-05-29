@@ -12,164 +12,134 @@ page: legacy-book-chapter08
 
 ## What exactly is a plugin?
 
-A jQuery plugin is simply a new method that we use to extend jQuery's prototype object. By extending the prototype object you enable all jQuery objects to inherit any methods that you add. As established, whenever you call jQuery() you're creating a new jQuery object, with all of jQuery's methods inherited.
+A jQuery plugin is simply a new method that we use to extend jQuery's prototype object. By extending the prototype object you enable all jQuery objects to inherit any methods that you add. As established, whenever you call `jQuery()` you're creating a new jQuery object, with all of jQuery's methods inherited.
 
-The idea of a plugin is to do something with a collection of elements. You could consider each method that comes with the jQuery core a plugin, like fadeOut or addClass.
+The idea of a plugin is to do something with a collection of elements. You could consider each method that comes with the jQuery core a plugin, like `fadeOut` or `addClass`.
 
 You can make your own plugins and use them privately in your code or you can release them into the wild. There are thousands of jQuery plugins available online. The barrier to creating a plugin of your own is so low that you'll want to do it straight away!
 
-How to create a basic plugin
+## How to create a basic plugin
+
 The notation for creating a typical plugin is as follows:
 
-1
+```js
 (function($){
-2
     $.fn.myNewPlugin = function() {
-3
         return this.each(function(){
-4
             // do something
-5
         });
-6
     };
-7
 }(jQuery));
+```
+
 Don't let that confuse you though. The point of a jQuery plugin is to extend jQuery's prototype object, and that's what's happening on this line:
 
-1
+```js
 $.fn.myNewPlugin = function() { //...
+```
+
 We wrap this assignment in an immediately-invoked function:
 
-1
+```js
 (function($){
-2
     //...
-3
 }(jQuery));
+```
+
 This has the effect of creating a "private" scope that allows us to extend jQuery using the dollar symbol without having to risk the possibility that the dollar has been overwritten by another library.
 
 So our actual plugin, thus far, is this:
 
-1
+```js
 $.fn.myNewPlugin = function() {
-2
     return this.each(function(){
-3
         // do something
-4
     });
-5
 };
-The this keyword within the new plugin refers to the jQuery object on which the plugin is being called.
+```
 
-1
+The `this` keyword within the new plugin refers to the jQuery object on which the plugin is being called.
+
+```js
 var somejQueryObject = $('#something');
-2
  
-3
 $.fn.myNewPlugin = function() {
-4
     alert(this === somejQueryObject);
-5
 };
-6
  
-7
 somejQueryObject.myNewPlugin(); // alerts 'true'
+```
+
 Your typical jQuery object will contain references to any number of DOM elements, and that's why jQuery objects are often referred to as collections.
 
-So, to do something with a collection we need to loop through it, which is most easily achieved using jQuery's each() method:
+So, to do something with a collection we need to loop through it, which is most easily achieved using jQuery's `each()` method:
 
-1
+```js
 $.fn.myNewPlugin = function() {
-2
     return this.each(function(){
-3
  
-4
     });
-5
 };
-jQuery's each() method, like most other jQuery methods, returns a jQuery object, thus enabling what we've all come to know and love as 'chaining' ($(...).css().attr()...). We wouldn't want to break this convention so we return the this object. Within this loop you can do whatever you want with each element. Here's an example of a small plugin using some of the techniques we've discussed:
+```
 
-01
+jQuery's `each()` method, like most other jQuery methods, returns a jQuery object, thus enabling what we've all come to know and love as 'chaining' `($(...).css().attr()...)`. We wouldn't want to break this convention so we return the `this` object. Within this loop you can do whatever you want with each element. Here's an example of a small plugin using some of the techniques we've discussed:
+
+```js
 (function($){
-02
     $.fn.showLinkLocation = function() {
-03
         return this.filter('a').each(function(){
-04
             $(this).append(
-05
                 ' (' + $(this).attr('href') + ')'
-06
             );
-07
         });
-08
     };
-09
 }(jQuery));
-10
  
-11
 // Usage example:
-12
 $('a').showLinkLocation();
+```
+
 This handy plugin goes through all anchors in the collection and appends the href attribute in brackets.
 
-1
+```js
 <!-- Before plugin is called: -->
-2
 <a href="page.html">Foo</a>
-3
  
-4
 <!-- After plugin is called: -->
-5
 <a href="page.html">Foo (page.html)</a>
+```
+
 Our plugin can be optimised though:
 
-1
+```js
 (function($){
-2
     $.fn.showLinkLocation = function() {
-3
         return this.filter('a').append(function(){
-4
               return ' (' + this.href + ')';
-5
         });
-6
     };
-7
 }(jQuery));
-We're using the append method's capability to accept a callback, and the return value of that callback will determine what is appended to each element in the collection. Notice also that we're not using the attr method to retrieve the href attribute, because the native DOM API gives us easy access with the aptly named href property.
+```
 
-Here's another example of a plugin. This one doesn't require us to loop through every elememt with the each() method. Instead, we're simply going to delegate to other jQuery methods directly:
+We're using the `append` method's capability to accept a callback, and the return value of that callback will determine what is appended to each element in the collection. Notice also that we're not using the `attr` method to retrieve the `href` attribute, because the native DOM API gives us easy access with the aptly named `href` property.
 
-01
+Here's another example of a plugin. This one doesn't require us to loop through every elememt with the `each()` method. Instead, we're simply going to delegate to other jQuery methods directly:
+
+```js
 (function($){
-02
     $.fn.fadeInAndAddClass = function(duration, className) {
-03
         return this.fadeIn(duration, function(){
-04
             $(this).addClass(className);
-05
         });
-06
     };
-07
 }(jQuery));
-08
  
-09
 // Usage example:
-10
 $('a').fadeInAndAddClass(400, 'finishedFading');
-Finding & Evaluating Plugins
+```
+
+## Finding & Evaluating Plugins
+
 Plugins extend the basic jQuery functionality, and one of the most celebrated aspects of the library is its extensive plugin ecosystem. From table sorting to form validation to autocompletion ... if there’s a need for it, chances are good that someone has written a plugin for it.
 
 The quality of jQuery plugins varies widely. Many plugins are extensively tested and well-maintained, but others are hastily created and then ignored. More than a few fail to follow best practices.
