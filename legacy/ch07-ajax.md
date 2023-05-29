@@ -66,220 +66,187 @@ xml
 
 The asynchronicity of Ajax catches many new jQuery users off guard. Because Ajax calls are asynchronous by default, the response is not immediately available. Responses can only be handled using a callback. So, for example, the following code will not work:
 
-1
+```js
 var response;
-2
 $.get('foo.php', function(r) { response = r; });
-3
 console.log(response); // undefined!
+```
+
 Instead, we need to pass a callback function to our request; this callback will run when the request succeeds, at which point we can access the data that it returned, if any.
 
-1
+```js
 $.get('foo.php', function(response) { console.log(response); });
-Same-Origin Policy and JSONP
+```
+
+### Same-Origin Policy and JSONP
+
 In general, Ajax requests are limited to the same protocol (http or https), the same port, and the same domain as the page making the request. This limitation does not apply to scripts that are loaded via jQuery's Ajax methods.
 
-The other exception is requests targeted at a JSONP service on another domain. In the case of JSONP, the provider of the service has agreed to respond to your request with a script that can be loaded into the page using a <script> tag, thus avoiding the same-origin limitation; that script will include the data you requested, wrapped in a callback function you provide.
+The other exception is requests targeted at a JSONP service on another domain. In the case of JSONP, the provider of the service has agreed to respond to your request with a script that can be loaded into the page using a `<script>` tag, thus avoiding the same-origin limitation; that script will include the data you requested, wrapped in a callback function you provide.
 
-Ajax and Firebug
+### Ajax and Firebug
+
 Firebug (or the Webkit Inspector in Chrome or Safari) is an invaluable tool for working with Ajax requests. You can see Ajax requests as they happen in the Console tab of Firebug (and in the Resources > XHR panel of Webkit Inspector), and you can click on a request to expand it and see details such as the request headers, response headers, response content, and more. If something isn't going as expected with an Ajax request, this is the first place to look to track down what's wrong.
 
-jQuery's Ajax-Related Methods
-While jQuery does offer many Ajax-related convenience methods, the core $.ajax method is at the heart of all of them, and understanding it is imperative. We'll review it first, and then touch briefly on the convenience methods.
+## jQuery's Ajax-Related Methods
 
-I generally use the $.ajax method and do not use convenience methods. As you'll see, it offers features that the convenience methods do not, and its syntax is more easily understandable, in my opinion.
+While jQuery does offer many Ajax-related convenience methods, the core `$.ajax` method is at the heart of all of them, and understanding it is imperative. We'll review it first, and then touch briefly on the convenience methods.
 
-$.ajax
-jQuery’s core $.ajax method is a powerful and straightforward way of creating Ajax requests. It takes a configuration object that contains all the instructions jQuery requires to complete the request. The $.ajax method is particularly valuable because it offers the ability to specify both success and failure callbacks. Also, its ability to take a configuration object that can be defined separately makes it easier to write reusable code. For complete documentation of the configuration options, visit http://api.jquery.com/jQuery.ajax/.
+*I generally use the $.ajax method and do not use convenience methods. As you'll see, it offers features that the convenience methods do not, and its syntax is more easily understandable, in my opinion.*
 
-Example 7.1: Using the core $.ajax method
+### $.ajax
 
-01
+jQuery’s core `$.ajax` method is a powerful and straightforward way of creating Ajax requests. It takes a configuration object that contains all the instructions jQuery requires to complete the request. The `$.ajax` method is particularly valuable because it offers the ability to specify both success and failure callbacks. Also, its ability to take a configuration object that can be defined separately makes it easier to write reusable code. For complete documentation of the configuration options, visit [http://api.jquery.com/jQuery.ajax/](http://api.jquery.com/jQuery.ajax/).
+
+###### Example 7.1: Using the core $.ajax method
+
+```js
 $.ajax({
-02
     // the URL for the request
-03
     url : 'post.php',
-04
  
-05
     // the data to send
-06
     // (will be converted to a query string)
-07
     data : { id : 123 },
-08
  
-09
     // whether this is a POST or GET request
-10
     type : 'GET',
-11
  
-12
     // the type of data we expect back
-13
     dataType : 'json',
-14
  
-15
     // code to run if the request succeeds;
-16
     // the response is passed to the function
-17
     success : function(json) {
-18
         $('<h1/>').text(json.title).appendTo('body');
-19
         $('<div class="content"/>')
-20
             .html(json.html).appendTo('body');
-21
     },
-22
  
-23
     // code to run if the request fails;
-24
     // the raw request and status codes are
-25
     // passed to the function
-26
     error : function(xhr, status) {
-27
         alert('Sorry, there was a problem!');
-28
     },
-29
  
-30
     // code to run regardless of success or failure
-31
     complete : function(xhr, status) {
-32
         alert('The request is complete!');
-33
     }
-34
 });
-Note
-A note about the dataType setting: if the server sends back data that is in a different format than you specify, your code may fail, and the reason will not always be clear, because the HTTP response code will not show an error. When working with Ajax requests, make sure your server is sending back the data type you're asking for, and verify that the Content-type header is accurate for the data type. For example, for JSON data, the Content-type header should be application/json.
+```
 
-$.ajax Options
-There are many, many options for the $.ajax method, which is part of its power. For a complete list of options, visit http://api.jquery.com/jQuery.ajax/; here are several that you will use frequently:
+> #### Note  
+>   
+> A note about the `dataType` setting: if the server sends back data that is in a different format than you specify, your code may fail, and the reason will not always be clear, because the HTTP response code will not show an error. When working with Ajax requests, make sure your server is sending back the data type you're asking for, and verify that the Content-type header is accurate for the data type. For example, for JSON data, the Content-type header should be `application/json`.
+
+#### `$.ajax` Options
+
+There are many, many options for the $.ajax method, which is part of its power. For a complete list of options, visit [http://api.jquery.com/jQuery.ajax/](http://api.jquery.com/jQuery.ajax/); here are several that you will use frequently:
 
 async
-Set to false if the request should be sent synchronously. Defaults to true. Note that if you set this option to false, your request will block execution of other code until the response is received.
+: Set to `false` if the request should be sent synchronously. Defaults to `true`. Note that if you set this option to false, your request will block execution of other code until the response is received.
 
 cache
-Whether to use a cached response if available. Defaults to true for all dataTypes except "script" and "jsonp". When set to false, the URL will simply have a cachebusting parameter appended to it.
+: Whether to use a cached response if available. Defaults to `true` for all dataTypes except "script" and "jsonp". When set to false, the URL will simply have a cachebusting parameter appended to it.
 
 complete
-A callback function to run when the request is complete, regardless of success or failure. The function receives the raw request object and the text status of the request.
+: A callback function to run when the request is complete, regardless of success or failure. The function receives the raw request object and the text status of the request.
 
 context
-The scope in which the callback function(s) should run (i.e. what this will mean inside the callback function(s)). By default, this inside the callback function(s) refers to the object originally passed to $.ajax.
+: The scope in which the callback function(s) should run (i.e. what `this` will mean inside the callback function(s)). By default, `this` inside the callback function(s) refers to the object originally passed to `$.ajax`.
 
 data
-The data to be sent to the server. This can either be an object or a query string, such as foo=bar&baz=bim.
+: The data to be sent to the server. This can either be an object or a query string, such as `foo=bar&baz=bim`.
 
 dataType
-The type of data you expect back from the server. By default, jQuery will look at the MIME type of the response if no dataType is specified.
+: The type of data you expect back from the server. By default, jQuery will look at the MIME type of the response if no dataType is specified.
 
 error
-A callback function to run if the request results in an error. The function receives the raw request object and the text status of the request.
+: A callback function to run if the request results in an error. The function receives the raw request object and the text status of the request.
 
 jsonp
-The callback name to send in a query string when making a JSONP request. Defaults to "callback".
+: The callback name to send in a query string when making a JSONP request. Defaults to "callback".
 
 success
-A callback function to run if the request succeeds. The function receives the response data (converted to a JavaScript object if the dataType was JSON), as well as the text status of the request and the raw request object.
+: A callback function to run if the request succeeds. The function receives the response data (converted to a JavaScript object if the dataType was JSON), as well as the text status of the request and the raw request object.
 
 timeout
-The time in milliseconds to wait before considering the request a failure.
+: The time in milliseconds to wait before considering the request a failure.
 
 traditional
-Set to true to use the param serialization style in use prior to jQuery 1.4. For details, see http://api.jquery.com/jQuery.param/.
+: Set to true to use the param serialization style in use prior to jQuery 1.4. For details, see [http://api.jquery.com/jQuery.param/](http://api.jquery.com/jQuery.param/).
 
 type
-The type of the request, "POST" or "GET". Defaults to "GET". Other request types, such as "PUT" and "DELETE" can be used, but they may not be supported by all browsers.
+: The type of the request, "POST" or "GET". Defaults to "GET". Other request types, such as "PUT" and "DELETE" can be used, but they may not be supported by all browsers.
 
 url
-The URL for the request.
+: The URL for the request.
 
-The url option is the only required property of the $.ajax configuration object; all other properties are optional.
+The `url` option is the only required property of the `$.ajax` configuration object; all other properties are optional.
 
-Convenience Methods
-If you don't need the extensive configurability of $.ajax, and you don't care about handling errors, the Ajax convenience functions provided by jQuery can be useful, terse ways to accomplish Ajax requests. These methods are just "wrappers" around the core $.ajax method, and simply pre-set some of the options on the $.ajax method.
+### Convenience Methods
+
+If you don't need the extensive configurability of `$.ajax`, and you don't care about handling errors, the Ajax convenience functions provided by jQuery can be useful, terse ways to accomplish Ajax requests. These methods are just "wrappers" around the core `$.ajax` method, and simply pre-set some of the options on the `$.ajax` method.
 
 The convenience methods provided by jQuery are:
 
 $.get
-Perform a GET request to the provided URL.
+: Perform a GET request to the provided URL.
 
 $.post
-Perform a POST request to the provided URL.
+: Perform a POST request to the provided URL.
 
 $.getScript
-Add a script to the page.
+: Add a script to the page.
 
 $.getJSON
-Perform a GET request, and expect JSON to be returned.
+: Perform a GET request, and expect JSON to be returned.
 
 In each case, the methods take the following arguments, in order:
 
 url
-The URL for the request. Required.
+: The URL for the request. Required.
 
 data
-The data to be sent to the server. Optional. This can either be an object or a query string, such as foo=bar&baz=bim.
+: The data to be sent to the server. Optional. This can either be an object or a query string, such as `foo=bar&baz=bim`.
 
-Note
-This option is not valid for $.getScript.
+: > #### Note  
+>   
+> This option is not valid for `$.getScript`.
 
 success callback
-A callback function to run if the request succeeds. Optional. The function receives the response data (converted to a JavaScript object if the data type was JSON), as well as the text status of the request and the raw request object.
+: A callback function to run if the request succeeds. Optional. The function receives the response data (converted to a JavaScript object if the data type was JSON), as well as the text status of the request and the raw request object.
 
 data type
-The type of data you expect back from the server. Optional.
+: The type of data you expect back from the server. Optional.
 
-Note
-This option is only applicable for methods that don't already specify the data type in their name.
+: > #### Note  
+>   
+> This option is only applicable for methods that don't already specify the data type in their name.
 
-Example 7.2: Using jQuery's Ajax convenience methods
+###### Example 7.2: Using jQuery's Ajax convenience methods
 
-01
+```js
 // get plain text or html
-02
 $.get('/users.php', { userId : 1234 }, function(resp) {
-03
     console.log(resp);
-04
 });
-05
  
-06
 // add a script to the page, then run a function defined in it
-07
 $.getScript('/static/js/myScript.js', function() {
-08
     functionFromMyScript();
-09
 });
-10
  
-11
 // get JSON-formatted data from the server
-12
 $.getJSON('/details.php', function(resp) {
-13
     $.each(resp, function(k, v) {
-14
         console.log(k + ' : ' + v);
-15
     });
-16
 });
+```
+
 $.fn.load
 The $.fn.load method is unique among jQuery’s Ajax methods in that it is called on a selection. The $.fn.load method fetches HTML from a URL, and uses the returned HTML to populate the selected element(s). In addition to providing a URL to the method, you can optionally provide a selector; jQuery will fetch only the matching content from the returned HTML.
 
