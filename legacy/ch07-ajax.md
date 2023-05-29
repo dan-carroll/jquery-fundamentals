@@ -16,49 +16,54 @@ The XMLHttpRequest method (XHR) allows browsers to communicate with the server w
 
 Ajax requests are triggered by JavaScript code; your code sends a request to a URL, and when it receives a response, a callback function can be triggered to handle the response. Because the request is asynchronous, the rest of your code continues to execute while the request is being processed, so it’s imperative that a callback be used to handle the response.
 
-jQuery provides Ajax support that abstracts away painful browser differences. It offers both a full-featured $.ajax() method, and simple convenience methods such as $.get(), $.getScript(), $.getJSON(), $.post(), and $().load().
+jQuery provides Ajax support that abstracts away painful browser differences. It offers both a full-featured `$.ajax()` method, and simple convenience methods such as `$.get()`, `$.getScript()`, `$.getJSON()`, `$.post()`, and `$().load()`.
 
 Most jQuery applications don’t in fact use XML, despite the name “Ajax”; instead, they transport data as plain HTML or JSON (JavaScript Object Notation).
 
 In general, Ajax does not work across domains. Exceptions are services that provide JSONP (JSON with Padding) support, which allow limited cross-domain functionality.
 
-Key Concepts
+## Key Concepts
+
 Proper use of Ajax-related jQuery methods requires understanding some key concepts first.
 
-GET vs. Post
+### GET vs. Post
+
 The two most common “methods” for sending a request to a server are GET and POST. It’s important to understand the proper application of each.
 
 The GET method should be used for non-destructive operations — that is, operations where you are only “getting” data from the server, not changing data on the server. For example, a query to a search service might be a GET request. GET requests may be cached by the browser, which can lead to unpredictable behavior if you are not expecting it. GET requests generally send all of their data in a query string.
 
 The POST method should be used for destructive operations — that is, operations where you are changing data on the server. For example, a user saving a blog post should be a POST request. POST requests are generally not cached by the browser; a query string can be part of the URL, but the data tends to be sent separately as post data.
 
-Data Types
+### Data Types
+
 jQuery generally requires some instruction as to the type of data you expect to get back from an Ajax request; in some cases the data type is specified by the method name, and in other cases it is provided as part of a configuration object. There are several options:
 
 text
-For transporting simple strings
+: For transporting simple strings
 
 html
-For transporting blocks of HTML to be placed on the page
+: For transporting blocks of HTML to be placed on the page
 
 script
-For adding a new script to the page
+: For adding a new script to the page
 
 json
-For transporting JSON-formatted data, which can include strings, arrays, and objects
+: For transporting JSON-formatted data, which can include strings, arrays, and objects
 
-Note
-As of jQuery 1.4, if the JSON data sent by your server isn't properly formatted, the request may fail silently. See http://json.org for details on properly formatting JSON, but as a general rule, use built-in language methods for generating JSON on the server to avoid syntax issues.
+: > #### Note  
+>   
+> As of jQuery 1.4, if the JSON data sent by your server isn't properly formatted, the request may fail silently. See [http://json.org](http://json.org/) for details on properly formatting JSON, but as a general rule, use built-in language methods for generating JSON on the server to avoid syntax issues.
 
 jsonp
-For transporting JSON data from another domain
+: For transporting JSON data from another domain
 
 xml
-For transporting data in a custom XML schema
+: For transporting data in a custom XML schema
 
-I am a strong proponent of using the JSON format in most cases, as it provides the most flexibility. It is especially useful for sending both HTML and data at the same time.
+*I am a strong proponent of using the JSON format in most cases, as it provides the most flexibility. It is especially useful for sending both HTML and data at the same time.*
 
-A is for Asynchronous
+### A is for Asynchronous
+
 The asynchronicity of Ajax catches many new jQuery users off guard. Because Ajax calls are asynchronous by default, the response is not immediately available. Responses can only be handled using a callback. So, for example, the following code will not work:
 
 1
