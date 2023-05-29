@@ -33,12 +33,12 @@ There are a few cases where object methods and core methods have the same names,
 jQuery offers several utility methods in the `$` namespace. These methods are helpful for accomplishing routine programming tasks. Below are examples of a few of the utility methods; for a complete reference on jQuery utility methods, visit [http://api.jquery.com/category/utilities/](http://api.jquery.com/category/utilities/).
 
 <dl>
-<dt class="fw-semibold">$.trim</dt>
+<dt>$.trim</dt>
 <dd>Removes leading and trailing whitespace.</dd>
 <dd><pre><code>$.trim('    lots of extra whitespace    ');
 // returns 'lots of extra whitespace'</code></pre></dd>
 
-<dt class="fw-semibold">$.each</dt>
+<dt>$.each</dt>
 <dd>Iterates over arrays and objects.</dd>
 <dd><pre><code>$.each([ 'foo', 'bar', 'baz' ], function(idx, val) {
     console.log('element ' + idx + 'is ' + val);
@@ -49,65 +49,54 @@ $.each({ foo : 'bar', baz : 'bim' }, function(k, v) {
 });</code></pre></dd>
 
 <dd><blockquote>
-  <h4><strong>Note</strong></h4>
+  <h4>Note</h4>
 
   <p>There is also a method `$.fn.each`, which is used for iterating over a selection of elements.</p>
 </blockquote></dd>
 
-</dl>
-
-**$.inArray**
-: Returns a value's index in an array, or -1 if the value is not in the array.
-: ```js
-var myArray = [ 1, 2, 3, 5 ];
+<dt>$.inArray</dt>
+<dd>Returns a value's index in an array, or -1 if the value is not in the array.</dd>
+<dd><pre><code>var myArray = [ 1, 2, 3, 5 ];
  
 if ($.inArray(4, myArray) !== -1) {
     console.log('found it!');
-}
-```
+}</code></pre></dd>
 
-**$.extend**
-: Changes the properties of the first object using the properties of subsequent objects.
-: ```js
-var firstObject = { foo : 'bar', a : 'b' };
+<dt>$.extend</dt>
+<dd>Changes the properties of the first object using the properties of subsequent objects.</dd>
+<dd><pre><code>var firstObject = { foo : 'bar', a : 'b' };
 var secondObject = { foo : 'baz' };
  
 var newObject = $.extend(firstObject, secondObject);
 console.log(firstObject.foo); // 'baz'
-console.log(newObject.foo);   // 'baz'
-```
-: If you don't want to change any of the objects you pass to `$.extend`, pass an empty object as the first argument.
-: ```js
-var firstObject = { foo : 'bar', a : 'b' };
+console.log(newObject.foo);   // 'baz'</code></pre></dd>
+<dd>If you don't want to change any of the objects you pass to `$.extend`, pass an empty object as the first argument.</dd>
+<dd><pre><code>var firstObject = { foo : 'bar', a : 'b' };
 var secondObject = { foo : 'baz' };
  
 var newObject = $.extend({}, firstObject, secondObject);
 console.log(firstObject.foo); // 'bar'
-console.log(newObject.foo);   // 'baz'
-```
+console.log(newObject.foo);   // 'baz'</code></pre></dd>
 
-**$.proxy**
-: Returns a function that will always run in the provided scope — that is, sets the meaning of `this` inside the passed function to the second argument.
-: ```js
-var myFunction = function() { console.log(this); };
+<dt>$.proxy</dt>
+<dd>Returns a function that will always run in the provided scope — that is, sets the meaning of `this` inside the passed function to the second argument.</dd>
+<dd><pre><code>var myFunction = function() { console.log(this); };
 var myObject = { foo : 'bar' };
  
 myFunction(); // logs window object
  
 var myProxyFunction = $.proxy(myFunction, myObject);
-myProxyFunction(); // logs myObject object
-```
-: If you have an object with methods, you can pass the object and the name of a method to return a function that will always run in the scope of the object.
-: ```js
-var myObject = {
+myProxyFunction(); // logs myObject object</code></pre></dd>
+<dd>If you have an object with methods, you can pass the object and the name of a method to return a function that will always run in the scope of the object.</dd>
+<dd><pre><code>var myObject = {
     myFn : function() {
         console.log(this);
     }
 };
  
 $('#foo').click(myObject.myFn); // logs DOM element #foo
-$('#foo').click($.proxy(myObject, 'myFn')); // logs myObject
-```
+$('#foo').click($.proxy(myObject, 'myFn')); // logs myObject</code></pre></dd>
+</dl>
 
 ## Checking types
 
