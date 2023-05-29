@@ -168,24 +168,26 @@ jQuery.fx.off
 
 ### Reveal Hidden Text
 
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/blog.js. Your task is to add some interactivity to the blog section of the page. The spec for the feature is as follows:
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/blog.js`. Your task is to add some interactivity to the blog section of the page. The spec for the feature is as follows:
 
-Clicking on a headline in the #blog div should slide down the excerpt paragraph
+- Clicking on a headline in the #blog div should slide down the excerpt paragraph
 
-Clicking on another headline should slide down its excerpt paragraph, and slide up any other currently showing excerpt paragraphs.
+- Clicking on another headline should slide down its excerpt paragraph, and slide up any other currently showing excerpt paragraphs.
 
-Hint: don't forget about the :visible selector!
+Hint: don't forget about the `:visible` selector!
 
-Create Dropdown Menus
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/navigation.js. Your task is to add dropdowns to the main navigation at the top of the page.
+### Create Dropdown Menus
 
-Hovering over an item in the main menu should show that item's submenu items, if any.
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/navigation.js`. Your task is to add dropdowns to the main navigation at the top of the page.
 
-Exiting an item should hide any submenu items.
+- Hovering over an item in the main menu should show that item's submenu items, if any.
 
-To accomplish this, use the $.fn.hover method to add and remove a class from the submenu items to control whether they're visible or hidden. (The file at /exercises/css/styles.css includes the "hover" class for this purpose.)
+- Exiting an item should hide any submenu items.
 
-Create a Slideshow
+To accomplish this, use the `$.fn.hover` method to add and remove a class from the submenu items to control whether they're visible or hidden. (The file at `/exercises/css/styles.css` includes the "hover" class for this purpose.)
+
+### Create a Slideshow
+
 Open the file /exercises/index.html in your browser. Use the file /exercises/js/slideshow.js. Your task is to take a plain semantic HTML page and enhance it with JavaScript by adding a slideshow.
 
 Move the #slideshow element to the top of the body.
