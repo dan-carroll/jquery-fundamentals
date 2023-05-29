@@ -55,6 +55,11 @@ footer > p {
     font-size: 1em;
 }
 
+
+#book-chapter h3 code {
+    color:inherit;
+}
+
 #book-chapter blockquote {
     background-color: #fe6;
     color: black;
