@@ -37,22 +37,21 @@ jQuery offers several utility methods in the `$` namespace. These methods are he
 <dd>Removes leading and trailing whitespace.</dd>
 <dd><pre><code>$.trim('    lots of extra whitespace    ');
 // returns 'lots of extra whitespace'</code></pre></dd>
-</dl>
 
-$.each
-: Iterates over arrays and objects.
-: ```js
-$.each([ 'foo', 'bar', 'baz' ], function(idx, val) {
+<dt class="fw-semibold">$.each</dt>
+<dd>Iterates over arrays and objects.</dd>
+<dd><pre><code>$.each([ 'foo', 'bar', 'baz' ], function(idx, val) {
     console.log('element ' + idx + 'is ' + val);
 });
     
 $.each({ foo : 'bar', baz : 'bim' }, function(k, v) {
     console.log(k + ' : ' + v);
-});
-```
+});</code></pre></dd>
+
 : > #### **Note**  
 >   
 > There is also a method `$.fn.each`, which is used for iterating over a selection of elements.
+</dl>
 
 **$.inArray**
 : Returns a value's index in an array, or -1 if the value is not in the array.
