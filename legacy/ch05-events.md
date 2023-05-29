@@ -122,75 +122,65 @@ $('p').bind({
 As mentioned in the overview, the event handling function receives an event object, which contains many properties and methods. The event object is most commonly used to prevent the default action of the event via the preventDefault method. However, the event object contains a number of other useful properties and methods, including:
 
 pageX, pageY
-The mouse position at the time the event occurred, relative to the top left of the page.
+: The mouse position at the time the event occurred, relative to the top left of the page.
 
 type
-The type of the event (e.g. "click").
+: The type of the event (e.g. "click").
 
 which
-The button or key that was pressed.
+: The button or key that was pressed.
 
 data
-Any data that was passed in when the event was bound.
+: Any data that was passed in when the event was bound.
 
 target
-The DOM element that initiated the event.
+: The DOM element that initiated the event.
 
 preventDefault()
-Prevent the default action of the event (e.g. following a link).
+: Prevent the default action of the event (e.g. following a link).
 
 stopPropagation()
-Stop the event from bubbling up to other elements.
+: Stop the event from bubbling up to other elements.
 
-In addition to the event object, the event handling function also has access to the DOM element that the handler was bound to via the keyword this. To turn the DOM element into a jQuery object that we can use jQuery methods on, we simply do $(this), often following this idiom:
+In addition to the event object, the event handling function also has access to the DOM element that the handler was bound to via the keyword `this`. To turn the DOM element into a jQuery object that we can use jQuery methods on, we simply do `$(this)`, often following this idiom:
 
-1
+```js
 var $this = $(this);
-Preventing a link from being followed
+```
 
-1
+##### Preventing a link from being followed
+
+```js
 $('a').click(function(e) {
-2
     var $this = $(this);
-3
     if ($this.attr('href').match('evil')) {
-4
         e.preventDefault();
-5
         $this.addClass('evil');
-6
     }
-7
 });
-Triggering Event Handlers
-jQuery provides a way to trigger the event handlers bound to an element without any user interaction via the $.fn.trigger method. While this method has its uses, it should not be used simply to call a function that was bound as a click handler. Instead, you should store the function you want to call in a variable, and pass the variable name when you do your binding. Then, you can call the function itself whenever you want, without the need for $.fn.trigger.
+```
 
-Triggering an event handler the right way
+## Triggering Event Handlers
 
-01
+jQuery provides a way to trigger the event handlers bound to an element without any user interaction via the `$.fn.trigger` method. While this method has its uses, it should not be used simply to call a function that was bound as a click handler. Instead, you should store the function you want to call in a variable, and pass the variable name when you do your binding. Then, you can call the function itself whenever you want, without the need for `$.fn.trigger`.
+
+##### Triggering an event handler the right way
+
+```js
 var foo = function(e) {
-02
     if (e) {
-03
         console.log(e);
-04
     } else {
-05
         console.log('this didn\'t come from an event!');
-06
     }
-07
 };
-08
  
-09
  
-10
 $('p').click(foo);
-11
  
-12
 foo(); // instead of $('p').trigger('click')
+```
+
 Increasing Performance with Event Delegation
 You'll frequently use jQuery to add new elements to the page, and when you do, you may need to bind events to those new elements — events you already bound to similar elements that were on the page originally. Instead of repeating your event binding every time you add elements to the page, you can use event delegation. With event delegation, you bind your event to a container element, and then when the event occurs, you look to see which contained element it occurred on. If this sounds complicated, luckily jQuery makes it easy with its $.fn.live and $.fn.delegate methods.
 
