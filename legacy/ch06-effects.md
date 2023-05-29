@@ -91,93 +91,83 @@ $('div.old').fadeOut(300, function() { $(this).remove(); });
 
 Note that if your selection doesn't return any elements, your callback will never run! You can solve this problem by testing whether your selection returned any elements; if not, you can just run the callback immediately.
 
-Example 6.5: Run a callback even if there were no elements to animate
+###### Example 6.5: Run a callback even if there were no elements to animate
 
-01
+```js
 var $thing = $('#nonexistent');
-02
  
-03
 var cb = function() {
-04
     console.log('done!');
-05
 };
-06
  
-07
 if ($thing.length) {
-08
     $thing.fadeIn(300, cb);
-09
 } else {
-10
     cb();
-11
 }
-Custom Effects with $.fn.animate
-jQuery makes it possible to animate arbitrary CSS properties via the $.fn.animate method. The $.fn.animate method lets you animate to a set value, or to a value relative to the current value.
+```
 
-Example 6.6: Custom effects with $.fn.animate
+## Custom Effects with `$.fn.animate`
 
-1
+jQuery makes it possible to animate arbitrary CSS properties via the `$.fn.animate` method. The `$.fn.animate` method lets you animate to a set value, or to a value relative to the current value.
+
+###### Example 6.6: Custom effects with $.fn.animate
+
+```js
 $('div.funtimes').animate(
-2
     {
-3
         left : "+=50",
-4
         opacity : 0.25
-5
     },
-6
     300, // duration
-7
     function() { console.log('done!'); // calback
-8
 });
-Note
-Color-related properties cannot be animated with $.fn.animate using jQuery out of the box. Color animations can easily be accomplished by including the color plugin. We'll discuss using plugins later in the book.
+```
 
-Easing
-[Definition: Easing describes the manner in which an effect occurs — whether the rate of change is steady, or varies over the duration of the animation.] jQuery includes only two methods of easing: swing and linear. If you want more natural transitions in your animations, various easing plugins are available.
+> #### Note  
+>   
+> Color-related properties cannot be animated with `$.fn.animate` using jQuery out of the box. Color animations can easily be accomplished by including the [color plugin](http://plugins.jquery.com/files/jquery.color.js.txt). We'll discuss using plugins later in the book.
+
+### Easing
+
+[Definition: *Easing* describes the manner in which an effect occurs — whether the rate of change is steady, or varies over the duration of the animation.] jQuery includes only two methods of easing: swing and linear. If you want more natural transitions in your animations, various easing plugins are available.
 
 As of jQuery 1.4, it is possible to do per-property easing when using the $.fn.animate method.
 
-Example 6.7: Per-property easing
+###### Example 6.7: Per-property easing
 
-1
+```js
 $('div.funtimes').animate(
-2
     {
-3
         left : [ "+=50", "swing" ],
-4
         opacity : [ 0.25, "linear" ]
-5
     },
-6
     300
-7
 );
-For more details on easing options, see http://api.jquery.com/animate/.
+```
 
-Managing Effects
+For more details on easing options, see [http://api.jquery.com/animate/](http://api.jquery.com/animate/).
+
+## Managing Effects
+
 jQuery provides several tools for managing animations.
 
 $.fn.stop
-Stop currently running animations on the selected elements.
+: Stop currently running animations on the selected elements.
 
 $.fn.delay
-Wait the specified number of milliseconds before running the next animation.
-
-1
+: Wait the specified number of milliseconds before running the next animation.
+: ```js
 $('h1').show(300).delay(1000).hide(300);
-jQuery.fx.off
-If this value is true, there will be no transition for animations; elements will immediately be set to the target final state instead. This can be especially useful when dealing with older browsers; you also may want to provide the option to your users.
+```
 
-Exercises
-Reveal Hidden Text
+jQuery.fx.off
+: If this value is true, there will be no transition for animations; elements will immediately be set to the target final state instead. This can be especially useful when dealing with older browsers; you also may want to provide the option to your users.
+
+## Exercises
+
+### Reveal Hidden Text
+
 Open the file /exercises/index.html in your browser. Use the file /exercises/js/blog.js. Your task is to add some interactivity to the blog section of the page. The spec for the feature is as follows:
 
 Clicking on a headline in the #blog div should slide down the excerpt paragraph
