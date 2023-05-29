@@ -59,6 +59,7 @@ footer > p {
     font-size: 1em;
 }
 
+#book-chapter h4 code,
 #book-chapter h3 code,
 #book-chapter h2 code {
     color:inherit;

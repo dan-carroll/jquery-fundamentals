@@ -265,30 +265,30 @@ $('#newContent').load('/foo.html #myDiv h1:first', function(html) {
 });
 ```
 
-Ajax and Forms
-jQuery’s ajax capabilities can be especially useful when dealing with forms. The jQuery Form Plugin is a well-tested tool for adding Ajax capabilities to forms, and you should generally use it for handling forms with Ajax rather than trying to roll your own solution for anything remotely complex. That said, there are a two jQuery methods you should know that relate to form processing in jQuery: $.fn.serialize and $.fn.serializeArray.
+## Ajax and Forms
 
-Example 7.5: Turning form data into a query string
+jQuery’s ajax capabilities can be especially useful when dealing with forms. The [jQuery Form Plugin](http://jquery.malsup.com/form/) is a well-tested tool for adding Ajax capabilities to forms, and you should generally use it for handling forms with Ajax rather than trying to roll your own solution for anything remotely complex. That said, there are a two jQuery methods you should know that relate to form processing in jQuery: `$.fn.serialize` and `$.fn.serializeArray`.
 
-1
+###### Example 7.5: Turning form data into a query string
+
+```js
 $('#myForm').serialize();
-Example 7.6: Creating an array of objects containing form data
+```
 
-1
+###### Example 7.6: Creating an array of objects containing form data
+
+```js
 $('#myForm').serializeArray();
-2
  
-3
 // creates a structure like this:
-4
 [
-5
     { name : 'field1', value : 123 },
-6
     { name : 'field2', value : 'hello world' }
-7
 ]
-Working with JSONP
+```
+
+## Working with JSONP
+
 The advent of JSONP — essentially a consensual cross-site scripting hack — has opened the door to powerful mashups of content. Many prominent sites provide JSONP services, allowing you access to their content via a predefined API. A particularly great source of JSONP-formatted data is the Yahoo! Query Language, which we'll use in the following example to fetch news about cats.
 
 Example 7.7: Using YQL and JSONP
