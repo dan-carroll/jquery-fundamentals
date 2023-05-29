@@ -48,9 +48,10 @@ $.each({ foo : 'bar', baz : 'bim' }, function(k, v) {
     console.log(k + ' : ' + v);
 });</code></pre></dd>
 
-: > #### **Note**  
+> #### **Note**  
 >   
 > There is also a method `$.fn.each`, which is used for iterating over a selection of elements.
+
 </dl>
 
 **$.inArray**
