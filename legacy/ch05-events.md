@@ -181,111 +181,115 @@ $('p').click(foo);
 foo(); // instead of $('p').trigger('click')
 ```
 
-Increasing Performance with Event Delegation
-You'll frequently use jQuery to add new elements to the page, and when you do, you may need to bind events to those new elements — events you already bound to similar elements that were on the page originally. Instead of repeating your event binding every time you add elements to the page, you can use event delegation. With event delegation, you bind your event to a container element, and then when the event occurs, you look to see which contained element it occurred on. If this sounds complicated, luckily jQuery makes it easy with its $.fn.live and $.fn.delegate methods.
+## Increasing Performance with Event Delegation
+
+You'll frequently use jQuery to add new elements to the page, and when you do, you may need to bind events to those new elements — events you already bound to similar elements that were on the page originally. Instead of repeating your event binding every time you add elements to the page, you can use event delegation. With event delegation, you bind your event to a container element, and then when the event occurs, you look to see which contained element it occurred on. If this sounds complicated, luckily jQuery makes it easy with its `$.fn.live` and `$.fn.delegate` methods.
 
 While most people discover event delegation while dealing with elements added to the page later, it has some performance benefits even if you never add more elements to the page. The time required to bind event handlers to hundreds of individual elements is non-trivial; if you have a large set of elements, you should consider delegating related events to a container element.
 
-Note
-The $.fn.live method was introduced in jQuery 1.3, and at that time only certain event types were supported. As of jQuery 1.4.2, the $.fn.delegate method is available, and is the preferred method.
+> #### Note  
+>   
+> The `$.fn.live` method was introduced in jQuery 1.3, and at that time only certain event types were supported. As of jQuery 1.4.2, the `$.fn.delegate` method is available, and is the preferred method.
 
-Event delegation using $.fn.delegate
+##### Event delegation using `$.fn.delegate`
 
-1
+```js
 $('#myUnorderedList').delegate('li', 'click', function(e) {
-2
     var $myListItem = $(this);
-3
     // ...
-4
 });
-Event delegation using $.fn.live
+```
 
-1
+##### Event delegation using `$.fn.live`
+
+```js
 $('#myUnorderedList li').live('click', function(e) {
-2
     var $myListItem = $(this);
-3
     // ...
-4
 });
+```
+
 Unbinding Delegated Events
 If you need to remove delegated events, you can't simply unbind them. Instead, use $.fn.undelegate for events connected with $.fn.delegate, and $.fn.die for events connected with $.fn.live. As with bind, you can optionally pass in the name of the bound function.
 
-Unbinding delegated events
+### Unbinding delegated events
 
-1
+```js
 $('#myUnorderedList').undelegate('li', 'click');
-2
 $('#myUnorderedList li').die('click');
-Event Helpers
+```
+
+## Event Helpers
+
 jQuery offers two event-related helper functions that save you a few keystrokes.
 
-$.fn.hover
-The $.fn.hover method lets you pass one or two functions to be run when the mouseenter and mouseleave events occur on an element. If you pass one function, it will be run for both events; if you pass two functions, the first will run for mouseenter, and the second will run for mouseleave.
+### `$.fn.hover`
 
-Note
-Prior to jQuery 1.4, the $.fn.hover method required two functions.
+The `$.fn.hover` method lets you pass one or two functions to be run when the `mouseenter` and `mouseleave` events occur on an element. If you pass one function, it will be run for both events; if you pass two functions, the first will run for `mouseenter`, and the second will run for `mouseleave`.
 
-The hover helper function
+> #### Note  
+>   
+> Prior to jQuery 1.4, the `$.fn.hover` method required two functions.
 
-1
+##### The hover helper function
+
+```js
 $('#menu li').hover(function() {
-2
     $(this).toggleClass('hover');
-3
 });
-$.fn.toggle
-The $.fn.toggle method is triggered by the "click" event and accepts two or more functions. Each time the click event occurs, the next function in the list is called. Generally, $.fn.toggle is used with just two functions; however, it will accept an unlimited number of functions. Be careful, though: providing a long list of functions can be difficult to debug).
+```
 
-The toggle helper function
+### `$.fn.toggle`
 
-1
+The `$.fn.toggle` method is triggered by the "click" event and accepts two or more functions. Each time the click event occurs, the next function in the list is called. Generally, `$.fn.toggle` is used with just two functions; however, it will accept an unlimited number of functions. Be careful, though: providing a long list of functions can be difficult to debug).
+
+##### The toggle helper function
+
+```js
 $('p.expander').toggle(
-2
     function() {
-3
         $(this).prev().addClass('open');
-4
     },
-5
     function() {
-6
         $(this).prev().removeClass('open');
-7
     }
-8
 );
-Exercises
-Create an Input Hint
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/inputHint.js or work in Firebug. Your task is to use the text of the label for the search input to create "hint" text for the search input. The steps are as follows:
+```
 
-Set the value of the search input to the text of the label element
+## Exercises
 
-Add a class of "hint" to the search input
+### Create an Input Hint
 
-Remove the label element
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/inputHint.js` or work in Firebug. Your task is to use the text of the label for the search input to create "hint" text for the search input. The steps are as follows:
 
-Bind a focus event to the search input that removes the hint text and the "hint" class
+1. Set the value of the search input to the text of the label element
 
-Bind a blur event to the search input that restores the hint text and "hint" class if no search text was entered
+2. Add a class of "hint" to the search input
+
+3. Remove the label element
+
+4. Bind a focus event to the search input that removes the hint text and the "hint" class
+
+5. Bind a blur event to the search input that restores the hint text and "hint" class if no search text was entered
 
 What other considerations might there be if you were creating this functionality for a real site?
 
-Add Tabbed Navigation
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/tabs.js. Your task is to create tabbed navigation for the two div.module elements. To accomplish this:
+### Add Tabbed Navigation
 
-Hide all of the modules.
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/tabs.js`. Your task is to create tabbed navigation for the two div.module elements. To accomplish this:
 
-Create an unordered list element before the first module.
+1. Hide all of the modules.
 
-Iterate over the modules using $.fn.each. For each module, use the text of the h2 element as the text for a list item that you add to the unordered list element.
-Bind a click event to the list item that:
+2. Create an unordered list element before the first module.
 
-Shows the related module, and hides any other modules
+3. Iterate over the modules using `$.fn.each`. For each module, use the text of the h2 element as the text for a list item that you add to the unordered list element.
 
-Adds a class of "current" to the clicked list item
+4. Bind a click event to the list item that:
 
-Removes the class "current" from the other list item
+- Shows the related module, and hides any other modules
 
-Finally, show the first tab.
+- Adds a class of "current" to the clicked list item
+
+- Removes the class "current" from the other list item
+
+5. Finally, show the first tab.
