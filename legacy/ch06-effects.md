@@ -42,47 +42,53 @@ $.fn.slideToggle
 
 ###### Example 6.1: A basic use of a built-in effect
 
-1
+```js
 $('h1').show();
-Changing the Duration of Built-in Effects
-With the exception of $.fn.show and $.fn.hide, all of the built-in methods are animated over the course of 400ms by default. Changing the duration of an effect is simple.
+```
 
-Example 6.2: Setting the duration of an effect
+### Changing the Duration of Built-in Effects
 
-1
+With the exception of `$.fn.show` and `$.fn.hide`, all of the built-in methods are animated over the course of 400ms by default. Changing the duration of an effect is simple.
+
+###### Example 6.2: Setting the duration of an effect
+
+```js
 $('h1').fadeIn(300);      // fade in over 300ms
-2
 $('h1').fadeOut('slow');  // using a built-in speed definition
-jQuery.fx.speeds
-jQuery has an object at jQuery.fx.speeds that contains the default speed, as well as settings for "slow" and "fast".
+```
 
-1
+#### jQuery.fx.speeds
+
+jQuery has an object at `jQuery.fx.speeds` that contains the default speed, as well as settings for `"slow"` and `"fast"`.
+
+```js
 speeds: {
-2
     slow: 600,
-3
     fast: 200,
-4
     // Default speed
-5
     _default: 400
-6
 }
+```
+
 It is possible to override or add to this object. For example, you may want to change the default duration of effects, or you may want to create your own effects speed.
 
-Example 6.3: Augmenting jQuery.fx.speeds with custom speed definitions
+###### Example 6.3: Augmenting jQuery.fx.speeds with custom speed definitions
 
-1
+```js
 jQuery.fx.speeds.blazing = 100;
-2
 jQuery.fx.speeds.turtle = 2000;
-Doing Something when an Effect is Done
-Often, you'll want to run some code once an animation is done — if you run it before the animation is done, it may affect the quality of the animation, or it may remove elements that are part of the animation. [Definition: Callback functions provide a way to register your interest in an event that will happen in the future.] In this case, the event we'll be responding to is the conclusion of the animation. Inside of the callback function, the keyword this refers to the element that the effect was called on; as we did inside of event handler functions, we can turn it into a jQuery object via $(this).
+```
 
-Example 6.4: Running code when an animation is complete
+### Doing Something when an Effect is Done
 
-1
+Often, you'll want to run some code once an animation is done — if you run it before the animation is done, it may affect the quality of the animation, or it may remove elements that are part of the animation. [Definition: *Callback functions* provide a way to register your interest in an event that will happen in the future.] In this case, the event we'll be responding to is the conclusion of the animation. Inside of the callback function, the keyword `this` refers to the element that the effect was called on; as we did inside of event handler functions, we can turn it into a jQuery object via `$(this)`.
+
+###### Example 6.4: Running code when an animation is complete
+
+```js
 $('div.old').fadeOut(300, function() { $(this).remove(); });
+```
+
 Note that if your selection doesn't return any elements, your callback will never run! You can solve this problem by testing whether your selection returned any elements; if not, you can just run the callback immediately.
 
 Example 6.5: Run a callback even if there were no elements to animate
