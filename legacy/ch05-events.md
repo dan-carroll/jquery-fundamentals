@@ -2,12 +2,13 @@
 layout: default
 title: jQuery Fundamentals, legacy
 sub-title: Events
+chapter: 5
 project: legacy-book
 page-type: book-chapter
 page: legacy-book-chapter05
 ---
 
-# {{ page.title }} <br> {{ page.sub-title }}
+# {{ page.title }} <br> Chapter {{ page.chapter }}: {{ page.sub-title }}
 
 ## Overview
 

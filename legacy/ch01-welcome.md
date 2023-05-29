@@ -2,12 +2,13 @@
 layout: default
 title: jQuery Fundamentals, legacy
 sub-title: Welcome
+chapter: 1
 project: legacy-book
 page-type: book-chapter
 page: legacy-book-chapter01
 ---
 
-# {{ page.title }} <br> {{ page.sub-title }}
+# {{ page.title }} <br> Chapter {{ page.chapter }}: {{ page.sub-title }}
 
 jQuery is fast becoming a must-have skill for front-end developers. The purpose of this book is to provide an overview of the jQuery JavaScript library; when you're done with the book, you should be able to complete basic tasks using jQuery, and have a solid basis from which to continue your learning. This book was designed as material to be used in a classroom setting, but you may find it useful for individual study.
 
