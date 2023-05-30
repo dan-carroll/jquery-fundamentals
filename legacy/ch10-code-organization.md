@@ -18,19 +18,22 @@ When you move beyond adding simple enhancements to your website with jQuery and 
 
 Before we jump into code organization patterns, it's important to understand some concepts that are common to all good code organization patterns.
 
-Your code should be divided into units of functionality — modules, services, etc. Avoid the temptation to have all of your code in one huge $(document).ready() block. This concept, loosely, is known as encapsulation.
-Don't repeat yourself. Identify similarities among pieces of functionality, and use inheritance techniques to avoid repetitive code.
+- Your code should be divided into units of functionality — modules, services, etc. Avoid the temptation to have all of your code in one huge `$(document).ready()` block. This concept, loosely, is known as encapsulation.
 
-Despite jQuery's DOM-centric nature, JavaScript applications are not all about the DOM. Remember that not all pieces of functionality need to — or should — have a DOM representation.
+- Don't repeat yourself. Identify similarities among pieces of functionality, and use inheritance techniques to avoid repetitive code.
 
-Units of functionality should be loosely coupled — a unit of functionality should be able to exist on its own, and communication between units should be handled via a messaging system such as custom events or pub/sub. Stay away from direct communication between units of functionality whenever possible.
+- Despite jQuery's DOM-centric nature, JavaScript applications are not all about the DOM. Remember that not all pieces of functionality need to — or should — have a DOM representation.
+
+- Units of functionality should be [loosely coupled](http://en.wikipedia.org/wiki/Loose_coupling) — a unit of functionality should be able to exist on its own, and communication between units should be handled via a messaging system such as custom events or pub/sub. Stay away from direct communication between units of functionality whenever possible.
 
 The concept of loose coupling can be especially troublesome to developers making their first foray into complex applications, so be mindful of this as you're getting started.
 
-Encapsulation
+## Encapsulation
+
 The first step to code organization is separating pieces of your application into distinct pieces; sometimes, even just this effort is sufficient to lend
 
-The Object Literal
+### The Object Literal
+
 An object literal is perhaps the simplest way to encapsulate related code. It doesn't offer any privacy for properties or methods, but it's useful for eliminating anonymous functions from your code, centralizing configuration options, and easing the path to reuse and refactoring.
 
 Example 10.1: An object literal
