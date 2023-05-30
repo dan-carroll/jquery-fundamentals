@@ -175,149 +175,120 @@ $('.gender input:radio'); // much better
 
 ## Use Event Delegation
 
-Event delegation allows you to bind an event handler to one container element (for example, an unordered list) instead of multiple contained elements (for example, list items). jQuery makes this easy with $.fn.live and $.fn.delegate. Where possible, you should use $.fn.delegate instead of $.fn.live, as it eliminates the need for an unnecessary selection, and its explicit context (vs. $.fn.live's context of document) reduces overhead by approximately 80%.
+Event delegation allows you to bind an event handler to one container element (for example, an unordered list) instead of multiple contained elements (for example, list items). jQuery makes this easy with $.fn.live and $.fn.delegate. Where possible, you should use `$.fn.delegate` instead of `$.fn.live`, as it eliminates the need for an unnecessary selection, and its explicit context (vs. `$.fn.live`'s context of `document`) reduces overhead by approximately 80%.
 
 In addition to performance benefits, event delegation also allows you to add new contained elements to your page without having to re-bind the event handlers for them as they're added.
 
-1
+```js
 // bad (if there are lots of list items)
-2
 $('li.trigger').click(handlerFn);
-3
  
-4
 // better: event delegation with $.fn.live
-5
 $('li.trigger').live('click', handlerFn);
-6
  
-7
 // best: event delegation with $.fn.delegate
-8
 // allows you to specify a context easily
-9
 $('#myList').delegate('li.trigger', 'click', handlerFn);
-Detach Elements to Work With Them
-The DOM is slow; you want to avoid manipulating it as much as possible. jQuery introduced $.fn.detach in version 1.4 to help address this issue, allowing you to remove an element from the DOM while you work with it.
+```
 
-1
+## Detach Elements to Work With Them
+
+The DOM is slow; you want to avoid manipulating it as much as possible. jQuery introduced `$.fn.detach` in version 1.4 to help address this issue, allowing you to remove an element from the DOM while you work with it.
+
+```js
 var $table = $('#myTable');
-2
 var $parent = $table.parent();
-3
  
-4
 $table.detach();
-5
 // ... add lots and lots of rows to table
-6
 $parent.append(table);
-Use Stylesheets for Changing CSS on Many Elements
-If you're changing the CSS of more than 20 elements using $.fn.css, consider adding a style tag to the page instead for a nearly 60% increase in speed.
+```
 
-1
+## Use Stylesheets for Changing CSS on Many Elements
+
+If you're changing the CSS of more than 20 elements using `$.fn.css`, consider adding a style tag to the page instead for a nearly 60% increase in speed.
+
+```js
 // fine for up to 20 elements, slow after that
-2
 $('a.swedberg').css('color', '#asd123');
-3
 $('<style type="text/css">a.swedberg { color : #asd123 }</style>')
-4
     .appendTo('head');
-Use $.data Instead of $.fn.data
+```
+
+## Use `$.data` Instead of `$.fn.data`
+
 Using $.data on a DOM element instead of calling $.fn.data on a jQuery selection can be up to 10 times faster. Be sure you understand the difference between a DOM element and a jQuery selection before doing this, though.
 
-1
+```js
 // regular
-2
 $(elem).data(key,value);
-3
  
-4
 // 10x faster
-5
 $.data(elem,key,value);
-Don't Act on Absent Elements
+```
+
+## Don't Act on Absent Elements
+
 jQuery won't tell you if you're trying to run a whole lot of code on an empty selection — it will proceed as though nothing's wrong. It's up to you to verify that your selection contains some elements.
 
-01
+```js
 // BAD: this runs three functions
-02
 // before it realizes there's nothing
-03
 // in the selection
-04
 $('#nosuchthing').slideUp();
-05
  
-06
 // Better
-07
 var $mySelection = $('#nosuchthing');
-08
 if ($mySelection.length) { $mySelection.slideUp(); }
-09
  
-10
 // BEST: add a doOnce plugin
-11
 jQuery.fn.doOnce = function(func){
-12
     this.length && func.apply(this);
-13
     return this;
-14
 }
-15
  
-16
 $('li.cartitems').doOnce(function(){
-17
     // make it ajax! \o/
-18
 });
+```
+
 This guidance is especially applicable for jQuery UI widgets, which have a lot of overhead even when the selection doesn't contain elements.
 
-Variable Definition
+## Variable Definition
+
 Variables can be defined in one statement instead of several.
 
-1
+```js
 // old & busted
-2
 var test = 1;
-3
 var test2 = function() { ... };
-4
 var test3 = test2(test);
-5
  
-6
 // new hotness
-7
 var test = 1,
-8
     test2 = function() { ... },
-9
     test3 = test2(test);
+```
+
 In self-executing functions, variable definition can be skipped all together.
 
-1
+```js
 (function(foo, bar) { ... })(1, 2);
-Conditionals
-1
+```
+
+## Conditionals
+
+```js
 // old way
-2
 if (type == 'foo' || type == 'bar') { ... }
-3
  
-4
 // better
-5
 if (/^(foo|bar)$/.test(type)) { ... }
-6
  
-7
 // object literal lookup
-8
 if (({ foo : 1, bar : 1 })[type]) { ... }
-Don't Treat jQuery as a Black Box
-Use the source as your documentation — bookmark http://bit.ly/jqsource and refer to it often.
+```
+
+## Don't Treat jQuery as a Black Box
+
+Use the source as your documentation — bookmark [http://bit.ly/jqsource](http://bit.ly/jqsource) and refer to it often.
