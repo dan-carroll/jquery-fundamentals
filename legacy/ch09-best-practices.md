@@ -133,51 +133,48 @@ $('#container div.robotarm');
 $('#container').find('div.robotarm');
 ```
 
-The $.fn.find approach is faster because the first selection is handled without going through the Sizzle selector engine — ID-only selections are handled using document.getElementById(), which is extremely fast because it is native to the browser.
+The `$.fn.find` approach is faster because the first selection is handled without going through the Sizzle selector engine — ID-only selections are handled using `document.getElementById()`, which is extremely fast because it is native to the browser.
 
-Specificity
+### Specificity
+
 Be specific on the right-hand side of your selector, and less specific on the left.
 
-1
+```js
 // unoptimized
-2
 $('div.data .gonzalez');
-3
  
-4
 // optimized
-5
 $('.data td.gonzalez');
-Use tag.class if possible on your right-most selector, and just tag or just .class on the left.
+```
+
+Use `tag.class` if possible on your right-most selector, and just `tag` or just `.class` on the left.
 
 Avoid excessive specificity.
 
-1
+```js
 $('.data table.attendees td.gonzalez');
-2
  
-3
 // better: drop the middle if possible
-4
 $('.data td.gonzalez');
+```
+
 A "flatter" DOM also helps improve selector performance, as the selector engine has fewer layers to traverse when looking for an element.
 
-Avoid the Universal Selector
+### Avoid the Universal Selector
+
 Selections that specify or imply that a match could be found anywhere can be very slow.
 
-1
+```js
 $('.buttons > *');  // extremely expensive
-2
 $('.buttons').children();  // much better
-3
  
-4
 $('.gender :radio');  // implied universal selection
-5
 $('.gender *:radio'); // same thing, explicit now
-6
 $('.gender input:radio'); // much better
-Use Event Delegation
+```
+
+## Use Event Delegation
+
 Event delegation allows you to bind an event handler to one container element (for example, an unordered list) instead of multiple contained elements (for example, list items). jQuery makes this easy with $.fn.live and $.fn.delegate. Where possible, you should use $.fn.delegate instead of $.fn.live, as it eliminates the need for an unnecessary selection, and its explicit context (vs. $.fn.live's context of document) reduces overhead by approximately 80%.
 
 In addition to performance benefits, event delegation also allows you to add new contained elements to your page without having to re-bind the event handlers for them as they're added.
