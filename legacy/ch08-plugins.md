@@ -464,91 +464,70 @@ alert(bar.options.value);
 
 One of the biggest benefits of having a constructor and prototype for a plugin is the ease of extending the plugin. By adding or modifying methods on the plugin’s prototype, we can modify the behavior of all instances of our plugin. For example, if we wanted to add a method to our progress bar to reset the progress to 0% we could add this method to the prototype and it would instantly be available to be called on any plugin instance.
 
-1
+```js
 $.nmk.progressbar.prototype.reset = function() {
-2
     this._setOption("value", 0);
-3
 };
-Cleaning Up
-In some cases, it will make sense to allow users to apply and then later unapply your plugin. You can accomplish this via the destroy method. Within the destroy method, you should undo anything your plugin may have done during initialization or later use. The destroy method is automatically called if the element that your plugin instance is tied to is removed from the DOM, so this can be used for garbage collection as well. The default destroy method removes the link between the DOM element and the plugin instance, so it’s important to call the base function from your plugin’s destroy method.
+```
 
-Example 8.11: Adding a destroy method to a widget
+### Cleaning Up
 
-01
+In some cases, it will make sense to allow users to apply and then later unapply your plugin. You can accomplish this via the destroy method. Within the `destroy` method, you should undo anything your plugin may have done during initialization or later use. The `destroy` method is automatically called if the element that your plugin instance is tied to is removed from the DOM, so this can be used for garbage collection as well. The default `destroy` method removes the link between the DOM element and the plugin instance, so it’s important to call the base function from your plugin’s `destroy` method.
+
+###### Example 8.11: Adding a destroy method to a widget
+
+```js
 $.widget( "nmk.progressbar", {
-02
     options: {
-03
         value: 0
-04
     },
-05
  
-06
     _create: function() {
-07
         this.element.addClass("progressbar");
-08
         this._update();
-09
     },
-10
  
-11
     _setOption: function(key, value) {
-12
         this.options[key] = value;
-13
         this._update();
-14
     },
-15
  
-16
     _update: function() {
-17
         var progress = this.options.value + "%";
-18
         this.element.text(progress);
-19
         if (this.options.value == 100 ) {
-20
             this._trigger("complete", null, { value: 100 });
-21
         }
-22
     },
-23
  
-24
     destroy: function() {
-25
         this.element
-26
             .removeClass("progressbar")
-27
             .text("");
-28
  
-29
         // call the base destroy function
-30
         $.Widget.prototype.destroy.call(this);
-31
     }
-32
 });
-Conclusion
+```
+
+
+### Conclusion
+
 The widget factory is only one way of creating stateful plugins. There are a few different models that can be used and each have their own advantages and disadvantages. The widget factory solves lots of common problems for you and can greatly improve productivity, it also greatly improves code reuse, making it a great fit for jQuery UI as well as many other stateful plugins.
 
-Exercises
-Make a Table Sortable
+## Exercises
+
+### Make a Table Sortable
+
 For this exercise, your task is to identify, download, and implement a table sorting plugin on the index.html page. When you’re done, all columns in the table on the page should be sortable.
 
-Write a Table-Striping Plugin
-Open the file /exercises/index.html in your browser. Use the file /exercises/js/stripe.js. Your task is to write a plugin called "stripe" that you can call on any table element. When the plugin is called on a table element, it should change the color of odd rows in the table body to a user-specified color.
+### Write a Table-Striping Plugin
 
-1
+Open the file `/exercises/index.html` in your browser. Use the file `/exercises/js/stripe.js`. Your task is to write a plugin called "stripe" that you can call on any table element. When the plugin is called on a table element, it should change the color of odd rows in the table body to a user-specified color.
+
+```js
 $('#myTable').stripe('#cccccc');
+```
+
 Don't forget to return the table so other methods can be chained after the plugin!
