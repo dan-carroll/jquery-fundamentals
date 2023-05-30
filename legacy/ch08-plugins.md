@@ -363,159 +363,105 @@ alert(bar.progressbar("value"));
 
 ### Working with Widget Options
 
-One of the methods that is automatically available to our plugin is the option method. The option method allows you to get and set options after initialization. This method works exactly like jQuery’s css and attr methods: you can pass just a name to use it as a setter, a name and value to use it as a single setter, or a hash of name/value pairs to set multiple values. When used as a getter, the plugin will return the current value of the option that corresponds to the name that was passed in. When used as a setter, the plugin’s _setOption method will be called for each option that is being set. We can specify a _setOption method in our plugin to react to option changes.
+One of the methods that is automatically available to our plugin is the `option` method. The option method allows you to get and set options after initialization. This method works exactly like jQuery’s css and attr methods: you can pass just a name to use it as a setter, a name and value to use it as a single setter, or a hash of name/value pairs to set multiple values. When used as a getter, the plugin will return the current value of the option that corresponds to the name that was passed in. When used as a setter, the plugin’s `_setOption` method will be called for each option that is being set. We can specify a `_setOption` method in our plugin to react to option changes.
 
-Example 8.8: Responding when an option is set
+###### Example 8.8: Responding when an option is set
 
-01
+```js
 $.widget("nmk.progressbar", {
-02
     options: {
-03
         value: 0
-04
     },
-05
  
-06
     _create: function() {
-07
         this.element.addClass("progressbar");
-08
         this._update();
-09
     },
-10
  
-11
     _setOption: function(key, value) {
-12
         this.options[key] = value;
-13
         this._update();
-14
     },
-15
  
-16
     _update: function() {
-17
         var progress = this.options.value + "%";
-18
         this.element.text(progress);
-19
     }
-20
 });
+```
+
 Adding Callbacks
-One of the easiest ways to make your plugin extensible is to add callbacks so users can react when the state of your plugin changes. We can see below how to add a callback to our progress bar to signify when the progress has reached 100%. The _trigger method takes three parameters: the name of the callback, a native event object that initiated the callback, and a hash of data relevant to the event. The callback name is the only required parameter, but the others can be very useful for users who want to implement custom functionality on top of your plugin. For example, if we were building a draggable plugin, we could pass the native mousemove event when triggering a drag callback; this would allow users to react to the drag based on the x/y coordinates provided by the event object.
+One of the easiest ways to make your plugin extensible is to add callbacks so users can react when the state of your plugin changes. We can see below how to add a callback to our progress bar to signify when the progress has reached 100%. The `_trigger` method takes three parameters: the name of the callback, a native event object that initiated the callback, and a hash of data relevant to the event. The callback name is the only required parameter, but the others can be very useful for users who want to implement custom functionality on top of your plugin. For example, if we were building a draggable plugin, we could pass the native mousemove event when triggering a drag callback; this would allow users to react to the drag based on the x/y coordinates provided by the event object.
 
-Example 8.9: Providing callbacks for user extension
+###### Example 8.9: Providing callbacks for user extension
 
-01
+```js
 $.widget("nmk.progressbar", {
-02
     options: {
-03
         value: 0
-04
     },
-05
  
-06
     _create: function() {
-07
         this.element.addClass("progressbar");
-08
         this._update();
-09
     },
-10
  
-11
     _setOption: function(key, value) {
-12
         this.options[key] = value;
-13
         this._update();
-14
     },
-15
  
-16
     _update: function() {
-17
         var progress = this.options.value + "%";
-18
         this.element.text(progress);
-19
         if (this.options.value == 100) {
-20
             this._trigger("complete", null, { value: 100 });
-21
         }
-22
     }
-23
 });
+```
+
 Callback functions are essentially just additional options, so you can get and set them just like any other option. Whenever a callback is executed, a corresponding event is triggered as well. The event type is determined by concatenating the plugin name and the callback name. The callback and event both receive the same two parameters: an event object and a hash of data relevant to the event, as we’ll see below.
 
-If your plugin has functionality that you want to allow the user to prevent, the best way to support this is by creating cancelable callbacks. Users can cancel a callback, or its associated event, the same way they cancel any native event: by calling event.preventDefault() or using return false. If the user cancels the callback, the _trigger method will return false so you can implement the appropriate functionality within your plugin.
+If your plugin has functionality that you want to allow the user to prevent, the best way to support this is by creating cancelable callbacks. Users can cancel a callback, or its associated event, the same way they cancel any native event: by calling `event.preventDefault()` or using `return false`. If the user cancels the callback, the `_trigger` method will return false so you can implement the appropriate functionality within your plugin.
 
-Example 8.10: Binding to widget events
+###### Example 8.10: Binding to widget events
 
-01
+```js
 var bar = $("<div></div>")
-02
     .appendTo("body")
-03
     .progressbar({
-04
         complete: function(event, data) {
-05
             alert( "Callbacks are great!" );
-06
         }
-07
     })
-08
     .bind("progressbarcomplete", function(event, data) {
-09
         alert("Events bubble and support many handlers for extreme flexibility.");
-10
         alert("The progress bar value is " + data.value);
-11
     });
-12
  
-13
 bar.progressbar("option", "value", 100);
-The Widget Factory: Under the Hood
+```
 
-When you call jQuery.widget, it creates a constructor function for your plugin and sets the object literal that you pass in as the prototype for your plugin instances. All of the functionality that automatically gets added to your plugin comes from a base widget prototype, which is defined as jQuery.Widget.prototype. When a plugin instance is created, it is stored on the original DOM element using jQuery.data, with the plugin name as the key.
+#### The Widget Factory: Under the Hood
+
+When you call `jQuery.widget`, it creates a constructor function for your plugin and sets the object literal that you pass in as the prototype for your plugin instances. All of the functionality that automatically gets added to your plugin comes from a base widget prototype, which is defined as `jQuery.Widget.prototype`. When a plugin instance is created, it is stored on the original DOM element using `jQuery.data`, with the plugin name as the key.
 
 Because the plugin instance is directly linked to the DOM element, you can access the plugin instance directly instead of going through the exposed plugin method if you want. This will allow you to call methods directly on the plugin instance instead of passing method names as strings and will also give you direct access to the plugin’s properties.
 
-01
+```js
 var bar = $("<div></div>")
-02
     .appendTo("body")
-03
     .progressbar()
-04
     .data("progressbar" );
-05
  
-06
 // call a method directly on the plugin instance
-07
 bar.option("value", 50);
-08
  
-09
 // access properties on the plugin instance
-10
 alert(bar.options.value);
+```
+
 One of the biggest benefits of having a constructor and prototype for a plugin is the ease of extending the plugin. By adding or modifying methods on the plugin’s prototype, we can modify the behavior of all instances of our plugin. For example, if we wanted to add a method to our progress bar to reset the progress to 0% we could add this method to the prototype and it would instantly be available to be called on any plugin instance.
 
 1
