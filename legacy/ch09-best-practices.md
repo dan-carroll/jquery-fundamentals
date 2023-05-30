@@ -10,190 +10,129 @@ page: legacy-book-chapter09
 
 # {{ page.title }} <br> Chapter {{ page.chapter }}: {{ page.sub-title }}
 
-This chapter covers a number of jQuery and JavaScript best practices, in no particular order. Many of the best practices in this chapter are based on the jQuery Anti-Patterns for Performance presentation by Paul Irish.
+This chapter covers a number of jQuery and JavaScript best practices, in no particular order. Many of the best practices in this chapter are based on the [jQuery Anti-Patterns for Performance](http://paulirish.com/perf) presentation by Paul Irish.
 
-Cache length during loops
+## Cache length during loops
+
 In a for loop, don't access the length property of an array every time; cache it beforehand.
 
-1
+```js
 var myLength = myArray.length;
-2
  
-3
 for (var i = 0; i < myLength; i++) {
-4
     // do stuff
-5
 }
-Append new content outside of a loop
+```
+
+## Append new content outside of a loop
+
 Touching the DOM comes at a cost; if you're adding a lot of elements to the DOM, do it all at once, not one at a time.
 
-01
+```js
 // this is bad
-02
 $.each(myArray, function(i, item) {
-03
    var newListItem = '<li>' + item + '</li>';
-04
    $('#ballers').append(newListItem);
-05
 });
-06
  
-07
 // better: do this
-08
 var frag = document.createDocumentFragment();
-09
  
-10
 $.each(myArray, function(i, item) {
-11
     var newListItem = '<li>' + item + '</li>';
-12
     frag.appendChild(newListItem);
-13
 });
-14
 $('#ballers')[0].appendChild(frag);
-15
  
-16
 // or do this
-17
 var myHtml = '';
-18
  
-19
 $.each(myArray, function(i, item) {
-20
     html += '<li>' + item + '</li>';
-21
 });
-22
 $('#ballers').html(myHtml);
-Keep things DRY
+```
+
+## Keep things DRY
+
 Don't repeat yourself; if you're repeating yourself, you're doing it wrong.
 
-01
+```js
 // BAD
-02
 if ($eventfade.data('currently') != 'showing') {
-03
     $eventfade.stop();
-04
 }
-05
  
-06
 if ($eventhover.data('currently') != 'showing') {
-07
     $eventhover.stop();
-08
 }
-09
  
-10
 if ($spans.data('currently') != 'showing') {
-11
     $spans.stop();
-12
 }
-13
  
-14
 // GOOD!!
-15
 var $elems = [$eventfade, $eventhover, $spans];
-16
 $.each($elems, function(i,elem) {
-17
     if (elem.data('currently') != 'showing') {
-18
         elem.stop();
-19
     }
-20
 });
-Beware anonymous functions
+```
+
+## Beware anonymous functions
+
 Anonymous functions bound everywhere are a pain. They're difficult to debug, maintain, test, or reuse. Instead, use an object literal to organize and name your handlers and callbacks.
 
-01
+```js
 // BAD
-02
 $(document).ready(function() {
-03
     $('#magic').click(function(e) {
-04
         $('#yayeffects').slideUp(function() {
-05
             // ...
-06
         });
-07
     });
-08
  
-09
     $('#happiness').load(url + ' #unicorns', function() {
-10
         // ...
-11
     });
-12
 });
-13
  
-14
 // BETTER
-15
 var PI = {
-16
     onReady : function() {
-17
         $('#magic').click(PI.candyMtn);
-18
         $('#happiness').load(PI.url + ' #unicorns', PI.unicornCb);
-19
     },
-20
  
-21
     candyMtn : function(e) {
-22
         $('#yayeffects').slideUp(PI.slideCb);
-23
     },
-24
  
-25
     slideCb : function() { ... },
-26
  
-27
     unicornCb : function() { ... }
-28
 };
-29
  
-30
 $(document).ready(PI.onReady);
-Optimize Selectors
-Selector optimization is less important than it used to be, as more browsers implement document.querySelectorAll() and the burden of selection shifts from jQuery to the browser. However, there are still some tips to keep in mind.
+```
 
-ID-Based Selectors
+## Optimize Selectors
+
+Selector optimization is less important than it used to be, as more browsers implement `document.querySelectorAll()` and the burden of selection shifts from jQuery to the browser. However, there are still some tips to keep in mind.
+
+### ID-Based Selectors
+
 Beginning your selector with an ID is always best.
 
-1
+```js
 // fast
-2
 $('#container div.robotarm');
-3
  
-4
 // super-fast
-5
 $('#container').find('div.robotarm');
+```
+
 The $.fn.find approach is faster because the first selection is handled without going through the Sizzle selector engine — ID-only selections are handled using document.getElementById(), which is extremely fast because it is native to the browser.
 
 Specificity
