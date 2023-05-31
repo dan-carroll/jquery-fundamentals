@@ -155,7 +155,7 @@ When we’re done, it will look like this:
 
 ![Our finished application](http://gyazo.com/70415e9fffab1c47953f5264ecf722fe.png)
 
-#### The Setup
+##### The Setup
 
 We’ll start with some basic HTML:
 
