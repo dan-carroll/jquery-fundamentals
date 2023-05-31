@@ -391,103 +391,80 @@ function(dep1, dep2) {
 
 Only one module should be required per JavaScript file.
 
+---
 ### Optimizing Your Code: The RequireJS Build Tool
 
-Once you incorporate RequireJS for dependency management, your page is set up to be optimized very easily. Download the RequireJS source and place it anywhere you like, preferrably somewhere outside your web development area. For the purposes of this example, the RequireJS source is placed as a sibling to the webapp directory, which contains the HTML page and the scripts directory with all the scripts. Complete directory structure:
+Once you incorporate RequireJS for dependency management, your page is set up to be optimized very easily. Download the RequireJS source and place it anywhere you like, preferrably somewhere outside your web development area. For the purposes of this example, the RequireJS source is placed as a sibling to the `webapp` directory, which contains the HTML page and the scripts directory with all the scripts. Complete directory structure:
 
-1
+```
 requirejs/ (used for the build tools)
-2
 webapp/app.html
-3
 webapp/scripts/app.js
-4
 webapp/scripts/require-jquery.js
-5
 webapp/scripts/jquery.alpha.js
-6
 webapp/scripts/jquery.beta.js
-Then, in the scripts directory that has require-jquery.js and app.js, create a file called app.build.js with the following contents:
+```
 
-A RequireJS build configuration file
+Then, in the scripts directory that has `require-jquery.js` and app.js, create a file called app.build.js with the following contents:
 
-01
+**A RequireJS build configuration file**
+
+```js
 {
-02
 appDir: "../",
-03
 baseUrl: "scripts/",
-04
 dir: "../../webapp-build",
-05
 //Comment out the optimize line if you want
-06
 //the code minified by Closure Compiler using
-07
 //the "simple" optimizations mode
-08
 optimize: "none",
-09
  
-10
 modules: [
-11
     {
-12
         name: "app"
-13
     }
-14
 ]
-15
 }
-To use the build tool, you need Java 6 installed. Closure Compiler is used for the JavaScript minification step (if optimize: "none" is commented out), and it requires Java 6.
+```
+
+To use the build tool, you need Java 6 installed. Closure Compiler is used for the JavaScript minification step (if `optimize: "none"` is commented out), and it requires Java 6.
 
 To start the build, go to the webapp/scripts directory, execute the following command:
 
-1
+```
 # non-windows systems
-2
 ../../requirejs/build/build.sh app.build.js
-3
  
-4
 # windows systems
-5
 ..\..\requirejs\build\build.bat app.build.js
-Now, in the webapp-build directory, app.js will have the app.js contents, jquery.alpha.js and jquery.beta.js inlined. If you then load the app.html file in the webapp-build directory, you should not see any network requests for jquery.alpha.js and jquery.beta.js.
+```
 
-Exercises
-Create a Portlet Module
-Open the file /exercises/portlets.html in your browser. Use the file /exercises/js/portlets.js. Your task is to create a portlet creation function that uses the module pattern, such that the following code will work:
+Now, in the webapp-build directory, `app.js` will have the `app.js` contents, `jquery.alpha.js` and `jquery.beta.js` inlined. If you then load the `app.html` file in the `webapp-build` directory, you should not see any network requests for `jquery.alpha.js` and `jquery.beta.js`.
 
-1
+## Exercises
+
+### Create a Portlet Module
+
+Open the file `/exercises/portlets.html` in your browser. Use the file `/exercises/js/portlets.js`. Your task is to create a portlet creation function that uses the module pattern, such that the following code will work:
+
+```js
 var myPortlet = Portlet({
-2
 title : 'Curry',
-3
 source : 'data/html/curry.html',
-4
 initialState : 'open' // or 'closed'
-5
 });
-6
  
-7
 myPortlet.$element.appendTo('body');
+```
+
 Each portlet should be a div with a title, a content area, a button to open/close the portlet, a button to remove the portlet, and a button to refresh the portlet. The portlet returned by the Portlet function should have the following public API:
 
-1
+```
 myPortlet.open(); // force open state
-2
 myPortlet.close(); // force close state
-3
 myPortlet.toggle(); // toggle open/close state
-4
 myPortlet.refresh(); // refresh the content
-5
 myPortlet.destroy(); // remove the portlet from the page
-6
 myPortlet.setSource('data/html/onions.html');
-7
 // change the source
+```
