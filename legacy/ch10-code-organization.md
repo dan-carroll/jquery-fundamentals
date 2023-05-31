@@ -36,401 +36,237 @@ The first step to code organization is separating pieces of your application int
 
 An object literal is perhaps the simplest way to encapsulate related code. It doesn't offer any privacy for properties or methods, but it's useful for eliminating anonymous functions from your code, centralizing configuration options, and easing the path to reuse and refactoring.
 
-Example 10.1: An object literal
+###### Example 10.1: An object literal
 
-01
+```js
 var myFeature = {
-02
 myProperty : 'hello',
-03
  
-04
 myMethod : function() {
-05
     console.log(myFeature.myProperty);
-06
 },
-07
  
-08
 init : function(settings) {
-09
     myFeature.settings = settings;
-10
 },
-11
  
-12
 readSettings : function() {
-13
     console.log(myFeature.settings);
-14
 }
-15
 };
-16
  
-17
 myFeature.myProperty; // 'hello'
-18
 myFeature.myMethod(); // logs 'hello'
-19
 myFeature.init({ foo : 'bar' });
-20
 myFeature.readSettings(); // logs { foo : 'bar' }
+```
+
 The object literal above is simply an object assigned to a variable. The object has one property and several methods. All of the properties and methods are public, so any part of your application can see the properties and call methods on the object. While there is an init method, there's nothing requiring that it be called before the object is functional.
 
 How would we apply this pattern to jQuery code? Let's say that we had this code written in the traditional jQuery style:
 
-01
+```js
 // clicking on a list item loads some content
-02
 // using the list item's ID and hides content
-03
 // in sibling list items
-04
 $(document).ready(function() {
-05
 $('#myFeature li')
-06
 .append('<div/>')
-07
 .click(function() {
-08
   var $this = $(this);
-09
   var $div = $this.find('div');
-10
   $div.load('foo.php?item=' +
-11
     $this.attr('id'),
-12
     function() {
-13
       $div.show();
-14
       $this.siblings()
-15
         .find('div').hide();
-16
     }
-17
   );
-18
 });
-19
 });
+```
+
 If this were the extent of our application, leaving it as-is would be fine. On the other hand, if this was a piece of a larger application, we'd do well to keep this functionality separate from unrelated functionality. We might also want to move the URL out of the code and into a configuration area. Finally, we might want to break up the chain to make it easier to modify pieces of the functionality later.
 
-Example 10.2: Using an object literal for a jQuery feature
+###### Example 10.2: Using an object literal for a jQuery feature
 
-01
+```js
 var myFeature = {
-02
 init : function(settings) {
-03
     myFeature.config = {
-04
         $items : $('#myFeature li'),
-05
         $container : $('<div class="container"></div>'),
-06
         urlBase : '/foo.php?item='
-07
     };
-08
  
-09
     // allow overriding the default config
-10
     $.extend(myFeature.config, settings);
-11
  
-12
     myFeature.setup();
-13
 },
-14
  
-15
 setup : function() {
-16
     myFeature.config.$items
-17
         .each(myFeature.createContainer)
-18
         .click(myFeature.showItem);
-19
 },
-20
  
-21
 createContainer : function() {
-22
     var $i = $(this),
-23
         $c = myFeature.config.$container.clone()
-24
                  .appendTo($i);
-25
  
-26
     $i.data('container', $c);
-27
 },
-28
  
-29
 buildUrl : function() {
-30
     return myFeature.config.urlBase +
-31
            myFeature.$currentItem.attr('id');
-32
 },
-33
  
-34
 showItem : function() {
-35
     var myFeature.$currentItem = $(this);
-36
     myFeature.getContent(myFeature.showContent);
-37
 },
-38
  
-39
 getContent : function(callback) {
-40
     var url = myFeature.buildUrl();
-41
     myFeature.$currentItem
-42
         .data('container').load(url, callback);
-43
 },
-44
  
-45
 showContent : function() {
-46
     myFeature.$currentItem
-47
         .data('container').show();
-48
     myFeature.hideContent();
-49
 },
-50
  
-51
 hideContent : function() {
-52
     myFeature.$currentItem.siblings()
-53
         .each(function() {
-54
             $(this).data('container').hide();
-55
         });
-56
 }
-57
 };
-58
  
-59
 $(document).ready(myFeature.init);
+```
+
 The first thing you'll notice is that this approach is obviously far longer than the original — again, if this were the extent of our application, using an object literal would likely be overkill. Assuming it's not the extent of our application, though, we've gained several things:
 
-We've broken our feature up into tiny methods. In the future, if we want to change how content is shown, it's clear where to change it. In the original code, this step is much harder to locate.
+- We've broken our feature up into tiny methods. In the future, if we want to change how content is shown, it's clear where to change it. In the original code, this step is much harder to locate.
 
-We've eliminated the use of anonymous functions.
+- We've eliminated the use of anonymous functions.
 
-We've moved configuration options out of the body of the code and put them in a central location.
+- We've moved configuration options out of the body of the code and put them in a central location.
 
-We've eliminated the constraints of the chain, making the code easier to refactor, remix, and rearrange.
+- We've eliminated the constraints of the chain, making the code easier to refactor, remix, and rearrange.
 
 For non-trivial features, object literals are a clear improvement over a long stretch of code stuffed in a $(document).ready() block, as they get us thinking about the pieces of our functionality. However, they aren't a whole lot more advanced than simply having a bunch of function declarations inside of that $(document).ready() block.
 
-The Module Pattern
+### The Module Pattern
+
 The module pattern overcomes some of the limitations of the object literal, offering privacy for variables and functions while exposing a public API if desired.
 
-Example 10.3: The module pattern
+###### Example 10.3: The module pattern
 
-01
+```js
 var feature =(function() {
-02
  
-03
 // private variables and functions
-04
 var privateThing = 'secret',
-05
     publicThing = 'not secret',
-06
  
-07
     changePrivateThing = function() {
-08
         privateThing = 'super secret';
-09
     },
-10
  
-11
     sayPrivateThing = function() {
-12
         console.log(privateThing);
-13
         changePrivateThing();
-14
     };
-15
  
-16
 // public API
-17
 return {
-18
     publicThing : publicThing,
-19
     sayPrivateThing : sayPrivateThing
-20
 }
-21
  
-22
 })();
-23
  
-24
 feature.publicThing; // 'not secret'
-25
  
-26
 feature.sayPrivateThing();
-27
 // logs 'secret' and changes the value
-28
 // of privateThing
-In the example above, we self-execute an anonymous function that returns an object. Inside of the function, we define some variables. Because the variables are defined inside of the function, we don't have access to them outside of the function unless we put them in the return object. This means that no code outside of the function has access to the privateThing variable or to the changePrivateThing function. However, sayPrivateThing does have access to privateThing and changePrivateThing, because both were defined in the same scope as sayPrivateThing.
+```
+
+In the example above, we self-execute an anonymous function that returns an object. Inside of the function, we define some variables. Because the variables are defined inside of the function, we don't have access to them outside of the function unless we put them in the return object. This means that no code outside of the function has access to the `privateThing` variable or to the `changePrivateThing` function. However, `sayPrivateThing` does have access to `privateThing` and `changePrivateThing`, because both were defined in the same scope as sayPrivateThing.
 
 This pattern is powerful because, as you can gather from the variable names, it can give you private variables and functions while exposing a limited API consisting of the returned object's properties and methods.
 
-Below is a revised version of the previous example, showing how we could create the same feature using the module pattern while only exposing one public method of the module, showItemByIndex().
+Below is a revised version of the previous example, showing how we could create the same feature using the module pattern while only exposing one public method of the module, `showItemByIndex()`.
 
-Example 10.4: Using the module pattern for a jQuery feature
+###### Example 10.4: Using the module pattern for a jQuery feature
 
-01
+```js
 $(document).ready(function() {
-02
 var feature = (function() {
-03
  
-04
     var $items = $('#myFeature li'),
-05
         $container = $('<div class="container"></div>'),
-06
         $currentItem,
-07
  
-08
         urlBase = '/foo.php?item=',
-09
  
-10
         createContainer = function() {
-11
             var $i = $(this),
-12
                 $c = $container.clone().appendTo($i);
-13
  
-14
             $i.data('container', $c);
-15
         },
-16
  
-17
         buildUrl = function() {
-18
             return urlBase + $currentItem.attr('id');
-19
         },
-20
  
-21
         showItem = function() {
-22
             var $currentItem = $(this);
-23
             getContent(showContent);
-24
         },
-25
  
-26
         showItemByIndex = function(idx) {
-27
             $.proxy(showItem, $items.get(idx));
-28
         },
-29
  
-30
         getContent = function(callback) {
-31
             $currentItem.data('container').load(buildUrl(), callback);
-32
         },
-33
  
-34
         showContent = function() {
-35
             $currentItem.data('container').show();
-36
             hideContent();
-37
         },
-38
  
-39
         hideContent = function() {
-40
             $currentItem.siblings()
-41
                 .each(function() {
-42
                     $(this).data('container').hide();
-43
             });
-44
         };
-45
  
-46
     $items
-47
         .each(createContainer)
-48
         .click(showItem);
-49
  
-50
     return { showItemByIndex : showItemByIndex };
-51
 })();
-52
  
-53
 feature.showItemByIndex(0);
-54
 });
+```
+
 Managing Dependencies
 Note
 This section is based heavily on the excellent RequireJS documentation at http://requirejs.org/docs/jquery.html, and is used with the permission of RequireJS author James Burke.
