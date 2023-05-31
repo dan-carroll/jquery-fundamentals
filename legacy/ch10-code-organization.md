@@ -267,9 +267,11 @@ feature.showItemByIndex(0);
 });
 ```
 
-Managing Dependencies
-Note
-This section is based heavily on the excellent RequireJS documentation at http://requirejs.org/docs/jquery.html, and is used with the permission of RequireJS author James Burke.
+## Managing Dependencies
+
+> #### Note  
+>   
+> This section is based heavily on the excellent RequireJS documentation at [http://requirejs.org/docs/jquery.html](http://requirejs.org/docs/jquery.html), and is used with the permission of RequireJS author James Burke.
 
 When a project reaches a certain size, managing the script modules for a project starts to get tricky. You need to be sure to sequence the scripts in the right order, and you need to start seriously thinking about combining scripts together into a bundle for deployment, so that only one or a very small number of requests are made to load the scripts. You may also want to load code on the fly, after page load.
 
@@ -277,146 +279,120 @@ RequireJS, a dependency management tool by James Burke, can help you manage the 
 
 RequireJS has a module system that lets you define well-scoped modules, but you do not have to follow that system to get the benefits of dependency management and build-time optimizations. Over time, if you start to create more modular code that needs to be reused in a few places, the module format for RequireJS makes it easy to write encapsulated code that can be loaded on the fly. It can grow with you, particularly if you want to incorporate internationalization (i18n) string bundles, to localize your project for different languages, or load some HTML strings and make sure those strings are available before executing code, or even use JSONP services as dependencies.
 
-Getting RequireJS
-The easiest way to use RequireJS with jQuery is to download a build of jQuery that has RequireJS built in. This build excludes portions of RequireJS that duplicate jQuery functionality. You may also find it useful to download a sample jQuery project that uses RequireJS.
+### Getting RequireJS
 
-Using RequireJS with jQuery
-Using RequireJS in your page is simple: just include the jQuery that has RequireJS built in, then require your application files. The following example assumes that the jQuery build, and your other scripts, are all in a scripts/ directory.
+The easiest way to use RequireJS with jQuery is to [download a build of jQuery that has RequireJS built in](http://requirejs.org/docs/download.html). This build excludes portions of RequireJS that duplicate jQuery functionality. You may also find it useful to download [a sample jQuery project that uses RequireJS](http://requirejs.org/docs/release/0.11.0/jquery-require-sample.zip).
 
-Example 10.5: Using RequireJS: A simple example
+### Using RequireJS with jQuery
 
-01
+Using RequireJS in your page is simple: just include the jQuery that has RequireJS built in, then require your application files. The following example assumes that the jQuery build, and your other scripts, are all in a `scripts/` directory.
+
+###### Example 10.5: Using RequireJS: A simple example
+
+```html
 <!DOCTYPE html>
-02
 <html>
-03
 <head>
-04
     <title>jQuery+RequireJS Sample Page</title>
-05
     <script src="scripts/require-jquery.js"></script>
-06
     <script>require(["app"]);</script>
-07
 </head>
-08
 <body>
-09
     <h1>jQuery+RequireJS Sample Page</h1>
-10
 </body>
-11
 </html>
-The call to require(["app"]) tells RequireJS to load the scripts/app.js file. RequireJS will load any dependency that is passed to require() without a .js extension from the same directory as require-jquery.js, though this can be configured to behave differently. If you feel more comfortable specifying the whole path, you can also do the following:
+```
 
-1
+The call to `require(["app"])` tells RequireJS to load the `scripts/app.js` file. RequireJS will load any dependency that is passed to `require()` without a `.js` extension from the same directory as `require-jquery.js`, though this can be configured to behave differently. If you feel more comfortable specifying the whole path, you can also do the following:
+
+```html
 <script>require(["scripts/app.js"]);</script>
-What is in app.js? Another call to require.js to load all the scripts you need and any init work you want to do for the page. This example app.js script loads two plugins, jquery.alpha.js and jquery.beta.js (not the names of real plugins, just an example). The plugins should be in the same directory as require-jquery.js:
+```
 
-Example 10.6: A simple JavaScript file with dependencies
+What is in `app.js`? Another call to `require.js` to load all the scripts you need and any init work you want to do for the page. This example `app.js` script loads two plugins, `jquery.alpha.js` and `jquery.beta.js` (not the names of real plugins, just an example). The plugins should be in the same directory as `require-jquery.js`:
 
-1
+###### Example 10.6: A simple JavaScript file with dependencies
+
+```js
 require(["jquery.alpha", "jquery.beta"], function() {
-2
 //the jquery.alpha.js and jquery.beta.js plugins have been loaded.
-3
 $(function() {
-4
     $('body').alpha().beta();
-5
 });
-6
 });
-Creating Reusable Modules with RequireJS
-RequireJS makes it easy to define reusable modules via require.def(). A RequireJS module can have dependencies that can be used to define a module, and a RequireJS module can return a value — an object, a function, whatever — that can then be consumed by yet other modules.
+```
 
-If your module does not have any dependencies, then just specify the name of the module as the first argument to require.def(). The second argument is just an object literal that defines the module's properties. For example:
+### Creating Reusable Modules with RequireJS
 
-Example 10.7: Defining a RequireJS module that has no dependencies
+RequireJS makes it easy to define reusable modules via `require.def()`. A RequireJS module can have dependencies that can be used to define a module, and a RequireJS module can return a value — an object, a function, whatever — that can then be consumed by yet other modules.
 
-1
+If your module does not have any dependencies, then just specify the name of the module as the first argument to `require.def()`. The second argument is just an object literal that defines the module's properties. For example:
+
+###### Example 10.7: Defining a RequireJS module that has no dependencies
+
+```js
 require.def("my/simpleshirt",
-2
 {
-3
     color: "black",
-4
     size: "unisize"
-5
 }
-6
 );
+```
+
 This example would be stored in a my/simpleshirt.js file.
 
-If your module has dependencies, you can specify the dependencies as the second argument to require.def() (as an array) and then pass a function as the third argument. The function will be called to define the module once all dependencies have loaded. The function receives the values returned by the dependencies as its arguments (in the same order they were required in the array), and the function should return an object that defines the module.
+If your module has dependencies, you can specify the dependencies as the second argument to `require.def()` (as an array) and then pass a function as the third argument. The function will be called to define the module once all dependencies have loaded. The function receives the values returned by the dependencies as its arguments (in the same order they were required in the array), and the function should return an object that defines the module.
 
-Example 10.8: Defining a RequireJS module with dependencies
+###### Example 10.8: Defining a RequireJS module with dependencies
 
-01
+```js
 require.def("my/shirt",
-02
 ["my/cart", "my/inventory"],
-03
 function(cart, inventory) {
-04
     //return an object to define the "my/shirt" module.
-05
     return {
-06
         color: "blue",
-07
         size: "large"
-08
         addToCart: function() {
-09
             inventory.decrement(this);
-10
             cart.add(this);
-11
         }
-12
     }
-13
 }
-14
 );
+```
+
 In this example, a my/shirt module is created. It depends on my/cart and my/inventory. On disk, the files are structured like this:
 
-1
+```
 my/cart.js
-2
 my/inventory.js
-3
 my/shirt.js
-The function that defines my/shirt is not called until the my/cart and my/inventory modules have been loaded, and the function receives the modules as the cart and inventory arguments. The order of the function arguments must match the order in which the dependencies were required in the dependencies array. The object returned by the function call defines the my/shirt module. Be defining modules in this way, my/shirt does not exist as a global object. Modules that define globals are explicitly discouraged, so multiple versions of a module can exist in a page at a time.
+```
+
+The function that defines `my/shirt` is not called until the `my/cart` and `my/inventory` modules have been loaded, and the function receives the modules as the `cart` and `inventory` arguments. The order of the function arguments must match the order in which the dependencies were required in the dependencies array. The object returned by the function call defines the `my/shirt` module. Be defining modules in this way, `my/shirt` does not exist as a global object. Modules that define globals are explicitly discouraged, so multiple versions of a module can exist in a page at a time.
 
 Modules do not have to return objects; any valid return value from a function is allowed.
 
-Example 10.9: Defining a RequireJS module that returns a function
+###### Example 10.9: Defining a RequireJS module that returns a function
 
-01
+```js
 require.def("my/title",
-02
 ["my/dependency1", "my/dependency2"],
-03
 function(dep1, dep2) {
-04
     //return a function to define "my/title". It gets or sets
-05
     //the window title.
-06
     return function(title) {
-07
         return title ? (window.title = title) : window.title;
-08
     }
-09
 }
-10
 );
+```
+
 Only one module should be required per JavaScript file.
 
-Optimizing Your Code: The RequireJS Build Tool
+### Optimizing Your Code: The RequireJS Build Tool
+
 Once you incorporate RequireJS for dependency management, your page is set up to be optimized very easily. Download the RequireJS source and place it anywhere you like, preferrably somewhere outside your web development area. For the purposes of this example, the RequireJS source is placed as a sibling to the webapp directory, which contains the HTML page and the scripts directory with all the scripts. Complete directory structure:
 
 1
